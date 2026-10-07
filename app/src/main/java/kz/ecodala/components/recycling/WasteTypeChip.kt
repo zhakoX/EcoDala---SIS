@@ -1,5 +1,6 @@
-package kz.ecodala.components
+package kz.ecodala.components.recycling
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun WasteTypeChip(
@@ -34,7 +36,7 @@ fun WasteTypeChip(
                 .fillMaxWidth()
                 .padding(
                     horizontal = 12.dp,
-                    vertical = 8.dp
+                    vertical = EcoSpacing.Small
                 ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
@@ -64,7 +66,7 @@ private fun WasteTypeChipPreview() {
 
 @Preview(
     showBackground = true,
-    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun WasteTypeChipDarkPreview() {

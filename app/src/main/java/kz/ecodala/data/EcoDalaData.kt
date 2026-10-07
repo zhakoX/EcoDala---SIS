@@ -4,6 +4,7 @@ import kz.ecodala.R
 import kz.ecodala.model.Achievement
 import kz.ecodala.model.RecyclingPoint
 import kz.ecodala.model.User
+import kz.ecodala.model.HomeStats
 
 // ================================
 // LEADERBOARD USERS
@@ -131,4 +132,15 @@ val achievements = listOf(
         date = "Last week",
         iconResId = R.mipmap.ic_launcher
     )
+)
+
+
+val currentUser = users.first { it.id == 9 }
+
+val homeStats = HomeStats(
+    points = currentUser.points,
+    level = 4,
+    globalRank = 12,
+    treeProgress = 0.70f,
+    nextLevel = 5
 )

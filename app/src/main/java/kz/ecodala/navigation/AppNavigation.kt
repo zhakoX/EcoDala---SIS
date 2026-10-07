@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import kz.ecodala.screens.HomeScreen
-import kz.ecodala.screens.LeaderboardScreen
-import kz.ecodala.screens.RecyclingPointScreen
+import kz.ecodala.screens.home.HomeScreen
+import kz.ecodala.screens.leaderboard.LeaderboardScreen
+import kz.ecodala.screens.recycling.RecyclingPointScreen
 
 object Routes {
 

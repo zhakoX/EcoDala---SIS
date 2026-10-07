@@ -1,5 +1,6 @@
-package kz.ecodala.components
+package kz.ecodala.components.common
 
+import android.content.res.Configuration
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.BarChart
@@ -111,7 +112,7 @@ private fun EcoBottomBarPreview() {
 
 @Preview(
     showBackground = true,
-    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun EcoBottomBarDarkPreview() {

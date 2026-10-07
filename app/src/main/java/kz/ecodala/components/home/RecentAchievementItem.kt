@@ -1,5 +1,6 @@
-package kz.ecodala.components
+package kz.ecodala.components.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun RecentAchievementItem(
@@ -32,7 +34,7 @@ fun RecentAchievementItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(EcoSpacing.Small),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -45,7 +47,7 @@ fun RecentAchievementItem(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(start = 12.dp),
+                    .padding(start = EcoSpacing.Small),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
@@ -81,7 +83,7 @@ private fun RecentAchievementItemPreview() {
 
 @Preview(
     showBackground = true,
-    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun RecentAchievementItemDarkPreview() {
