@@ -38,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.R
@@ -64,7 +65,9 @@ fun RecyclingPointScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = recyclingPoint?.name ?: "Recycling Point"
+                        text = recyclingPoint?.name ?: "Recycling Point",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
                 },
                 navigationIcon = {
@@ -133,7 +136,9 @@ fun RecyclingPointScreen(
             item {
                 Text(
                     text = recyclingPoint?.name ?: "Recycling Point",
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 
@@ -207,48 +212,31 @@ fun RecyclingPointScreen(
             }
 
             item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                val acceptedTypes =
+                    recyclingPoint?.acceptedTypes.orEmpty()
+
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    WasteTypeChip(
-                        type = "Plastic",
-                        modifier = Modifier.weight(1f)
-                    )
+                    acceptedTypes.chunked(2).forEach { rowTypes ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            rowTypes.forEach { type ->
+                                WasteTypeChip(
+                                    type = type,
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
 
-                    WasteTypeChip(
-                        type = "Paper",
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    WasteTypeChip(
-                        type = "Glass",
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    WasteTypeChip(
-                        type = "Batteries",
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    WasteTypeChip(
-                        type = "Electronics",
-                        modifier = Modifier.weight(1f)
-                    )
+                            if (rowTypes.size == 1) {
+                                Spacer(
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    }
                 }
             }
 

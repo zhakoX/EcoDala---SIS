@@ -20,11 +20,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.components.LeaderboardItem
 import kz.ecodala.components.RankingHeader
 import kz.ecodala.data.users
-import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,7 +66,6 @@ fun LeaderboardScreen(
 
             if (users.isEmpty()) {
 
-                // Empty State
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -93,7 +93,9 @@ fun LeaderboardScreen(
             } else {
 
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     itemsIndexed(
@@ -113,14 +115,13 @@ fun LeaderboardScreen(
     }
 }
 
-
 @Preview(
     showBackground = true,
     showSystemUi = true
 )
 @Composable
 private fun LeaderboardScreenPreview() {
-    kz.ecodala.ui.theme.EcoDalaTheme {
+    EcoDalaTheme {
         LeaderboardScreen(
             onBackClick = {}
         )
@@ -134,7 +135,7 @@ private fun LeaderboardScreenPreview() {
 )
 @Composable
 private fun LeaderboardScreenDarkPreview() {
-    kz.ecodala.ui.theme.EcoDalaTheme(
+    EcoDalaTheme(
         darkTheme = true
     ) {
         LeaderboardScreen(
