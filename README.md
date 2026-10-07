@@ -37,13 +37,20 @@ It displays:
 - Recent achievements
 - Bottom navigation
 
-#### Light Mode
-
-![EcoDala Home Screen - Light Mode](screens/home_light.png)
-
-#### Dark Mode
-
-![EcoDala Home Screen - Dark Mode](screens/home_dark.png)
+<table>
+<tr>
+<th align="center">Light Mode</th>
+<th align="center">Dark Mode</th>
+</tr>
+<tr>
+<td align="center">
+<img src="screens/home_light.png" width="280">
+</td>
+<td align="center">
+<img src="screens/home_dark.png" width="280">
+</td>
+</tr>
+</table>
 
 ---
 
@@ -60,13 +67,20 @@ Each leaderboard item displays:
 - Faculty
 - EcoPoints
 
-#### Light Mode
-
-![EcoDala Leaderboard - Light Mode](screens/leaderboard_light.png)
-
-#### Dark Mode
-
-![EcoDala Leaderboard - Dark Mode](screens/leaderboard_dark.png)
+<table>
+<tr>
+<th align="center">Light Mode</th>
+<th align="center">Dark Mode</th>
+</tr>
+<tr>
+<td align="center">
+<img src="screens/leaderboard_light.png" width="280">
+</td>
+<td align="center">
+<img src="screens/leaderboard_dark.png" width="280">
+</td>
+</tr>
+</table>
 
 ---
 
@@ -87,13 +101,20 @@ It includes:
 - Share action
 - Favorite toggle
 
-#### Light Mode
-
-![EcoDala Recycling Point - Light Mode](screens/recycling_point_light.png)
-
-#### Dark Mode
-
-![EcoDala Recycling Point - Dark Mode](screens/recycling_point_dark.png)
+<table>
+<tr>
+<th align="center">Light Mode</th>
+<th align="center">Dark Mode</th>
+</tr>
+<tr>
+<td align="center">
+<img src="screens/recycling_point_light.png" width="280">
+</td>
+<td align="center">
+<img src="screens/recycling_point_dark.png" width="280">
+</td>
+</tr>
+</table>
 
 ## Design: From Sketch to Application
 
@@ -107,37 +128,49 @@ The final implementation keeps the main structure of the original sketches while
 
 #### Initial Sketch
 
-![Home Dashboard Sketch](design/Home%20Dashboard.jpg)
+<p align="center">
+<img src="design/Home%20Dashboard.jpg" width="500">
+</p>
 
 #### Final Application
 
-The final Home Screen implements the main structure of the original dashboard sketch with additional EcoPoints, virtual tree progress, quick actions, recent achievements, and bottom navigation.
+The final Home Screen implements the main structure of the original dashboard sketch with EcoPoints, virtual tree progress, quick actions, recent achievements, and bottom navigation.
 
-![Home Screen Final - Light Mode](screens/home_light.png)
+<p align="center">
+<img src="screens/home_light.png" width="280">
+</p>
 
 ### Leaderboard Screen
 
 #### Initial Sketch
 
-![List Screen Sketch](design/List%20Screen.jpg)
+<p align="center">
+<img src="design/List%20Screen.jpg" width="500">
+</p>
 
 #### Final Application
 
 The final Leaderboard Screen transforms the list concept from the original sketch into a data-driven `LazyColumn` containing 10 users with their rank, faculty, and EcoPoints.
 
-![Leaderboard Final - Light Mode](screens/leaderboard_light.png)
+<p align="center">
+<img src="screens/leaderboard_light.png" width="280">
+</p>
 
 ### Recycling Point Detail Screen
 
 #### Initial Sketch
 
-![Detail Screen Sketch](design/Detail%20Screen.jpg)
+<p align="center">
+<img src="design/Detail%20Screen.jpg" width="500">
+</p>
 
 #### Final Application
 
 The final Recycling Point Detail Screen keeps the main information hierarchy of the original detail sketch and adds accepted waste types, sustainability information, route, call, share, and favorite actions.
 
-![Recycling Point Final - Light Mode](screens/recycling_point_light.png)
+<p align="center">
+<img src="screens/recycling_point_light.png" width="280">
+</p>
 
 ## Main Features
 
