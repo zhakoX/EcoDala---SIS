@@ -1,7 +1,7 @@
 package kz.ecodala.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Share
@@ -30,22 +31,40 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.R
 import kz.ecodala.components.WasteTypeChip
+import kz.ecodala.data.recyclingPoints
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecyclingPointScreen(
+    recyclingPointId: Int,
     onBackClick: () -> Unit
 ) {
+    val recyclingPoint = recyclingPoints.find {
+        it.id == recyclingPointId
+    }
+
+    var isFavorite by remember {
+        mutableStateOf(false)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Green Recycling Center"
+                        text = recyclingPoint?.name ?: "Recycling Point"
                     )
                 },
                 navigationIcon = {
@@ -59,6 +78,25 @@ fun RecyclingPointScreen(
                     }
                 },
                 actions = {
+                    IconButton(
+                        onClick = {
+                            isFavorite = !isFavorite
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (isFavorite) {
+                                Icons.Default.Favorite
+                            } else {
+                                Icons.Default.FavoriteBorder
+                            },
+                            contentDescription = if (isFavorite) {
+                                "Remove from favorites"
+                            } else {
+                                "Add to favorites"
+                            }
+                        )
+                    }
+
                     IconButton(
                         onClick = { }
                     ) {
@@ -80,46 +118,24 @@ fun RecyclingPointScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            // ------------------------------------------------
-            // 1. RECYCLING CENTER IMAGE
-            // ------------------------------------------------
-
             item {
-                Card(
+                Image(
+                    painter = painterResource(
+                        id = R.drawable.recycling_center
+                    ),
+                    contentDescription = "Green Recycling Center",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(180.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor =
-                            MaterialTheme.colorScheme.secondaryContainer
-                    )
-                ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Recycling Center",
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                    }
-                }
-            }
-
-            // ------------------------------------------------
-            // 2. NAME
-            // ------------------------------------------------
-
-            item {
-                Text(
-                    text = "Green Recycling Center",
-                    style = MaterialTheme.typography.headlineSmall
+                        .height(180.dp)
                 )
             }
 
-            // ------------------------------------------------
-            // 3. ADDRESS
-            // ------------------------------------------------
+            item {
+                Text(
+                    text = recyclingPoint?.name ?: "Recycling Point",
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
 
             item {
                 Row(
@@ -135,15 +151,12 @@ fun RecyclingPointScreen(
                     )
 
                     Text(
-                        text = "123 Eco Avenue, Green District, 45000",
+                        text = recyclingPoint?.address
+                            ?: "Address unavailable",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
-
-            // ------------------------------------------------
-            // 4. PHONE
-            // ------------------------------------------------
 
             item {
                 Row(
@@ -159,22 +172,20 @@ fun RecyclingPointScreen(
                     )
 
                     Text(
-                        text = "+1 (555) 234-5678",
+                        text = recyclingPoint?.phone
+                            ?: "Phone unavailable",
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }
-
-            // ------------------------------------------------
-            // 5. OPENING HOURS
-            // ------------------------------------------------
 
             item {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "08:00 AM - 07:00 PM"
+                        text = recyclingPoint?.openHours
+                            ?: "Opening hours unavailable"
                     )
 
                     Spacer(
@@ -187,10 +198,6 @@ fun RecyclingPointScreen(
                     )
                 }
             }
-
-            // ------------------------------------------------
-            // 6. ACCEPTED WASTE TYPES
-            // ------------------------------------------------
 
             item {
                 Text(
@@ -245,10 +252,6 @@ fun RecyclingPointScreen(
                 }
             }
 
-            // ------------------------------------------------
-            // 7. SUSTAINABLE FACT
-            // ------------------------------------------------
-
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -261,7 +264,6 @@ fun RecyclingPointScreen(
                         modifier = Modifier.padding(16.dp),
                         verticalAlignment = Alignment.Top
                     ) {
-
                         Icon(
                             imageVector = Icons.Default.Info,
                             contentDescription = "Sustainable fact"
@@ -282,17 +284,14 @@ fun RecyclingPointScreen(
                             )
 
                             Text(
-                                text = "Recycling one ton of paper saves about 17 trees.",
+                                text = recyclingPoint?.description
+                                    ?: "No information available.",
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
                     }
                 }
             }
-
-            // ------------------------------------------------
-            // 8. BUILD ROUTE BUTTON
-            // ------------------------------------------------
 
             item {
                 Button(
@@ -316,16 +315,11 @@ fun RecyclingPointScreen(
                 }
             }
 
-            // ------------------------------------------------
-            // 9. CALL + SHARE
-            // ------------------------------------------------
-
             item {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-
                     OutlinedButton(
                         onClick = { },
                         modifier = Modifier.weight(1f)
@@ -364,12 +358,42 @@ fun RecyclingPointScreen(
                 }
             }
 
-            // Bottom spacing
             item {
                 Spacer(
                     modifier = Modifier.height(16.dp)
                 )
             }
         }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    showSystemUi = true
+)
+@Composable
+private fun RecyclingPointScreenPreview() {
+    EcoDalaTheme {
+        RecyclingPointScreen(
+            recyclingPointId = 1,
+            onBackClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun RecyclingPointScreenDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        RecyclingPointScreen(
+            recyclingPointId = 1,
+            onBackClick = {}
+        )
     }
 }

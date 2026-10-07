@@ -17,7 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun EcoCard(
@@ -37,13 +39,11 @@ fun EcoCard(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
 
-            // Верхняя строка: название + уровень
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Text(
                     text = "CURRENT ECO RATING",
                     style = MaterialTheme.typography.labelMedium
@@ -56,18 +56,15 @@ fun EcoCard(
                 )
             }
 
-            // Количество EcoPoints
             Text(
                 text = "$points pts",
                 style = MaterialTheme.typography.headlineMedium
             )
 
-            // Global Rank
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Global rank",
@@ -87,5 +84,34 @@ fun EcoCard(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EcoCardPreview() {
+    EcoDalaTheme {
+        EcoCard(
+            points = 450,
+            level = 4,
+            globalRank = 12
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun EcoCardDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        EcoCard(
+            points = 450,
+            level = 4,
+            globalRank = 12
+        )
     }
 }

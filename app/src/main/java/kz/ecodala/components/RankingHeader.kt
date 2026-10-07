@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun RankingHeader(
@@ -35,11 +37,9 @@ fun RankingHeader(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Icon(
                     imageVector = Icons.Default.EmojiEvents,
                     contentDescription = "Global ranking",
@@ -69,5 +69,26 @@ fun RankingHeader(
                 tint = MaterialTheme.colorScheme.onPrimary
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RankingHeaderPreview() {
+    EcoDalaTheme {
+        RankingHeader()
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun RankingHeaderDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        RankingHeader()
     }
 }

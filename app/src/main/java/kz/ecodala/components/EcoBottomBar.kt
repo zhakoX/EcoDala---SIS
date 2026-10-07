@@ -11,6 +11,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun EcoBottomBar(
@@ -21,7 +23,6 @@ fun EcoBottomBar(
     onProfileClick: () -> Unit
 ) {
     NavigationBar {
-
         NavigationBarItem(
             selected = true,
             onClick = onHomeClick,
@@ -90,6 +91,39 @@ fun EcoBottomBar(
             label = {
                 Text("Profile")
             }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EcoBottomBarPreview() {
+    EcoDalaTheme {
+        EcoBottomBar(
+            onHomeClick = {},
+            onMapClick = {},
+            onSubmitClick = {},
+            onLeaderboardClick = {},
+            onProfileClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun EcoBottomBarDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        EcoBottomBar(
+            onHomeClick = {},
+            onMapClick = {},
+            onSubmitClick = {},
+            onLeaderboardClick = {},
+            onProfileClick = {}
         )
     }
 }

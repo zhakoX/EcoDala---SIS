@@ -72,9 +72,13 @@ fun AppNavigation() {
                     type = NavType.IntType
                 }
             )
-        ) {
+        ) { backStackEntry ->
+
+            val recyclingPointId =
+                backStackEntry.arguments?.getInt("id") ?: 1
 
             RecyclingPointScreen(
+                recyclingPointId = recyclingPointId,
                 onBackClick = {
                     navController.popBackStack()
                 }

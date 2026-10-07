@@ -8,13 +8,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun WasteTypeChip(
@@ -30,11 +32,13 @@ fun WasteTypeChip(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp),
+                .padding(
+                    horizontal = 12.dp,
+                    vertical = 8.dp
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             Text(
                 text = type,
                 style = MaterialTheme.typography.bodyMedium
@@ -45,5 +49,30 @@ fun WasteTypeChip(
                 contentDescription = "Accepted"
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun WasteTypeChipPreview() {
+    EcoDalaTheme {
+        WasteTypeChip(
+            type = "Plastic"
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun WasteTypeChipDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        WasteTypeChip(
+            type = "Plastic"
+        )
     }
 }

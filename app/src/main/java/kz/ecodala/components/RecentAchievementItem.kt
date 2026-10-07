@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun RecentAchievementItem(
@@ -33,7 +35,6 @@ fun RecentAchievementItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Icon(
                 imageVector = Icons.Default.EmojiEvents,
                 contentDescription = "Achievement",
@@ -47,7 +48,6 @@ fun RecentAchievementItem(
                     .padding(start = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
-
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleSmall
@@ -64,5 +64,34 @@ fun RecentAchievementItem(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RecentAchievementItemPreview() {
+    EcoDalaTheme {
+        RecentAchievementItem(
+            title = "First Recycling",
+            description = "Recycled your first item",
+            date = "Yesterday"
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun RecentAchievementItemDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        RecentAchievementItem(
+            title = "First Recycling",
+            description = "Recycled your first item",
+            date = "Yesterday"
+        )
     }
 }

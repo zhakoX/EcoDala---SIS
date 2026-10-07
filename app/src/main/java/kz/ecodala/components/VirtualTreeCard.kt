@@ -17,7 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun VirtualTreeCard(
@@ -38,7 +40,6 @@ fun VirtualTreeCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Icon(
                 imageVector = Icons.Default.Park,
                 contentDescription = "Virtual tree",
@@ -52,7 +53,6 @@ fun VirtualTreeCard(
                     .padding(start = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-
                 Text(
                     text = "Your Virtual Tree",
                     style = MaterialTheme.typography.titleMedium
@@ -75,5 +75,34 @@ fun VirtualTreeCard(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun VirtualTreeCardPreview() {
+    EcoDalaTheme {
+        VirtualTreeCard(
+            progress = 0.70f,
+            currentLevel = 4,
+            nextLevel = 5
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun VirtualTreeCardDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        VirtualTreeCard(
+            progress = 0.70f,
+            currentLevel = 4,
+            nextLevel = 5
+        )
     }
 }

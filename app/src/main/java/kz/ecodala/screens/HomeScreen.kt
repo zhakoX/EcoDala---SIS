@@ -2,12 +2,15 @@ package kz.ecodala.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -19,22 +22,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
-import kz.ecodala.components.EcoCard
-import kz.ecodala.components.VirtualTreeCard
-import kz.ecodala.components.EcoBottomBar
-
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.ui.tooling.preview.Preview
 import kz.ecodala.components.ActionItem
-
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.LazyColumn
+import kz.ecodala.components.EcoBottomBar
+import kz.ecodala.components.EcoCard
 import kz.ecodala.components.RecentAchievementItem
+import kz.ecodala.components.VirtualTreeCard
 import kz.ecodala.data.achievements
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,9 +47,7 @@ fun HomeScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = {
-                            // Пока ничего не делаем
-                        }
+                        onClick = { }
                     ) {
                         Icon(
                             imageVector = Icons.Default.Notifications,
@@ -63,28 +56,17 @@ fun HomeScreen(
                     }
                 }
             )
-
-
         },
 
         bottomBar = {
             EcoBottomBar(
-                onHomeClick = {
-                    // Мы уже на Home
-                },
-                onMapClick = {
-                    // Пока экран Map не входит в SIS3
-                },
-                onSubmitClick = {
-                    // Пока экран Submit не входит в SIS3
-                },
+                onHomeClick = { },
+                onMapClick = { },
+                onSubmitClick = { },
                 onLeaderboardClick = onLeaderboardClick,
-                onProfileClick = {
-                    // Пока экран Profile не входит в SIS3
-                }
+                onProfileClick = { }
             )
         }
-
     ) { paddingValues ->
 
         Column(
@@ -128,9 +110,7 @@ fun HomeScreen(
                     ActionItem(
                         title = "Submit",
                         icon = Icons.Default.AddCircle,
-                        onClick = {
-                            // Пока экран Submit не входит в SIS3
-                        }
+                        onClick = { }
                     )
                 }
 
@@ -138,9 +118,7 @@ fun HomeScreen(
                     ActionItem(
                         title = "Challenges",
                         icon = Icons.Default.EmojiEvents,
-                        onClick = {
-                            // Пока экран Challenges не входит в SIS3
-                        }
+                        onClick = { }
                     )
                 }
 
@@ -167,5 +145,36 @@ fun HomeScreen(
                 )
             }
         }
+    }
+}
+
+@Preview(
+    showBackground = true,
+    showSystemUi = true
+)
+@Composable
+private fun HomeScreenPreview() {
+    EcoDalaTheme {
+        HomeScreen(
+            onLeaderboardClick = {},
+            onRecyclingPointClick = {}
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun HomeScreenDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        HomeScreen(
+            onLeaderboardClick = {},
+            onRecyclingPointClick = {}
+        )
     }
 }

@@ -17,7 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
 fun LeaderboardItem(
@@ -36,8 +39,6 @@ fun LeaderboardItem(
                 .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            // Rank
             Text(
                 text = when (rank) {
                     1 -> "🥇"
@@ -49,7 +50,6 @@ fun LeaderboardItem(
                 modifier = Modifier.width(40.dp)
             )
 
-            // Avatar
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = "User avatar"
@@ -59,22 +59,24 @@ fun LeaderboardItem(
                 modifier = Modifier.width(12.dp)
             )
 
-            // Name + Faculty
             Column(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
 
                 Text(
                     text = faculty,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 
-            // Eco points
             Row(
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -91,5 +93,36 @@ fun LeaderboardItem(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LeaderboardItemPreview() {
+    EcoDalaTheme {
+        LeaderboardItem(
+            rank = 1,
+            name = "Aruzhan S.",
+            faculty = "Engineering",
+            points = 1250
+        )
+    }
+}
+
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun LeaderboardItemDarkPreview() {
+    EcoDalaTheme(
+        darkTheme = true
+    ) {
+        LeaderboardItem(
+            rank = 1,
+            name = "Aruzhan S.",
+            faculty = "Engineering",
+            points = 1250
+        )
     }
 }

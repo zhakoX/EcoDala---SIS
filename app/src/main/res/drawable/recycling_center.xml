@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="240dp"
+    android:height="160dp"
+    android:viewportWidth="240"
+    android:viewportHeight="160">
+
+    <!-- Background -->
+    <path
+        android:fillColor="#E8F5E9"
+        android:pathData="M0,0 L240,0 L240,160 L0,160 Z" />
+
+    <!-- Building -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M45,65 L195,65 L195,135 L45,135 Z" />
+
+    <!-- Roof -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M30,65 L120,25 L210,65 Z" />
+
+    <!-- Door -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M105,95 L135,95 L135,135 L105,135 Z" />
+
+    <!-- Windows -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M60,82 L85,82 L85,105 L60,105 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M155,82 L180,82 L180,105 L155,105 Z" />
+
+    <!-- Recycling symbol -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M115,45 L125,45 L125,55 L115,55 Z" />
+
+</vector>
