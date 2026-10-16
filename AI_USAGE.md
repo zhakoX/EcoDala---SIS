@@ -40,6 +40,12 @@ I noticed the problem by running the application and comparing the Light and Dar
 
 I fixed the problem by creating a complete custom Light and Dark color scheme and disabling Dynamic Color. I also defined the surface container colors so that the Material 3 components use the EcoDala color system consistently.
 
+## SIS4 MVVM refactoring decision: favorite state ownership
+
+The available repository evidence shows that the original `RecyclingPointScreen` held favorite state in the UI layer with `remember { mutableStateOf(false) }` and toggled it directly from the favorite `IconButton`. The original line-by-line authorship is not recorded, so it cannot be verified that this specific logic was AI-generated; this section therefore documents the actual, verifiable refactoring decision rather than attributing it to AI without evidence.
+
+For SIS4, favorite state moved to `RecyclingPointViewModel` and `RecyclingPointUiState`. `RecyclingPointScreen` now receives `uiState.isFavorite` plus `onToggleFavorite`, while `RecyclingPointRoute` connects that callback to `RecyclingPointViewModel::toggleFavorite`; the ViewModel calls `EcoRepository.toggleFavorite(pointId)` and publishes a copied UiState. The evidence is the current `RecyclingPointScreen.kt`, `RecyclingPointViewModel.kt`, and `EcoRepository.kt`, together with the pre-refactor behavior described in `design/SIS4_MVVM_Architecture.md`. This final design preserves the favorite value outside the composable instance, keeps the screen stateless, and makes the update path explicit: screen callback, ViewModel, repository, UiState, then screen.
+
 ## What I changed or wrote by hand
 
 I manually reviewed the generated code and decided which parts were appropriate for the project.

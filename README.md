@@ -295,6 +295,50 @@ The project is organized into separate packages according to their responsibilit
 
 This structure keeps UI, data, navigation, and reusable components separated.
 
+## SIS4: Implemented MVVM Architecture
+
+The current SIS4 implementation uses a Route composable as the boundary between Navigation Compose and each stateless screen. `EcoRepository` is currently an in-memory data source over `EcoDalaData.kt`; the planned Django backend is not implemented and would be integrated behind this repository layer rather than called by screens.
+
+```mermaid
+flowchart LR
+    Data[EcoDalaData.kt sample data] --> Repo[EcoRepository]
+
+    Nav[AppNavigation] --> HR[HomeRoute]
+    Nav --> LR[LeaderboardRoute]
+    Nav --> RR[RecyclingPointRoute]
+
+    HR --> HVM[HomeViewModel]
+    LR --> LVM[LeaderboardViewModel]
+    RR --> RVM[RecyclingPointViewModel]
+
+    HVM --> HState[HomeUiState]
+    LVM --> LState[LeaderboardUiState]
+    RVM --> RState[RecyclingPointUiState]
+
+    HVM --> Repo
+    LVM --> Repo
+    RVM --> Repo
+
+    HR -->|state + callbacks| HS[HomeScreen]
+    LR -->|state + callbacks| LS[LeaderboardScreen]
+    RR -->|state + callbacks| RS[RecyclingPointScreen]
+
+    HState --> HR
+    LState --> LR
+    RState --> RR
+```
+
+`HomeRoute`, `LeaderboardRoute`, and `RecyclingPointRoute` obtain their ViewModel and collect its read-only `StateFlow` with `collectAsStateWithLifecycle()`. Each ViewModel owns a private `MutableStateFlow` of its immutable UiState, calls `EcoRepository`, and publishes copied state. The screens receive only UiState values and callbacks, so they do not access the repository or sample data directly.
+
+### Click trace: Recycling Point favorite
+
+1. In `RecyclingPointScreen`, the favorite `IconButton` invokes its `onToggleFavorite` callback.
+2. `RecyclingPointRoute` supplies that callback as `RecyclingPointViewModel::toggleFavorite`.
+3. `RecyclingPointViewModel.toggleFavorite()` gets the displayed point ID, calls `EcoRepository.toggleFavorite(pointId)`, and copies the returned value into `RecyclingPointUiState.isFavorite`.
+4. `RecyclingPointRoute` observes the updated `uiState` with `collectAsStateWithLifecycle()`, then passes it back to `RecyclingPointScreen`, which selects `Favorite` or `FavoriteBorder` from `uiState.isFavorite`.
+
+This is unidirectional data flow: state moves from the repository through a ViewModel and Route to a screen, while user events move back as callbacks from the screen to the ViewModel. The screen does not mutate business state itself.
+
 ## Build and Run
 
 1. Open the project in Android Studio.
@@ -302,6 +346,35 @@ This structure keeps UI, data, navigation, and reusable components separated.
 3. Start an Android Emulator or connect an Android device.
 4. Select the `app` run configuration.
 5. Run the application.
+
+## SIS4 B4: Lifecycle Logging and Rotation Proof
+
+Use Android Studio Logcat with the app process selected and this filter query:
+
+```text
+tag:SIS4_LIFECYCLE | tag:SIS4_VIEWMODEL
+```
+
+To inspect a configuration change manually:
+
+1. Run the app on a device or emulator with auto-rotate enabled.
+2. Open any screen that creates the ViewModel you want to observe, then clear Logcat.
+3. Rotate the device or emulator from portrait to landscape (for an emulator, use the Rotate Left or Rotate Right toolbar action).
+4. Rotate it back if desired and inspect the filtered Logcat entries.
+5. Confirm that the Activity destruction/creation callbacks appear; a ViewModel scoped to the retained navigation entry normally does not log a new initialization or `onCleared()` solely because of rotation.
+
+**Expected log ordering example (illustrative; not captured output):**
+
+```text
+SIS4_LIFECYCLE: MainActivity.onPause
+SIS4_LIFECYCLE: MainActivity.onStop
+SIS4_LIFECYCLE: MainActivity.onDestroy
+SIS4_LIFECYCLE: MainActivity.onCreate
+SIS4_LIFECYCLE: MainActivity.onStart
+SIS4_LIFECYCLE: MainActivity.onResume
+```
+
+Android recreates an Activity during a configuration change so it can reload configuration-dependent resources and layout state. A ViewModel is retained across that recreation when its owner, such as the Activity or retained navigation back-stack entry, is retained by the framework. As a result, the existing ViewModel normally remains available after rotation and keeps its UI state. `onCleared()` is instead expected when that owner is permanently removed, such as when its navigation entry is popped or the Activity is finishing.
 
 ## AI Usage
 
