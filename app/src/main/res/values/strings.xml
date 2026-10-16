@@ -30,11 +30,17 @@
     <string name="quick_actions_title">QUICK ACTIONS</string>
     <string name="notifications">Notifications</string>
     <string name="open_notifications">Open notifications</string>
+    <string name="home_loading">Loading your eco progress...</string>
+    <string name="home_empty">Your eco progress is not available yet.</string>
+    <string name="home_retry">Retry</string>
 
 <!--    LeaderboardScreen-->
     <string name="leaderboard_title">Leaderboard</string>
     <string name="no_rankings_yet">No rankings yet</string>
     <string name="first_to_earn_points">Be the first to earn EcoPoints!</string>
+    <string name="leaderboard_loading">Loading leaderboard...</string>
+    <string name="leaderboard_error">Unable to load leaderboard.</string>
+    <string name="leaderboard_retry">Retry</string>
     <string name="ranking_header">Ranking</string>
     <string name="back">Back</string>
 
@@ -48,6 +54,10 @@
     <string name="phone_unavailable">Phone unavailable</string>
     <string name="opening_hours_unavailable">Opening hours unavailable</string>
     <string name="sustainability_unavailable">No sustainability information available.</string>
+    <string name="recycling_point_loading">Loading recycling point...</string>
+    <string name="recycling_point_empty">This recycling point is not available.</string>
+    <string name="recycling_point_error">Unable to load recycling point.</string>
+    <string name="recycling_point_retry">Retry</string>
 
 <!--    RankingHeader-->
     <string name="global_ranking">Global Ranking</string>
