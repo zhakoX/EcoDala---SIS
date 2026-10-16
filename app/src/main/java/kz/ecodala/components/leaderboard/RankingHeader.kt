@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun RankingHeader(
@@ -43,7 +45,7 @@ fun RankingHeader(
             ) {
                 Icon(
                     imageVector = Icons.Default.EmojiEvents,
-                    contentDescription = "Global ranking",
+                    contentDescription = stringResource(R.string.global_ranking_description),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
 
@@ -51,13 +53,13 @@ fun RankingHeader(
                     modifier = Modifier.padding(start = 12.dp)
                 ) {
                     Text(
-                        text = "Global Ranking",
+                        text = stringResource(R.string.global_ranking),
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
 
                     Text(
-                        text = "Top Eco Heroes",
+                        text = stringResource(R.string.top_eco_heroes),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
@@ -66,7 +68,7 @@ fun RankingHeader(
 
             Icon(
                 imageVector = Icons.Default.Park,
-                contentDescription = "Eco",
+                contentDescription = stringResource(R.string.eco_icon_description),
                 tint = MaterialTheme.colorScheme.onPrimary
             )
         }

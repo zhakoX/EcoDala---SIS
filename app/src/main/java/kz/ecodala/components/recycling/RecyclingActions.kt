@@ -17,10 +17,12 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.R
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun RecyclingActions(
@@ -41,14 +43,14 @@ fun RecyclingActions(
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
-                contentDescription = "Build route"
+                contentDescription = stringResource(R.string.build_route_description)
             )
 
             Spacer(
                 modifier = Modifier.width(EcoSpacing.Small)
             )
 
-            Text(text = "Build Route")
+            Text(text = stringResource(R.string.build_route_button))
         }
 
         Row(
@@ -63,14 +65,14 @@ fun RecyclingActions(
             ) {
                 Icon(
                     imageVector = Icons.Default.Call,
-                    contentDescription = "Call"
+                    contentDescription = stringResource(R.string.call_description)
                 )
 
                 Spacer(
                     modifier = Modifier.width(EcoSpacing.Small)
                 )
 
-                Text(text = "Call")
+                Text(text = stringResource(R.string.call_button))
             }
 
             OutlinedButton(
@@ -81,14 +83,14 @@ fun RecyclingActions(
             ) {
                 Icon(
                     imageVector = Icons.Default.Share,
-                    contentDescription = "Share"
+                    contentDescription = stringResource(R.string.share)
                 )
 
                 Spacer(
                     modifier = Modifier.width(EcoSpacing.Small)
                 )
 
-                Text(text = "Share")
+                Text(text = stringResource(R.string.share))
             }
         }
     }

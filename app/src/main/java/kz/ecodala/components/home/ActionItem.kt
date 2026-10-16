@@ -19,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun ActionItem(
@@ -41,7 +43,7 @@ fun ActionItem(
         ) {
             Icon(
                 imageVector = icon,
-                contentDescription = title,
+                contentDescription = stringResource(R.string.action_icon_description, title),
                 modifier = Modifier.size(28.dp),
                 tint = MaterialTheme.colorScheme.primary
             )

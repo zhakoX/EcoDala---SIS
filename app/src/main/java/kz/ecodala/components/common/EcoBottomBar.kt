@@ -12,7 +12,9 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.R
 import kz.ecodala.ui.theme.EcoDalaTheme
 
 @Composable
@@ -30,11 +32,11 @@ fun EcoBottomBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Home,
-                    contentDescription = "Home"
+                    contentDescription = stringResource(R.string.action_home)
                 )
             },
             label = {
-                Text("Home")
+                Text(stringResource(R.string.action_home))
             }
         )
 
@@ -44,11 +46,11 @@ fun EcoBottomBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Map,
-                    contentDescription = "Map"
+                    contentDescription = stringResource(R.string.action_map)
                 )
             },
             label = {
-                Text("Map")
+                Text(stringResource(R.string.action_map))
             }
         )
 
@@ -58,11 +60,11 @@ fun EcoBottomBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.AddCircle,
-                    contentDescription = "Submit"
+                    contentDescription = stringResource(R.string.action_submit)
                 )
             },
             label = {
-                Text("Submit")
+                Text(stringResource(R.string.action_submit))
             }
         )
 
@@ -72,11 +74,11 @@ fun EcoBottomBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.BarChart,
-                    contentDescription = "Leaderboard"
+                    contentDescription = stringResource(R.string.action_leaderboard)
                 )
             },
             label = {
-                Text("Leads")
+                Text(stringResource(R.string.bottom_bar_leads))
             }
         )
 
@@ -86,11 +88,11 @@ fun EcoBottomBar(
             icon = {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Profile"
+                    contentDescription = stringResource(R.string.action_profile)
                 )
             },
             label = {
-                Text("Profile")
+                Text(stringResource(R.string.action_profile))
             }
         )
     }

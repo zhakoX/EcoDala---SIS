@@ -1,3 +1,98 @@
+
 <resources>
     <string name="app_name">EcoDala</string>
+
+<!--    EcoCard-->
+    <string name="current_eco_rating">CURRENT ECO RATING</string>
+    <string name="eco_level">Level %1$d</string>
+    <string name="eco_points">%1$d pts</string>
+    <string name="global_rank">Global Rank: #%1$d</string>
+    <string name="global_rank_description">Global rank</string>
+    <string name="open_global_ranking">Open global ranking</string>
+
+<!--    VirtualTreeCard-->
+    <string name="virtual_tree_description">Virtual tree</string>
+    <string name="virtual_tree_title">Your Virtual Tree</string>
+    <string name="tree_progress">%1$d%% to Level %2$d</string>
+    <string name="current_level">Level %1$d</string>
+
+<!--    QuickActions-->
+    <string name="action_map">Map</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_challenges">Challenges</string>
+    <string name="action_leaderboard">Leaderboard</string>
+
+<!--    ActionItem-->
+    <string name="action_icon_description">%1$s action</string>
+
+<!--    HomeScreen-->
+    <string name="home_greeting">Hello, %1$s 👋</string>
+    <string name="quick_actions_title">QUICK ACTIONS</string>
+    <string name="notifications">Notifications</string>
+    <string name="open_notifications">Open notifications</string>
+
+<!--    LeaderboardScreen-->
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="no_rankings_yet">No rankings yet</string>
+    <string name="first_to_earn_points">Be the first to earn EcoPoints!</string>
+    <string name="ranking_header">Ranking</string>
+    <string name="back">Back</string>
+
+<!--    RecyclingPointScreen-->
+    <string name="recycling_point_title">Recycling Point</string>
+    <string name="share">Share</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="recycling_center_description">Green Recycling Center</string>
+    <string name="address_unavailable">Address unavailable</string>
+    <string name="phone_unavailable">Phone unavailable</string>
+    <string name="opening_hours_unavailable">Opening hours unavailable</string>
+    <string name="sustainability_unavailable">No sustainability information available.</string>
+
+<!--    RankingHeader-->
+    <string name="global_ranking">Global Ranking</string>
+    <string name="top_eco_heroes">Top Eco Heroes</string>
+    <string name="global_ranking_description">Global ranking</string>
+    <string name="eco_icon_description">Eco</string>
+
+<!--    LeaderBoardItem-->
+    <string name="user_avatar_description">User avatar</string>
+    <string name="eco_points_description">Eco points</string>
+    <string name="eco_points_short">%1$d pts</string>
+
+    <string name="recent_achievements_title">Recent Achievements</string>
+    <string name="achievement_icon_description">Achievement</string>
+
+
+
+
+
+
+
+<!--    EcoBottomBar-->
+    <string name="action_home">Home</string>
+    <string name="bottom_bar_leads">Leads</string>
+    <string name="action_profile">Profile</string>
+
+<!--    AcceptedWasteSection-->
+    <string name="accepted_waste_types_title">Accepted Waste Types</string>
+
+<!--    RecyclingActions-->
+    <string name="build_route_button">Build Route</string>
+    <string name="build_route_description">Build route</string>
+    <string name="call_button">Call</string>
+    <string name="call_description">Call</string>
+
+<!--    RecyclingPointInfo-->
+    <string name="address_description">Address</string>
+    <string name="phone_description">Phone</string>
+    <string name="status_open">OPEN</string>
+
+<!--    SustainableFactCard-->
+    <string name="sustainable_fact_title">Sustainable Fact</string>
+    <string name="sustainable_fact_description">Sustainable fact</string>
+
+<!--    WasteTypeChip-->
+    <string name="accepted_icon_description">Accepted</string>
+
 </resources>

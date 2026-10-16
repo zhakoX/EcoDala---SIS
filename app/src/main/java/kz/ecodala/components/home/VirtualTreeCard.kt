@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun VirtualTreeCard(
@@ -44,7 +46,7 @@ fun VirtualTreeCard(
         ) {
             Icon(
                 imageVector = Icons.Default.Park,
-                contentDescription = "Virtual tree",
+                contentDescription = stringResource(R.string.virtual_tree_description),
                 modifier = Modifier.size(56.dp),
                 tint = MaterialTheme.colorScheme.primary
             )
@@ -56,12 +58,16 @@ fun VirtualTreeCard(
                 verticalArrangement = Arrangement.spacedBy(EcoSpacing.Small)
             ) {
                 Text(
-                    text = "Your Virtual Tree",
+                    text = stringResource(R.string.virtual_tree_title),
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 Text(
-                    text = "${(progress * 100).toInt()}% to Level $nextLevel",
+                    text = stringResource(
+                        R.string.tree_progress,
+                        (progress * 100).toInt(),
+                        nextLevel
+                    ),
                     style = MaterialTheme.typography.bodyMedium
                 )
 
@@ -71,7 +77,7 @@ fun VirtualTreeCard(
                 )
 
                 Text(
-                    text = "Level $currentLevel",
+                    text = stringResource(R.string.current_level, currentLevel),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )

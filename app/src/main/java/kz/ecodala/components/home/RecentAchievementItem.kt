@@ -20,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun RecentAchievementItem(
@@ -39,7 +41,7 @@ fun RecentAchievementItem(
         ) {
             Icon(
                 imageVector = Icons.Default.EmojiEvents,
-                contentDescription = "Achievement",
+                contentDescription = stringResource(R.string.achievement_icon_description),
                 modifier = Modifier.size(32.dp),
                 tint = MaterialTheme.colorScheme.primary
             )

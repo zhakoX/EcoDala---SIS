@@ -1,5 +1,6 @@
 package kz.ecodala.components.home
 
+import android.adservices.ondevicepersonalization.TrainingExampleRecord
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun EcoCard(
@@ -47,19 +50,19 @@ fun EcoCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "CURRENT ECO RATING",
+                    text = stringResource(R.string.current_eco_rating),
                     style = MaterialTheme.typography.labelMedium
                 )
 
                 Text(
-                    text = "Level $level",
+                    text = stringResource(R.string.eco_level, level),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
             }
 
             Text(
-                text = "$points pts",
+                text = stringResource(R.string.eco_points, points),
                 style = MaterialTheme.typography.headlineMedium
             )
 
@@ -69,19 +72,19 @@ fun EcoCard(
             ) {
                 Icon(
                     imageVector = Icons.Default.Person,
-                    contentDescription = "Global rank",
+                    contentDescription = stringResource(R.string.global_rank_description),
                     modifier = Modifier.size(20.dp)
                 )
 
                 Text(
-                    text = "Global Rank: #$globalRank",
+                    text = stringResource(R.string.global_rank, globalRank),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.weight(1f)
                 )
 
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
-                    contentDescription = "Open global ranking",
+                    contentDescription = stringResource(R.string.open_global_ranking),
                     modifier = Modifier.size(24.dp)
                 )
             }

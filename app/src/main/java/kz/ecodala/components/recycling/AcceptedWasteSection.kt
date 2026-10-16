@@ -9,9 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.R
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun AcceptedWasteSection(
@@ -23,7 +25,7 @@ fun AcceptedWasteSection(
         verticalArrangement = Arrangement.spacedBy(EcoSpacing.Small)
     ) {
         Text(
-            text = "Accepted Waste Types",
+            text = stringResource(R.string.accepted_waste_types_title),
             style = MaterialTheme.typography.titleMedium
         )
 

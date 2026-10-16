@@ -11,6 +11,8 @@ import kz.ecodala.ui.theme.EcoSpacing
 import androidx.compose.ui.tooling.preview.Preview
 import kz.ecodala.data.achievements
 import kz.ecodala.ui.theme.EcoDalaTheme
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @Composable
 fun RecentAchievements(
@@ -22,7 +24,7 @@ fun RecentAchievements(
         verticalArrangement = Arrangement.spacedBy(EcoSpacing.Small)
     ) {
         Text(
-            text = "Recent Achievements",
+            text = stringResource(R.string.recent_achievements_title),
             style = MaterialTheme.typography.titleMedium
         )
 

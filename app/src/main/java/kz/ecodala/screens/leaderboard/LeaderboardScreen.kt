@@ -28,6 +28,8 @@ import kz.ecodala.components.leaderboard.RankingHeader
 import kz.ecodala.data.users
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +41,7 @@ fun LeaderboardScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Leaderboard",
+                        text = stringResource(R.string.leaderboard_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -48,7 +50,7 @@ fun LeaderboardScreen(
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 }
@@ -105,12 +107,12 @@ private fun EmptyLeaderboardState(
         )
 
         Text(
-            text = "No rankings yet",
+            text = stringResource(R.string.no_rankings_yet),
             style = MaterialTheme.typography.titleMedium
         )
 
         Text(
-            text = "Be the first to earn EcoPoints!",
+            text = stringResource(R.string.first_to_earn_points),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

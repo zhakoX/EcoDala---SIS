@@ -37,6 +37,7 @@ import kz.ecodala.components.recycling.SustainableFactCard
 import kz.ecodala.data.recyclingPoints
 import kz.ecodala.ui.theme.EcoDalaTheme
 import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +58,8 @@ fun RecyclingPointScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = recyclingPoint?.name ?: "Recycling Point",
+                        text = recyclingPoint?.name
+                            ?: stringResource(R.string.recycling_point_title),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -66,7 +68,7 @@ fun RecyclingPointScreen(
                     IconButton(onClick = onBackClick) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 },
@@ -74,7 +76,7 @@ fun RecyclingPointScreen(
                     IconButton(onClick = {}) {
                         Icon(
                             imageVector = Icons.Default.Share,
-                            contentDescription = "Share"
+                            contentDescription = stringResource(R.string.share)
                         )
                     }
 
@@ -90,9 +92,9 @@ fun RecyclingPointScreen(
                                 Icons.Default.FavoriteBorder
                             },
                             contentDescription = if (isFavorite) {
-                                "Remove from favorites"
+                                stringResource(R.string.remove_from_favorites)
                             } else {
-                                "Add to favorites"
+                                stringResource(R.string.add_to_favorites)
                             }
                         )
                     }
@@ -112,7 +114,9 @@ fun RecyclingPointScreen(
                     painter = painterResource(
                         id = R.drawable.recycling_center
                     ),
-                    contentDescription = "Green Recycling Center",
+                    contentDescription = stringResource(
+                        R.string.recycling_center_description
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(180.dp)
@@ -121,7 +125,8 @@ fun RecyclingPointScreen(
 
             item {
                 Text(
-                    text = recyclingPoint?.name ?: "Recycling Point",
+                    text = recyclingPoint?.name
+                        ?: stringResource(R.string.recycling_point_title),
                     style = MaterialTheme.typography.headlineSmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -131,11 +136,11 @@ fun RecyclingPointScreen(
             item {
                 RecyclingPointInfo(
                     address = recyclingPoint?.address
-                        ?: "Address unavailable",
+                        ?: stringResource(R.string.address_unavailable),
                     phone = recyclingPoint?.phone
-                        ?: "Phone unavailable",
+                        ?: stringResource(R.string.phone_unavailable),
                     openHours = recyclingPoint?.openHours
-                        ?: "Opening hours unavailable"
+                        ?: stringResource(R.string.opening_hours_unavailable)
                 )
             }
 
@@ -150,7 +155,7 @@ fun RecyclingPointScreen(
             item {
                 SustainableFactCard(
                     description = recyclingPoint?.description
-                        ?: "No sustainability information available."
+                        ?: stringResource(R.string.sustainability_unavailable)
                 )
             }
 

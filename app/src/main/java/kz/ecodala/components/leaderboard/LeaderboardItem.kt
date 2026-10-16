@@ -22,6 +22,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kz.ecodala.ui.theme.EcoDalaTheme
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 
 @Composable
@@ -54,7 +56,7 @@ fun LeaderboardItem(
 
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = "User avatar"
+                contentDescription = stringResource(R.string.user_avatar_description)
             )
 
             Spacer(
@@ -85,12 +87,12 @@ fun LeaderboardItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Park,
-                    contentDescription = "Eco points",
+                    contentDescription = stringResource(R.string.eco_points_description),
                     tint = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
-                    text = "$points pts",
+                    text = stringResource(R.string.eco_points_short, points),
                     style = MaterialTheme.typography.labelLarge
                 )
             }

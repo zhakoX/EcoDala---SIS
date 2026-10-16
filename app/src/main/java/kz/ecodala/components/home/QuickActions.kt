@@ -14,6 +14,8 @@ import kz.ecodala.ui.theme.EcoSpacing
 import androidx.compose.ui.tooling.preview.Preview
 import kz.ecodala.ui.theme.EcoDalaTheme
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 private data class QuickAction(
     val title: String,
@@ -29,28 +31,30 @@ fun QuickActions(
     onLeaderboardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     val actions = listOf(
         QuickAction(
-            title = "Map",
+            title = stringResource(R.string.action_map),
             icon = Icons.Default.Map,
             onClick = onMapClick
         ),
         QuickAction(
-            title = "Submit",
+            title = stringResource(R.string.action_submit),
             icon = Icons.Default.AddCircle,
             onClick = onSubmitClick
         ),
         QuickAction(
-            title = "Challenges",
+            title = stringResource(R.string.action_challenges),
             icon = Icons.Default.EmojiEvents,
             onClick = onChallengesClick
         ),
         QuickAction(
-            title = "Leaderboard",
+            title = stringResource(R.string.action_leaderboard),
             icon = Icons.Default.BarChart,
             onClick = onLeaderboardClick
         )
     )
+
 
     LazyRow(
         modifier = modifier,

@@ -26,6 +26,8 @@ import kz.ecodala.data.homeStats
 import kz.ecodala.ui.theme.EcoSpacing
 import androidx.compose.ui.tooling.preview.Preview
 import kz.ecodala.ui.theme.EcoDalaTheme
+import androidx.compose.ui.res.stringResource
+import kz.ecodala.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,14 +40,14 @@ fun HomeScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Hello, ${currentUser.name} 👋"
+                        text = stringResource(R.string.home_greeting, currentUser.name)
                     )
                 },
                 actions = {
                     IconButton(onClick = {}) {
                         Icon(
                             imageVector = Icons.Default.Notifications,
-                            contentDescription = "Notifications"
+                            contentDescription = stringResource(R.string.notifications)
                         )
                     }
                 }
@@ -81,7 +83,7 @@ fun HomeScreen(
             )
 
             Text(
-                text = "QUICK ACTIONS",
+                text = stringResource(R.string.quick_actions_title),
                 style = MaterialTheme.typography.titleMedium
             )
 

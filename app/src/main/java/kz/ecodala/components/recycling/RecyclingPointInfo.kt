@@ -15,9 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.R
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun RecyclingPointInfo(
@@ -35,7 +37,7 @@ fun RecyclingPointInfo(
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
-                contentDescription = "Address",
+                contentDescription = stringResource(R.string.address_description),
                 tint = MaterialTheme.colorScheme.primary
             )
 
@@ -54,7 +56,7 @@ fun RecyclingPointInfo(
         ) {
             Icon(
                 imageVector = Icons.Default.Call,
-                contentDescription = "Phone",
+                contentDescription = stringResource(R.string.phone_description),
                 tint = MaterialTheme.colorScheme.primary
             )
 
@@ -81,7 +83,7 @@ fun RecyclingPointInfo(
             )
 
             Text(
-                text = "OPEN",
+                text = stringResource(R.string.status_open),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.primary
             )

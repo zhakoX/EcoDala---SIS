@@ -14,9 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import kz.ecodala.ui.theme.EcoSpacing
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import kz.ecodala.R
 import kz.ecodala.ui.theme.EcoDalaTheme
+import kz.ecodala.ui.theme.EcoSpacing
 
 @Composable
 fun SustainableFactCard(
@@ -37,7 +39,7 @@ fun SustainableFactCard(
         ) {
             Icon(
                 imageVector = Icons.Default.Info,
-                contentDescription = "Sustainable fact",
+                contentDescription = stringResource(R.string.sustainable_fact_description),
                 tint = MaterialTheme.colorScheme.onSecondaryContainer
             )
 
@@ -47,7 +49,7 @@ fun SustainableFactCard(
                     .padding(start = EcoSpacing.Small)
             ) {
                 Text(
-                    text = "Sustainable Fact",
+                    text = stringResource(R.string.sustainable_fact_title),
                     style = MaterialTheme.typography.titleSmall
                 )
 
