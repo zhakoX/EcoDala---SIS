@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import kz.ecodala.screens.home.HomeScreen
-import kz.ecodala.screens.leaderboard.LeaderboardScreen
-import kz.ecodala.screens.recycling.RecyclingPointScreen
+import kz.ecodala.screens.home.HomeRoute
+import kz.ecodala.screens.leaderboard.LeaderboardRoute
+import kz.ecodala.screens.recycling.RecyclingPointRoute
 
 object Routes {
 
@@ -36,7 +36,7 @@ fun AppNavigation() {
         composable(
             route = Routes.HOME
         ) {
-            HomeScreen(
+            HomeRoute(
                 onLeaderboardClick = {
                     navController.navigate(Routes.LEADERBOARD)
                 },
@@ -54,7 +54,7 @@ fun AppNavigation() {
         composable(
             route = Routes.LEADERBOARD
         ) {
-            LeaderboardScreen(
+            LeaderboardRoute(
                 onBackClick = {
                     navController.popBackStack()
                 }
@@ -72,13 +72,8 @@ fun AppNavigation() {
                     type = NavType.IntType
                 }
             )
-        ) { backStackEntry ->
-
-            val recyclingPointId =
-                backStackEntry.arguments?.getInt("id") ?: 1
-
-            RecyclingPointScreen(
-                recyclingPointId = recyclingPointId,
+        ) {
+            RecyclingPointRoute(
                 onBackClick = {
                     navController.popBackStack()
                 }
