@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import kz.ecodala.ui.theme.EcoSpacing
 import androidx.compose.ui.tooling.preview.Preview
 import kz.ecodala.ui.theme.EcoDalaTheme
@@ -19,7 +20,7 @@ import kz.ecodala.R
 
 private data class QuickAction(
     val title: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector,
+    val icon: ImageVector,
     val onClick: () -> Unit
 )
 

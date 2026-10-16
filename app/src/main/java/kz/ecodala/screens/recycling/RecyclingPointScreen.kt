@@ -150,7 +150,7 @@ private fun RecyclingPointContent(
     ) {
         item {
             Image(
-                painter = painterResource(id = R.drawable.recycling_center),
+                painter = painterResource(id = recyclingPoint.imageResId),
                 contentDescription = stringResource(R.string.recycling_center_description),
                 modifier = Modifier.fillMaxWidth().height(180.dp)
             )

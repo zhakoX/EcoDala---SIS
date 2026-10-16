@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 // Light theme
 val EcoGreen = Color(0xFF2E7D32)
 
-//val EcoGreen = Color(0xFF1565C0)
 val EcoGreenLight = Color(0xFF66BB6A)
 val EcoGreenDark = Color(0xFF1B5E20)
 

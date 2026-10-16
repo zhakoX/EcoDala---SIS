@@ -124,11 +124,10 @@ private fun LeaderboardContent(
 
 @Composable
 private fun EmptyLeaderboardState(
-    paddingValues: PaddingValues,
-    modifier: Modifier = Modifier
+    paddingValues: PaddingValues
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
             .padding(EcoSpacing.Medium),

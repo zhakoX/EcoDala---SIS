@@ -1,6 +1,5 @@
 package kz.ecodala.components.home
 
-import android.adservices.ondevicepersonalization.TrainingExampleRecord
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

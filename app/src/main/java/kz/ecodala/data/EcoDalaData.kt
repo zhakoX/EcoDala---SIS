@@ -94,7 +94,7 @@ val recyclingPoints = listOf(
         address = "123 Eco Avenue, Green District, 45000",
         phone = "+1 (555) 234-5678",
         openHours = "08:00 AM - 07:00 PM",
-        imageResId = R.mipmap.ic_launcher,
+        imageResId = R.drawable.recycling_center,
         acceptedTypes = listOf(
             "Plastic",
             "Paper",

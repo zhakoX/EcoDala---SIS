@@ -2,6 +2,7 @@ package kz.ecodala.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -110,7 +111,7 @@ fun HomeScreen(
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
-    paddingValues: androidx.compose.foundation.layout.PaddingValues,
+    paddingValues: PaddingValues,
     onLeaderboardClick: () -> Unit,
     onRecyclingPointClick: () -> Unit
 ) {
@@ -153,7 +154,7 @@ private fun HomeContent(
 
 @Composable
 private fun HomeLoadingState(
-    paddingValues: androidx.compose.foundation.layout.PaddingValues
+    paddingValues: PaddingValues
 ) {
     HomeMessageState(
         paddingValues = paddingValues,
@@ -164,7 +165,7 @@ private fun HomeLoadingState(
 
 @Composable
 private fun HomeEmptyState(
-    paddingValues: androidx.compose.foundation.layout.PaddingValues
+    paddingValues: PaddingValues
 ) {
     HomeMessageState(
         paddingValues = paddingValues,
@@ -174,7 +175,7 @@ private fun HomeEmptyState(
 
 @Composable
 private fun HomeErrorState(
-    paddingValues: androidx.compose.foundation.layout.PaddingValues,
+    paddingValues: PaddingValues,
     message: String,
     onRetry: () -> Unit
 ) {
@@ -198,7 +199,7 @@ private fun HomeErrorState(
 
 @Composable
 private fun HomeMessageState(
-    paddingValues: androidx.compose.foundation.layout.PaddingValues,
+    paddingValues: PaddingValues,
     message: String,
     showProgress: Boolean = false
 ) {

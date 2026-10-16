@@ -184,7 +184,7 @@ The final Recycling Point Detail Screen keeps the main information hierarchy of 
 - Friendly empty state for the leaderboard
 - Resource-based recycling center image
 - Meaningful image `contentDescription`
-- Favorite state using `remember` and `mutableStateOf`
+- Favorite state exposed through `RecyclingPointUiState` and toggled by `RecyclingPointViewModel`
 - Reusable parameterized composables
 - Custom EcoDala color scheme
 - Light Mode
@@ -215,7 +215,7 @@ The project implements the main SIS3 requirements:
 | Custom color scheme | EcoDala Light/Dark theme |
 | Dark Mode | Dedicated Dark theme |
 | Reusable composables | Components package |
-| Compose state | `remember` + `mutableStateOf` |
+| Screen state | Immutable UiState collected from ViewModel StateFlow |
 | Navigation | Navigation Compose |
 | Data classes | User, Achievement, RecyclingPoint |
 
