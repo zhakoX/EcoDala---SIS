@@ -76,7 +76,6 @@ fun ProfileRoute(
     onRecyclingHistoryClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSupportClick: () -> Unit,
-    onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = viewModel()
 ) {
@@ -91,7 +90,6 @@ fun ProfileRoute(
         onRecyclingHistoryClick = onRecyclingHistoryClick,
         onSettingsClick = onSettingsClick,
         onSupportClick = onSupportClick,
-        onLogoutClick = { viewModel.logout(onLogoutClick) },
         onEditProfileClick = viewModel::startProfileEdit,
         onCancelProfileEdit = viewModel::cancelProfileEdit,
         onSaveProfileClick = viewModel::saveProfile,
@@ -111,7 +109,6 @@ fun ProfileScreen(
     onRecyclingHistoryClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSupportClick: () -> Unit,
-    onLogoutClick: () -> Unit,
     onEditProfileClick: () -> Unit = {},
     onCancelProfileEdit: () -> Unit = {},
     onSaveProfileClick: () -> Unit = {},
@@ -204,24 +201,6 @@ fun ProfileScreen(
                     onSupportClick = onSupportClick
                 )
 
-                Spacer(modifier = Modifier.height(22.dp))
-
-                Button(
-                    onClick = onLogoutClick,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFB8F0BF),
-                        contentColor = EcoGreen
-                    )
-                ) {
-                    Text(
-                        text = LocalEcoStrings.current.logout,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
             }
         }
     }
@@ -759,7 +738,6 @@ private fun ProfileScreenPreview() {
             onRecyclingHistoryClick = {},
             onSettingsClick = {},
             onSupportClick = {},
-            onLogoutClick = {}
         )
     }
 }

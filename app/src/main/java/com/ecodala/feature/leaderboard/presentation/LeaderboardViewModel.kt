@@ -112,7 +112,7 @@ class LeaderboardViewModel(
 
     init {
         viewModelScope.launch {
-            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.session.SessionManager.session) { data, session -> data to session }
+            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.data.local.LocalProfileStore.profile) { data, profile -> data to profile }
                 .collect {
                     repository.leaderboard().onSuccess { _entries.value = rankEntries(it) }
                     val addedPoints = repository.data.value.ecoPoints - DummyEcoData.currentUser.ecoPoints

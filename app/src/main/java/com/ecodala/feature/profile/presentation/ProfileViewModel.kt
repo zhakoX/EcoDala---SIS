@@ -3,16 +3,13 @@ package com.ecodala.feature.profile.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.DemoAuthRepository
 import com.ecodala.core.data.repository.LocalEcoRepository
-import com.ecodala.core.data.repository.DemoPointsEconomyRepository
 import com.ecodala.core.domain.model.EcoRatingCalculator
 import com.ecodala.core.domain.model.EcoUser
 import com.ecodala.core.domain.usecase.GetMonthlyImpactUseCase
 import com.ecodala.core.domain.usecase.GetPointsWalletUseCase
 import com.ecodala.core.domain.usecase.GetStreakSummaryUseCase
-import com.ecodala.core.domain.usecase.LogoutUseCase
-import com.ecodala.core.session.SessionManager
+import com.ecodala.core.data.local.LocalProfileStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,13 +39,12 @@ data class ProfileUiState(
 class ProfileViewModel(
     private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
-    private val logoutUseCase = LogoutUseCase(DemoAuthRepository())
-    private val pointsRepository = DemoPointsEconomyRepository(repository)
+    private val pointsRepository = repository
     private val getPointsWalletUseCase = GetPointsWalletUseCase(pointsRepository)
     private val getMonthlyImpactUseCase = GetMonthlyImpactUseCase(pointsRepository)
     private val getStreakSummaryUseCase = GetStreakSummaryUseCase(pointsRepository)
 
-    private val _user = MutableStateFlow(sessionUserOrFallback())
+    private val _user = MutableStateFlow(localProfileUser())
     val user: StateFlow<EcoUser> = _user.asStateFlow()
 
     private val _uiState = MutableStateFlow(ProfileUiState())
@@ -56,21 +52,14 @@ class ProfileViewModel(
 
     init {
         viewModelScope.launch {
-            kotlinx.coroutines.flow.combine(repository.data, SessionManager.session) { data, session -> data to session }
+            kotlinx.coroutines.flow.combine(repository.data, LocalProfileStore.profile) { data, profile -> data to profile }
                 .collect { loadEconomy() }
         }
     }
 
     fun retry() {
-        _user.value = sessionUserOrFallback()
+        _user.value = localProfileUser()
         loadEconomy()
-    }
-
-    fun logout(onLoggedOut: () -> Unit) {
-        viewModelScope.launch {
-            logoutUseCase()
-            onLoggedOut()
-        }
     }
 
     fun startProfileEdit() {
@@ -102,7 +91,7 @@ class ProfileViewModel(
         val name = _uiState.value.editFullName.trim().ifBlank { _user.value.fullName }
         val email = _uiState.value.editEmail.trim().ifBlank { _user.value.email }
         viewModelScope.launch {
-            SessionManager.updateProfile(fullName = name, email = email)
+            LocalProfileStore.updateProfile(fullName = name, email = email)
             _user.value = _user.value.copy(fullName = name, email = email)
             _uiState.value = _uiState.value.copy(
                 isEditingProfile = false,
@@ -117,11 +106,9 @@ class ProfileViewModel(
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
             val userResult = repository.currentUser()
-            userResult
-                .onSuccess { user ->
-                    _user.value = user
-
-                }
+            userResult.onSuccess { user ->
+                _user.value = user
+            }
             val userId = DummyEcoData.currentUser.id
             val wallet = getPointsWalletUseCase(userId).getOrNull()
             val impact = getMonthlyImpactUseCase(userId).getOrNull()
@@ -147,12 +134,11 @@ class ProfileViewModel(
         }
     }
 
-    private fun sessionUserOrFallback(): EcoUser {
-        val session = SessionManager.session.value
+    private fun localProfileUser(): EcoUser {
+        val profile = LocalProfileStore.profile.value
         return DummyEcoData.currentUser.copy(
-            id = session.userId ?: DummyEcoData.currentUser.id,
-            fullName = session.fullName ?: DummyEcoData.currentUser.fullName,
-            email = session.email ?: DummyEcoData.currentUser.email
+            fullName = profile.fullName ?: DummyEcoData.currentUser.fullName,
+            email = profile.email ?: DummyEcoData.currentUser.email
         )
     }
 }

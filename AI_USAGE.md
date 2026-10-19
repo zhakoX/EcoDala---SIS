@@ -1,33 +1,71 @@
-# AI usage — this refactor
+# AI Usage
 
-## Tools actually used
+## AI tools used
 
-OpenAI Codex in the desktop app read the existing source, generated focused Kotlin edits, executed PowerShell/Python file transformations, ran Gradle on the installed JDK 21, inspected Android emulator output with ADB and wrote documentation. No claim is made about AI tools or human contributions before this conversation. No GitHub push was made.
+I used ChatGPT as an AI assistant during the development of the EcoDala SIS3 project.
+
+I mainly used it for:
+- understanding Jetpack Compose concepts;
+- reviewing the project structure;
+- creating and refactoring reusable Compose components;
+- implementing Navigation Compose;
+- checking SIS3 requirements;
+- debugging and improving UI code;
+- adding Light and Dark mode previews;
+- reviewing the final UI against the assignment requirements.
+
+I made the final decisions about the application structure, UI, data, and functionality.
 
 ## Three useful prompts
 
-1. **Actual earlier user request (Russian):** fix the missing Java 17 toolchain error and use JVM 21 throughout. Result: Java/Kotlin targets and daemon criteria use 21; the original build succeeded before SIS4 work.
-2. **Actual current user request:** “ECODALA ANDROID — SAFE SIS4 REFACTOR BASED ON THE EXISTING CODEBASE”, supplied as an attached text file. It asked to preserve protected screens, remove advanced features, reuse local data/ViewModels and verify SIS4.
-3. **Suggested follow-up prompt, not claimed as a previously executed user prompt:** “Trace onFavouriteClick from MapScreen through MapRoute, MapViewModel and LocalEcoRepository back to StateFlow; explain which state survives rotation and test error/retry.”
+### Prompt 1
 
-## Generated code checked and corrected
+> I am building an Android Jetpack Compose app for SIS3. I need at least 3 screens, a list screen with LazyColumn and 10 items, a LazyRow, reusable components, Navigation Compose, and Light/Dark previews. Help me structure the project into screens, components, data, model, navigation, and theme packages.
 
-- LocalEcoRepository and DataStore snapshot reuse the existing ledger, WasteSubmission and rating calculation. Tests verify one submission changes history, wallet and current-user leaderboard together, rejects invalid quantities, and converts grams.
-- MapUiState originally matched a category only against a point's primary accepted type. The final predicate uses `selectedWasteType in point.acceptedWasteTypes`; tests include Campus Paper Hub accepting Plastic as a secondary type.
-- The first compile of the refactor exposed unresolved `strings.close` and an icon import removed while the language selector still used it. The label was localized using the existing language helper and the required icon import restored; subsequent builds passed.
-- The details ViewModel originally substituted the first recycling point for unknown IDs. That fallback was removed, an explicit error added, and tests verify exact point-8 selection and an invalid ID.
-- During review, the existing submission unit selector offered `bag`; the repository was corrected to preserve it and the rating calculator's existing 2 kg/bag conversion. Grams were added without removing existing units.
+### Prompt 2
 
-## Real business logic moved out of a Composable
+> Here is my current Jetpack Compose component. Add a Light Preview and a Dark Mode Preview, keep the existing logic, and give me the complete file so I can replace the current file.
 
-Before this refactor, `FacultyLeaderboardContent` in `feature/leaderboard/presentation/LeaderboardScreen.kt` sorted the faculty data, selected the leader and summed points/members during composition. The refactor moves aggregate preparation to `FacultyLeaderboardSummary.from` and ranking/update work to `LeaderboardViewModel`. The existing screen receives the summary through its Route and retains the hero, ranking rows and animation code. This is an observed change, not an invented historical example.
+### Prompt 3
 
-## Limits
+> Review my current EcoDala project against the SIS3 requirements. Check Scaffold, TopAppBar, LazyColumn with 10+ items, LazyRow, navigation with an id argument, ellipsis, empty state, Image with contentDescription, custom color scheme, dark mode, reusable composables, previews, and remember with mutableStateOf.
 
-AI assistance does not establish a teacher grade. Build/test and emulator claims are limited to recorded outputs in `docs/SIS4_VERIFICATION.md`. Previews exist in source and compile; an Android Studio preview rendering is a separate check. No human review or contributions are invented here.
+## One case where AI was wrong or incomplete
 
-## Runtime-driven corrections
+One issue happened while implementing the custom EcoDala color scheme.
 
-Actual emulator output exposed a Home Level 11 label after reaching the maximum level, a fixed Profile score of 75/Level 5 milestone, and a hardcoded current-user name. These were corrected using UiState values and the actual local identity, without replacing the visual components. The shared-progress test now also checks capped milestones and the score at the maximum level. A map viewport clip was added after observing a native-view drawing overlap.
+The first version of the theme used a green primary color, but Dynamic Color was still enabled. Some Material 3 colors such as surface container colors were therefore still appearing with a purple/gray tint in the application.
 
-The final post-fix APK was then installed and these corrected labels were confirmed by actual accessibility XML assertions. Its map viewport clipping was visually inspected in a new screenshot.
+I noticed the problem by running the application and comparing the Light and Dark UI. The Quick Actions, achievement cards, and bottom navigation did not visually match the green EcoDala design.
+
+I fixed the problem by creating a complete custom Light and Dark color scheme and disabling Dynamic Color. I also defined the surface container colors so that the Material 3 components use the EcoDala color system consistently.
+
+## SIS4 MVVM refactoring decision: favorite state ownership
+
+An earlier version of this log described favourite state in `RecyclingPointScreen` using `remember { mutableStateOf(false) }`. That historical example and its AI authorship have not been verified against the available history. The following describes the actual current implementation and the layer ownership principle without claiming a verified historical AI mistake.
+
+In the current SIS4 implementation, `MapScreen` receives `MapUiState.favouriteIds` and an `onFavouriteClick` callback. `MapRoute` connects that callback to `MapViewModel::onFavouriteClick`; the ViewModel calls `LocalEcoRepository.setFavourite(id)`. The repository emits new data, and the ViewModel publishes `copy(favouriteIds = data.favouriteIds)`. These are the actual current names; the earlier names `RecyclingPointViewModel` and `EcoRepository` do not describe this implementation.
+
+### SIS4 question: where was logic in the wrong layer?
+
+The architectural issue is keeping meaningful favourite data in a composable with `remember`: a fresh screen instance can reset it. The current implementation keeps favourites in the repository and exposes them through the ViewModel; search and category filtering are derived by `MapUiState.filteredPoints`, outside composables. This is the concrete layer ownership decision to explain at the defense. The original AI authorship and the historical `RecyclingPointScreen` example above have not been independently verified, so they must not be presented as a proven AI-generated mistake. A personal example of an actual AI mistake still requires the author's confirmation.
+
+## SIS4 preparation on 2026-10-19
+
+Codex read the SIS4 assignment, inspected the current code, corrected obsolete class references in this log and documentation, prepared a defense/checklist document, and ran `:app:assembleDebug :app:testDebugUnitTest`. All 17 unit tests passed. No Android device was connected, so neither rotation nor Android Studio Preview rendering was verified in this session. Earlier first-person manual-testing statements below describe the author's prior account; they are not verification performed by Codex today.
+
+## What I changed or wrote by hand
+
+I manually reviewed the generated code and decided which parts were appropriate for the project.
+
+I also manually:
+- tested navigation between screens;
+- checked the Light and Dark UI;
+- verified the leaderboard data;
+- checked the recycling point detail screen;
+- tested the favorite interaction;
+- reviewed the project structure;
+- selected the application data and text;
+- checked the final UI in Android Studio previews and the emulator.
+
+The final application was tested and adjusted in Android Studio rather than being accepted without review.

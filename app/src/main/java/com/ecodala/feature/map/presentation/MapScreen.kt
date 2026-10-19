@@ -50,6 +50,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.domain.model.RecyclingPoint
 import com.ecodala.core.domain.model.WasteType
+import com.ecodala.core.domain.model.WasteTypeVisuals
 import com.ecodala.core.localization.LocalEcoStrings
 import com.ecodala.core.localization.sis4Text
 import com.ecodala.core.ui.components.EcoErrorState
@@ -342,8 +343,8 @@ private fun EmptyMapResult(modifier: Modifier = Modifier) {
     }
 }
 
-private fun simpleFilterColors(): FilterChipColors {
-    return FilterChipColors(
+private fun simpleFilterColors(): WasteTypeVisuals.FilterChipColors {
+    return WasteTypeVisuals.FilterChipColors(
         selectedContainer = EcoGreen,
         unselectedContainer = Color.White,
         selectedContent = Color.White,
@@ -356,7 +357,7 @@ private fun FilterChip(
     label: String,
     icon: ImageVector,
     selected: Boolean = false,
-    colors: FilterChipColors,
+    colors: WasteTypeVisuals.FilterChipColors,
     onClick: () -> Unit
 ) {
     val containerColor = if (selected) colors.selectedContainer else colors.unselectedContainer
@@ -387,59 +388,7 @@ private fun FilterChip(
     }
 }
 
-private data class FilterChipColors(
-    val selectedContainer: Color,
-    val unselectedContainer: Color,
-    val selectedContent: Color,
-    val unselectedContent: Color
-)
-
-private fun WasteType.filterChipColors(): FilterChipColors {
-    return when (this) {
-        WasteType.Plastic -> FilterChipColors(
-            selectedContainer = Color(0xFF0E7C46),
-            unselectedContainer = Color(0xFFE8F7EE),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF0E7C46)
-        )
-        WasteType.Glass -> FilterChipColors(
-            selectedContainer = Color(0xFF00897B),
-            unselectedContainer = Color(0xFFE0F7F4),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF00897B)
-        )
-        WasteType.Paper -> FilterChipColors(
-            selectedContainer = Color(0xFFB7791F),
-            unselectedContainer = Color(0xFFFFF3D7),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF9A5E10)
-        )
-        WasteType.Batteries -> FilterChipColors(
-            selectedContainer = Color(0xFF6D5BD0),
-            unselectedContainer = Color(0xFFEDEBFF),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF5B4AC4)
-        )
-        WasteType.Electronics -> FilterChipColors(
-            selectedContainer = Color(0xFF455A64),
-            unselectedContainer = Color(0xFFECEFF1),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF455A64)
-        )
-        WasteType.Organic -> FilterChipColors(
-            selectedContainer = Color(0xFF558B2F),
-            unselectedContainer = Color(0xFFEAF4E1),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF558B2F)
-        )
-        WasteType.Metal -> FilterChipColors(
-            selectedContainer = Color(0xFF607D8B),
-            unselectedContainer = Color(0xFFE7EEF1),
-            selectedContent = Color.White,
-            unselectedContent = Color(0xFF607D8B)
-        )
-    }
-}
+private fun WasteType.filterChipColors(): WasteTypeVisuals.FilterChipColors = WasteTypeVisuals.filterChipColors(this)
 
 @Composable
 private fun RecyclingPointPreviewCard(
@@ -774,29 +723,9 @@ private fun createWasteMarkerIcon(
     return BitmapDrawable(context.resources, bitmap)
 }
 
-private fun WasteType.markerColor(): Int {
-    return when (this) {
-        WasteType.Plastic -> android.graphics.Color.rgb(14, 124, 70)
-        WasteType.Glass -> android.graphics.Color.rgb(0, 137, 123)
-        WasteType.Paper -> android.graphics.Color.rgb(183, 121, 31)
-        WasteType.Batteries -> android.graphics.Color.rgb(109, 91, 208)
-        WasteType.Electronics -> android.graphics.Color.rgb(69, 90, 100)
-        WasteType.Organic -> android.graphics.Color.rgb(85, 139, 47)
-        WasteType.Metal -> android.graphics.Color.rgb(96, 125, 139)
-    }
-}
+private fun WasteType.markerColor(): Int = WasteTypeVisuals.markerColor(this)
 
-private fun WasteType.markerLetter(): String {
-    return when (this) {
-        WasteType.Plastic -> "P"
-        WasteType.Glass -> "G"
-        WasteType.Paper -> "Pa"
-        WasteType.Batteries -> "B"
-        WasteType.Electronics -> "E"
-        WasteType.Organic -> "O"
-        WasteType.Metal -> "M"
-    }
-}
+private fun WasteType.markerLetter(): String = WasteTypeVisuals.markerLetter(this)
 
 @Preview(showBackground = true, name = "Map - Loading")
 @Composable

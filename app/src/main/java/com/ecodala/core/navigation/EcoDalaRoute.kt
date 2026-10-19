@@ -2,8 +2,6 @@ package com.ecodala.core.navigation
 
 sealed class EcoDalaRoute(val route: String) {
     data object Splash : EcoDalaRoute("splash")
-    data object Login : EcoDalaRoute("login")
-    data object Register : EcoDalaRoute("register")
 
     data object Home : EcoDalaRoute("home")
     data object Map : EcoDalaRoute("map")

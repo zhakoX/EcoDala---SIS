@@ -5,7 +5,7 @@ import com.ecodala.core.data.local.EcoLocalCache
 import com.ecodala.core.domain.model.*
 import com.ecodala.core.domain.repository.PointsEconomyRepository
 import com.ecodala.core.domain.usecase.GetAchievementProgressUseCase
-import com.ecodala.core.session.SessionManager
+import com.ecodala.core.data.local.LocalProfileStore
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -60,12 +60,12 @@ class LocalEcoRepository(private val loadingDelayMillis: Long = 600L) : PointsEc
     }
 
     suspend fun currentUser(): Result<EcoUser> {
-        val session = SessionManager.session.value
+        val profile = LocalProfileStore.profile.value
         val total = data.value.ecoPoints
         val entries = leaderboard().getOrThrow()
         return Result.success(DummyEcoData.currentUser.copy(
-            fullName = session.fullName ?: DummyEcoData.currentUser.fullName,
-            email = session.email ?: DummyEcoData.currentUser.email,
+            fullName = profile.fullName ?: DummyEcoData.currentUser.fullName,
+            email = profile.email ?: DummyEcoData.currentUser.email,
             ecoPoints = total,
             level = EcoRatingCalculator.calculate(total).level,
             globalRank = entries.first { it.isCurrentUser }.rank
@@ -89,7 +89,7 @@ class LocalEcoRepository(private val loadingDelayMillis: Long = 600L) : PointsEc
                 submissions = listOf(submission) + _data.value.submissions,
                 events = _data.value.events + event
             )
-            try {
+            return try {
                 EcoLocalCache.save(next)
                 _data.value = next
                 Result.success(submission)
@@ -117,7 +117,7 @@ class LocalEcoRepository(private val loadingDelayMillis: Long = 600L) : PointsEc
     suspend fun leaderboard(): Result<List<LeaderboardEntry>> = Result.success(
         DummyEcoData.leaderboard.map { entry ->
             if (entry.isCurrentUser) entry.copy(points = data.value.ecoPoints,
-                name = SessionManager.session.value.fullName ?: DummyEcoData.currentUser.fullName) else entry
+                name = LocalProfileStore.profile.value.fullName ?: DummyEcoData.currentUser.fullName) else entry
         }.sortedByDescending { it.points }.mapIndexed { index, entry -> entry.copy(rank = index + 1) }
     )
 

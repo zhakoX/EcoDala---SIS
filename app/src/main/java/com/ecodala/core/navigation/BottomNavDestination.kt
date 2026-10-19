@@ -18,6 +18,6 @@ val bottomNavDestinations = listOf(
     BottomNavDestination(EcoDalaRoute.Home.route, "Home", Icons.Filled.Home),
     BottomNavDestination(EcoDalaRoute.Map.route, "Map", Icons.Filled.Map),
     BottomNavDestination(EcoDalaRoute.SubmitWaste.route, "Submit", Icons.Filled.AddCircle),
-    BottomNavDestination(EcoDalaRoute.Leaderboard.route, "Leads", Icons.Filled.Leaderboard),
+    BottomNavDestination(EcoDalaRoute.Leaderboard.route, "Leaderboard", Icons.Filled.Leaderboard),
     BottomNavDestination(EcoDalaRoute.Profile.route, "Profile", Icons.Filled.Person)
 )

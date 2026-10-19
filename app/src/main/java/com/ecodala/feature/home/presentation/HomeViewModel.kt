@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.data.repository.LocalEcoRepository
-import com.ecodala.core.data.repository.DemoPointsEconomyRepository
 import com.ecodala.core.domain.model.EcoRatingCalculator
 import com.ecodala.core.domain.usecase.GetAchievementProgressUseCase
 import com.ecodala.core.domain.usecase.GetMonthlyImpactUseCase
@@ -51,7 +50,7 @@ data class HomeAchievementUi(
 class HomeViewModel(
     private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
-    private val pointsRepository = DemoPointsEconomyRepository(repository)
+    private val pointsRepository = repository
     private val getPointsWalletUseCase = GetPointsWalletUseCase(pointsRepository)
     private val getMonthlyImpactUseCase = GetMonthlyImpactUseCase(pointsRepository)
     private val getStreakSummaryUseCase = GetStreakSummaryUseCase(pointsRepository)
@@ -61,7 +60,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.session.SessionManager.session) { data, session -> data to session }
+            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.data.local.LocalProfileStore.profile) { data, profile -> data to profile }
                 .collect { loadPointsEconomy() }
         }
     }

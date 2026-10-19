@@ -774,7 +774,10 @@ private fun LeaderboardScreenPreview() {
     EcoDalaTheme {
         LeaderboardScreen(
             entries = DummyEcoData.leaderboard,
-            faculties = LeaderboardViewModel().faculties.value,
+            faculties = listOf(
+                FacultyLeaderboardEntry(1, "Computer Science", "CS", 8420, 128, "Aibek", 18),
+                FacultyLeaderboardEntry(2, "Environmental Studies", "ENV", 7890, 96, "Alina", 14, isCurrentFaculty = true)
+            ),
             onBackClick = {}
         )
     }

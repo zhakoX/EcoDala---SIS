@@ -51,6 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.domain.model.WasteSubmission
 import com.ecodala.core.domain.model.WasteType
+import com.ecodala.core.domain.model.WasteTypeVisuals
 import com.ecodala.core.localization.LocalEcoStrings
 import com.ecodala.core.ui.components.EcoErrorState
 import com.ecodala.core.ui.components.EcoInlineLoading
@@ -263,7 +264,7 @@ private fun FilterRow(
             selected = selectedType == null,
             onClick = { onTypeSelected(null) }
         )
-        listOf(WasteType.Plastic, WasteType.Paper, WasteType.Glass, WasteType.Batteries, WasteType.Electronics).forEach { type ->
+        WasteType.entries.forEach { type ->
             FilterChip(
                 label = LocalEcoStrings.current.wasteTypeName(type),
                 selected = selectedType == type,
@@ -413,15 +414,10 @@ private data class HistoryVisual(
 )
 
 private fun WasteType.visual(): HistoryVisual {
-    return when (this) {
-        WasteType.Plastic -> HistoryVisual(Icons.Filled.Recycling, Color(0xFFDCEBFF), Color(0xFF4385F5))
-        WasteType.Paper -> HistoryVisual(Icons.Filled.InsertDriveFile, Color(0xFFFFE9D6), Color(0xFFFF8A3D))
-        WasteType.Glass -> HistoryVisual(Icons.Filled.WineBar, Color(0xFFD7FAF4), Color(0xFF18A999))
-        WasteType.Batteries -> HistoryVisual(Icons.Filled.BatteryChargingFull, Color(0xFFFFF6C8), Color(0xFFC99713))
-        WasteType.Electronics -> HistoryVisual(Icons.Filled.Memory, Color(0xFFEBD9FF), Color(0xFF9B5DF5))
-        WasteType.Organic -> HistoryVisual(Icons.Filled.Spa, Color(0xFFE3F8E2), EcoGreen)
-        WasteType.Metal -> HistoryVisual(Icons.Filled.Recycling, Color(0xFFE8ECEF), Color(0xFF64727D))
-    }
+    val bg = WasteTypeVisuals.achievementBackground(this)
+    val tint = WasteTypeVisuals.achievementTint(this)
+    val icon = WasteTypeVisuals.achievementIcon(this)
+    return HistoryVisual(icon, bg, tint)
 }
 
 @Preview(showBackground = true, widthDp = 393, heightDp = 852)

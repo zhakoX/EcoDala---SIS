@@ -26,7 +26,7 @@ import com.ecodala.core.data.local.EcoLocalCache
 import com.ecodala.core.logging.AppLogger
 import com.ecodala.core.localization.EcoLocalization
 import com.ecodala.core.navigation.EcoDalaApp
-import com.ecodala.core.session.SessionManager
+import com.ecodala.core.data.local.LocalProfileStore
 import com.ecodala.core.settings.AppSettingsStore
 import com.ecodala.core.ui.theme.EcoDalaTheme
 
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             try {
                 LocalEcoRepository.shared.restore()
-                SessionManager.awaitReady()
+                LocalProfileStore.awaitReady()
                 dataReady = true
             } catch (error: Exception) {
                 if (error is kotlinx.coroutines.CancellationException) throw error
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
             context = applicationContext,
             scope = applicationScope
         )
-        SessionManager.initialize(
+        LocalProfileStore.initialize(
             context = applicationContext,
             scope = applicationScope
         )

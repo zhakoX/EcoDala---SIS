@@ -71,7 +71,7 @@ fun EcoDalaBottomBar(
                     else -> destination.label
                 }
                 val isSelected = currentRoute == destination.route
-                val isSubmit = destination.label == "Submit"
+                val isSubmit = destination.route == EcoDalaRoute.SubmitWaste.route
                 val contentColor = if (isSelected || isSubmit) EcoGreen else MaterialTheme.colorScheme.onSurfaceVariant
 
                 Column(

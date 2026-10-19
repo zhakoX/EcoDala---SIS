@@ -1,3 +1,0 @@
-I/OsmDroid( 2266): Using tile source: Mapnik
-I/OsmDroid( 2266): Tile cache increased from 0 to 9
-I/OsmDroid( 2266): Tile cache increased from 9 to 20
