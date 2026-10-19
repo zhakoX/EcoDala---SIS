@@ -38,7 +38,9 @@ data class HomeUiState(
             iconName = it.iconName
         )
     }
-)
+) {
+    val nextTreeLevel: Int get() = (level + 1).coerceAtMost(EcoRatingCalculator.MaxLevel)
+}
 
 data class HomeAchievementUi(
     val title: String,

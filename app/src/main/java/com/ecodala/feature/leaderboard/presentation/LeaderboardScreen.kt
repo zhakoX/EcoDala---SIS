@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,6 +56,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.domain.model.LeaderboardEntry
 import com.ecodala.core.localization.LocalEcoStrings
+import com.ecodala.core.localization.sis4Text
 import com.ecodala.core.ui.adaptive.horizontalScreenPadding
 import com.ecodala.core.ui.adaptive.isCompactHeight
 import com.ecodala.core.ui.theme.EcoDalaTheme
@@ -668,7 +670,7 @@ private fun LeaderboardRow(
     compactHeight: Boolean
 ) {
     val strings = LocalEcoStrings.current
-    val displayName = if (entry.isCurrentUser) strings.currentUserLeaderboardName else entry.name
+    val displayName = if (entry.isCurrentUser) strings.sis4Text("You (${entry.name})", "Вы (${entry.name})", "Сіз (${entry.name})") else entry.name
 
     Row(
         modifier = Modifier
@@ -696,6 +698,8 @@ private fun LeaderboardRow(
         Text(
             text = displayName,
             modifier = Modifier.weight(1f),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold

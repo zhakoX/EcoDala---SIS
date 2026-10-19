@@ -63,6 +63,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.domain.model.EcoUser
 import com.ecodala.core.localization.LocalEcoStrings
+import com.ecodala.core.localization.sis4Text
 import com.ecodala.core.ui.components.EcoErrorState
 import com.ecodala.core.ui.components.EcoInlineLoading
 import com.ecodala.core.ui.theme.EcoDalaTheme
@@ -192,7 +193,7 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(18.dp))
 
-                SustainabilityScoreCard(score = 75)
+                SustainabilityScoreCard(score = uiState.sustainabilityScore, nextLevel = uiState.nextMilestoneLevel)
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -564,7 +565,7 @@ private fun StatCard(
 }
 
 @Composable
-private fun SustainabilityScoreCard(score: Int) {
+private fun SustainabilityScoreCard(score: Int, nextLevel: Int) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
@@ -584,7 +585,7 @@ private fun SustainabilityScoreCard(score: Int) {
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = LocalEcoStrings.current.topContributorText,
+                        text = LocalEcoStrings.current.sis4Text("Demo progress towards Level 10", "Демо-прогресс до уровня 10", "10-деңгейге дейінгі демо прогресс"),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -607,7 +608,8 @@ private fun SustainabilityScoreCard(score: Int) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = LocalEcoStrings.current.nextMilestone,
+                    text = if (score == 100) LocalEcoStrings.current.level(nextLevel) else
+                        LocalEcoStrings.current.sis4Text("Next milestone: Level $nextLevel", "Следующая цель: уровень $nextLevel", "Келесі мақсат: $nextLevel-деңгей"),
                     color = EcoGreen,
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold

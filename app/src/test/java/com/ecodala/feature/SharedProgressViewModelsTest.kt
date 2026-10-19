@@ -47,7 +47,10 @@ class SharedProgressViewModelsTest {
         advanceUntilIdle()
         val total = repository.data.value.ecoPoints
         assertEquals(total, home.uiState.value.ecoPoints)
+        assertEquals(10, home.uiState.value.nextTreeLevel)
         assertEquals(total, profile.uiState.value.totalPoints)
+        assertEquals(100, profile.uiState.value.sustainabilityScore)
+        assertEquals(10, profile.uiState.value.nextMilestoneLevel)
         assertEquals(total, leaderboard.entries.value.first { it.isCurrentUser }.points)
         assertEquals(count + 1, history.uiState.value.submissions.size)
         assertEquals(EcoRatingCalculator.calculate(total).level, tree.tree.value.level)

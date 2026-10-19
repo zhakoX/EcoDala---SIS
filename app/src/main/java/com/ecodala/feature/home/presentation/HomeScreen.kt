@@ -163,6 +163,7 @@ fun HomeScreen(
             VirtualTreeCard(
                 progressPercent = uiState.treeProgressPercent,
                 level = uiState.level,
+                nextLevel = uiState.nextTreeLevel,
                 compactHeight = compactHeight,
                 onClick = onTreeClick
             )
@@ -537,6 +538,7 @@ private fun EcoLevelRing(
 private fun VirtualTreeCard(
     progressPercent: Int,
     level: Int,
+    nextLevel: Int,
     compactHeight: Boolean,
     onClick: () -> Unit
 ) {
@@ -570,7 +572,7 @@ private fun VirtualTreeCard(
                 )
                 Spacer(modifier = Modifier.height(7.dp))
                 Text(
-                    text = strings.progressToLevel(progressPercent, level + 1),
+                    text = if (nextLevel == level) strings.level(level) else strings.progressToLevel(progressPercent, nextLevel),
                     color = Color(0xFF656E67),
                     style = MaterialTheme.typography.bodySmall
                 )

@@ -31,7 +31,13 @@ data class ProfileUiState(
     val editFullName: String = "",
     val editEmail: String = "",
     val profileSaved: Boolean = false
-)
+) {
+    val sustainabilityScore: Int
+        get() = (totalPoints.toLong() * 100 / (EcoRatingCalculator.MaxLevel * EcoRatingCalculator.PointsPerLevel))
+            .coerceIn(0, 100).toInt()
+    val nextMilestoneLevel: Int
+        get() = (EcoRatingCalculator.calculate(totalPoints).level + 1).coerceAtMost(EcoRatingCalculator.MaxLevel)
+}
 
 class ProfileViewModel(
     private val repository: LocalEcoRepository = LocalEcoRepository.shared

@@ -79,7 +79,7 @@ class GetAchievementProgressUseCase(
                     description = "Reach virtual tree level 5",
                     iconName = "tree",
                     current = totalPoints,
-                    target = 1000,
+                    target = 5 * com.ecodala.core.domain.model.EcoRatingCalculator.PointsPerLevel,
                     bonusPoints = 200
                 )
             )
