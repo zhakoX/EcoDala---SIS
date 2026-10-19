@@ -11,7 +11,7 @@ class DemoAuthRepository(
 ) : AuthRepository {
     override suspend fun login(email: String, password: String): Result<EcoUser> {
         val user = DummyEcoData.currentUser.copy(email = email.trim())
-        sessionManager.saveSession(token = "demo-token-${user.id}", user = user)
+        sessionManager.saveSession(user)
         return Result.success(user)
     }
 
@@ -20,7 +20,7 @@ class DemoAuthRepository(
             fullName = fullName.trim(),
             email = email.trim()
         )
-        sessionManager.saveSession(token = "demo-token-${user.id}", user = user)
+        sessionManager.saveSession(user)
         return Result.success(user)
     }
 
@@ -35,7 +35,7 @@ class DemoAuthRepository(
                 SocialAuthProvider.Apple -> "apple.user@ecodala.com"
             }
         )
-        sessionManager.saveSession(token = "demo-token-${provider.name.lowercase()}", user = user)
+        sessionManager.saveSession(user)
         return Result.success(user)
     }
 

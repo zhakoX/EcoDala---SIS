@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Leaderboard
@@ -37,7 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -63,7 +62,7 @@ fun AchievementsRoute(
     modifier: Modifier = Modifier,
     viewModel: AchievementsViewModel = viewModel()
 ) {
-    val achievements by viewModel.achievements.collectAsState()
+    val achievements by viewModel.achievements.collectAsStateWithLifecycle()
 
     AchievementsScreen(
         achievements = achievements,
@@ -376,7 +375,6 @@ private fun Achievement.visual(): AchievementVisual {
         "group" -> AchievementVisual(Icons.Filled.Leaderboard, Color(0xFFF7EDE2), Color(0xFFA66024))
         "tree" -> AchievementVisual(Icons.Filled.Yard, Color(0xFFE5F6EA), EcoGreen)
         "map" -> AchievementVisual(Icons.Filled.Map, Color(0xFFE4F0FF), Color(0xFF3D78D8))
-        "scanner" -> AchievementVisual(Icons.Filled.CameraAlt, Color(0xFFEBD9FF), Color(0xFF8D55E6))
         "streak" -> AchievementVisual(Icons.Filled.EmojiEvents, Color(0xFFFFF5D9), Color(0xFFD59A12))
         "plastic" -> AchievementVisual(Icons.Filled.Recycling, Color(0xFFE6F7F0), Color(0xFF0F8C65))
         else -> AchievementVisual(Icons.Filled.Recycling, Color(0xFFFFF5D9), Color(0xFFD59A12))

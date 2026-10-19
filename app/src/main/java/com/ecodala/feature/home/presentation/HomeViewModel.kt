@@ -3,7 +3,7 @@ package com.ecodala.feature.home.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.ApiEcoRepository
+import com.ecodala.core.data.repository.LocalEcoRepository
 import com.ecodala.core.data.repository.DemoPointsEconomyRepository
 import com.ecodala.core.domain.model.EcoRatingCalculator
 import com.ecodala.core.domain.usecase.GetAchievementProgressUseCase
@@ -12,6 +12,7 @@ import com.ecodala.core.domain.usecase.GetPointsWalletUseCase
 import com.ecodala.core.domain.usecase.GetStreakSummaryUseCase
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
@@ -46,23 +47,26 @@ data class HomeAchievementUi(
 )
 
 class HomeViewModel(
-    private val backendRepository: ApiEcoRepository = ApiEcoRepository()
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
-    private val pointsRepository = DemoPointsEconomyRepository()
+    private val pointsRepository = DemoPointsEconomyRepository(repository)
     private val getPointsWalletUseCase = GetPointsWalletUseCase(pointsRepository)
     private val getMonthlyImpactUseCase = GetMonthlyImpactUseCase(pointsRepository)
     private val getStreakSummaryUseCase = GetStreakSummaryUseCase(pointsRepository)
     private val getAchievementProgressUseCase = GetAchievementProgressUseCase(pointsRepository)
     private val _uiState = MutableStateFlow(HomeUiState())
-    val uiState: StateFlow<HomeUiState> = _uiState
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
-        loadPointsEconomy()
+        viewModelScope.launch {
+            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.session.SessionManager.session) { data, session -> data to session }
+                .collect { loadPointsEconomy() }
+        }
     }
 
     fun loadPointsEconomy() {
         viewModelScope.launch {
-            backendRepository.currentUser()
+            repository.currentUser()
                 .onSuccess { user ->
                     val rating = EcoRatingCalculator.calculate(user.ecoPoints)
                     _uiState.update { state ->

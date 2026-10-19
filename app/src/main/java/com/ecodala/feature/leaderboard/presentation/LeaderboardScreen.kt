@@ -1,4 +1,4 @@
-﻿package com.ecodala.feature.leaderboard.presentation
+package com.ecodala.feature.leaderboard.presentation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -23,7 +23,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.School
-import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,7 +33,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -67,12 +66,14 @@ fun LeaderboardRoute(
     modifier: Modifier = Modifier,
     viewModel: LeaderboardViewModel = viewModel()
 ) {
-    val entries by viewModel.entries.collectAsState()
-    val faculties by viewModel.faculties.collectAsState()
+    val entries by viewModel.entries.collectAsStateWithLifecycle()
+    val faculties by viewModel.faculties.collectAsStateWithLifecycle()
+    val facultySummary by viewModel.facultySummary.collectAsStateWithLifecycle()
 
     LeaderboardScreen(
         entries = entries,
         faculties = faculties,
+        facultySummary = facultySummary,
         onBackClick = onBackClick,
         modifier = modifier
     )
@@ -83,10 +84,11 @@ fun LeaderboardScreen(
     entries: List<LeaderboardEntry>,
     faculties: List<FacultyLeaderboardEntry>,
     onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    facultySummary: FacultyLeaderboardSummary = FacultyLeaderboardSummary()
 ) {
     var selectedGroup by remember { mutableStateOf("Students") }
-    val sortedEntries = entries.sortedBy { it.rank }
+    val sortedEntries = entries
     val topEntries = sortedEntries.take(3)
     val listEntries = sortedEntries.drop(3)
     val compactHeight = isCompactHeight()
@@ -130,7 +132,7 @@ fun LeaderboardScreen(
 
                     LeaderboardList(entries = listEntries, compactHeight = compactHeight)
                 } else {
-                    FacultyLeaderboardContent(faculties = faculties)
+                    FacultyLeaderboardContent(faculties = faculties, summary = facultySummary)
                 }
             }
         }
@@ -188,7 +190,7 @@ private fun SegmentedControl(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(if (compactHeight) 38.dp else 44.dp)
+            .height(48.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(4.dp),
@@ -388,22 +390,19 @@ private fun LeaderboardList(
 }
 
 @Composable
-private fun FacultyLeaderboardContent(faculties: List<FacultyLeaderboardEntry>) {
-    val sorted = faculties.sortedBy { it.rank }
-    val leader = sorted.firstOrNull()
-    val totalPoints = sorted.sumOf { it.points }
-    val totalMembers = sorted.sumOf { it.members }
+private fun FacultyLeaderboardContent(faculties: List<FacultyLeaderboardEntry>, summary: FacultyLeaderboardSummary) {
+    val leader = summary.leader
 
     if (leader != null) {
         FacultyHeroCard(
             leader = leader,
-            totalPoints = totalPoints,
-            totalMembers = totalMembers
+            totalPoints = summary.totalPoints,
+            totalMembers = summary.totalMembers
         )
         Spacer(modifier = Modifier.height(18.dp))
     }
 
-    FacultyLeaderboardList(faculties = sorted)
+    FacultyLeaderboardList(faculties = faculties)
 }
 
 @Composable
@@ -776,4 +775,3 @@ private fun LeaderboardScreenPreview() {
         )
     }
 }
-

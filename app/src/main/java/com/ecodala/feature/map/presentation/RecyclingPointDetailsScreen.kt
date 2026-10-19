@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -45,7 +44,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -74,22 +73,27 @@ import com.ecodala.core.ui.theme.EcoGreen
 @Composable
 fun RecyclingPointDetailsRoute(
     onBackClick: () -> Unit,
-    onBuildRouteClick: () -> Unit,
-    onCallClick: () -> Unit,
-    onShareClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecyclingPointDetailsViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
+    if (uiState.isLoading) {
+        com.ecodala.core.ui.components.EcoInlineLoading(label = "Loading point…")
+    } else if (uiState.point == null) {
+        androidx.compose.foundation.layout.Column(Modifier.padding(24.dp)) {
+            Text(uiState.errorMessage ?: "Point not found")
+            androidx.compose.material3.TextButton(onClick = onBackClick) { Text("Back") }
+        }
+    }
     uiState.point?.let { point ->
         RecyclingPointDetailsScreen(
             point = point,
             sustainableFact = uiState.sustainableFact,
             onBackClick = onBackClick,
-            onBuildRouteClick = onBuildRouteClick,
-            onCallClick = { context.openDialer(point.phone) },
+            onBuildRouteClick = { context.openRecyclingNavigation(point) },
+            onCallClick = { if (point.phone.isNotBlank()) context.openDialer(point.phone) },
             onShareClick = { context.sharePoint(point) },
             modifier = modifier
         )

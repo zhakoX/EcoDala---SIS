@@ -1,16 +1,17 @@
 package com.ecodala.core.data.repository
 
-import com.ecodala.core.data.dummy.DummyEcoData
 import com.ecodala.core.domain.model.PointsEvent
 import com.ecodala.core.domain.model.WasteSubmission
 import com.ecodala.core.domain.repository.PointsEconomyRepository
 
-class DemoPointsEconomyRepository : PointsEconomyRepository {
+class DemoPointsEconomyRepository(
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
+) : PointsEconomyRepository {
     override suspend fun getPointEvents(userId: String): Result<List<PointsEvent>> {
-        return Result.success(DummyEcoData.pointsLedger.filter { it.userId == userId })
+        return repository.getPointEvents(userId)
     }
 
     override suspend fun getWasteSubmissions(userId: String): Result<List<WasteSubmission>> {
-        return Result.success(DummyEcoData.wasteSubmissions.filter { it.userId == userId })
+        return repository.getWasteSubmissions(userId)
     }
 }

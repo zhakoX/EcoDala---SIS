@@ -3,22 +3,23 @@ package com.ecodala.feature.tree.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.ApiEcoRepository
+import com.ecodala.core.data.repository.LocalEcoRepository
 import com.ecodala.core.domain.model.EcoRatingCalculator
 import com.ecodala.core.domain.model.TreeGrowthEvent
 import com.ecodala.core.domain.model.VirtualTree
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class VirtualTreeViewModel(
-    private val repository: ApiEcoRepository = ApiEcoRepository()
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
     private val _tree = MutableStateFlow(buildTreeFromPoints(DummyEcoData.currentUser.ecoPoints))
-    val tree: StateFlow<VirtualTree> = _tree
+    val tree: StateFlow<VirtualTree> = _tree.asStateFlow()
 
     init {
-        refresh()
+        viewModelScope.launch { repository.data.collect { refresh() } }
     }
 
     fun refresh() {

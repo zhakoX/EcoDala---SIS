@@ -42,7 +42,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -85,11 +85,10 @@ import com.ecodala.R
 fun LoginRoute(
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AuthViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LoginScreen(
         uiState = uiState,
@@ -99,7 +98,6 @@ fun LoginRoute(
         onLoginClick = { viewModel.onLoginSubmit(onLoginClick) },
         onSocialLoginClick = { provider -> viewModel.onSocialLoginSubmit(provider, onLoginClick) },
         onRegisterClick = onRegisterClick,
-        onForgotPasswordClick = onForgotPasswordClick,
         modifier = modifier
     )
 }
@@ -113,7 +111,6 @@ fun LoginScreen(
     onLoginClick: () -> Unit,
     onSocialLoginClick: (SocialAuthProvider) -> Unit,
     onRegisterClick: () -> Unit,
-    onForgotPasswordClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val strings = LocalEcoStrings.current
@@ -201,7 +198,6 @@ fun LoginScreen(
                 LoginOptionsRow(
                     rememberMe = uiState.rememberMe,
                     onRememberMeChange = onRememberMeChange,
-                    onForgotPasswordClick = onForgotPasswordClick
                 )
 
                 uiState.errorMessage?.let { message ->
@@ -368,7 +364,6 @@ private fun PasswordTextField(
 private fun LoginOptionsRow(
     rememberMe: Boolean,
     onRememberMeChange: (Boolean) -> Unit,
-    onForgotPasswordClick: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -395,14 +390,7 @@ private fun LoginOptionsRow(
             )
         }
 
-        Text(
-            text = LocalEcoStrings.current.forgotPassword,
-            modifier = Modifier.clickable(onClick = onForgotPasswordClick),
-            color = EcoGreen,
-            style = MaterialTheme.typography.labelMedium,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.End
-        )
+
     }
 }
 
@@ -457,7 +445,7 @@ private fun SocialLoginRow(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         SocialSignInButton(
-            label = "Google",
+            label = "Google · Demo",
             leadingContent = {
                 Text(
                     text = "G",
@@ -470,7 +458,7 @@ private fun SocialLoginRow(
             modifier = Modifier.weight(1f)
         )
         SocialSignInButton(
-            label = "Apple",
+            label = "Apple · Demo",
             leadingContent = {
                 SocialProviderLogo(
                     provider = SocialAuthProvider.Apple,
@@ -714,7 +702,6 @@ private fun LoginScreenPreview() {
             onLoginClick = {},
             onSocialLoginClick = {},
             onRegisterClick = {},
-            onForgotPasswordClick = {}
         )
     }
 }

@@ -22,12 +22,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.Scale
-import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -39,7 +35,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,15 +57,11 @@ fun SettingsRoute(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     SettingsScreen(
         uiState = uiState,
         onBackClick = onBackClick,
-        onPushNotificationsChange = viewModel::setPushNotificationsEnabled,
-        onLocationChange = viewModel::setLocationEnabled,
-        onAiTipsChange = viewModel::setAiTipsEnabled,
-        onPublicProfileChange = viewModel::setPublicProfileEnabled,
         onDarkModeChange = viewModel::setDarkModeEnabled,
         onPreferredUnitChange = viewModel::setPreferredUnit,
         onAppLanguageChange = viewModel::setAppLanguage,
@@ -81,10 +73,6 @@ fun SettingsRoute(
 fun SettingsScreen(
     uiState: AppSettings,
     onBackClick: () -> Unit,
-    onPushNotificationsChange: (Boolean) -> Unit,
-    onLocationChange: (Boolean) -> Unit,
-    onAiTipsChange: (Boolean) -> Unit,
-    onPublicProfileChange: (Boolean) -> Unit,
     onDarkModeChange: (Boolean) -> Unit,
     onPreferredUnitChange: (String) -> Unit,
     onAppLanguageChange: (String) -> Unit,
@@ -120,45 +108,6 @@ fun SettingsScreen(
                     .padding(top = 16.dp, bottom = 24.dp)
             ) {
                 SettingsSection(
-                    title = strings.settingsPreferences,
-                    cardColor = cardColor,
-                    primaryText = primaryText
-                ) {
-                    SwitchSettingRow(
-                        icon = Icons.Filled.Notifications,
-                        title = strings.settingsPushNotifications,
-                        subtitle = strings.settingsPushNotificationsSubtitle,
-                        checked = uiState.pushNotificationsEnabled,
-                        onCheckedChange = onPushNotificationsChange,
-                        primaryText = primaryText,
-                        secondaryText = secondaryText,
-                        iconBackground = iconBackground
-                    )
-                    SwitchSettingRow(
-                        icon = Icons.Filled.LocationOn,
-                        title = strings.settingsLocation,
-                        subtitle = strings.settingsLocationSubtitle,
-                        checked = uiState.locationEnabled,
-                        onCheckedChange = onLocationChange,
-                        primaryText = primaryText,
-                        secondaryText = secondaryText,
-                        iconBackground = iconBackground
-                    )
-                    SwitchSettingRow(
-                        icon = Icons.Filled.Psychology,
-                        title = strings.settingsAiTips,
-                        subtitle = strings.settingsAiTipsSubtitle,
-                        checked = uiState.aiTipsEnabled,
-                        onCheckedChange = onAiTipsChange,
-                        primaryText = primaryText,
-                        secondaryText = secondaryText,
-                        iconBackground = iconBackground
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(18.dp))
-
-                SettingsSection(
                     title = strings.settingsDisplayUnits,
                     cardColor = cardColor,
                     primaryText = primaryText
@@ -188,33 +137,6 @@ fun SettingsScreen(
                         secondaryText = secondaryText,
                         iconBackground = iconBackground,
                         darkMode = uiState.darkModeEnabled
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(18.dp))
-
-                SettingsSection(
-                    title = strings.settingsPrivacy,
-                    cardColor = cardColor,
-                    primaryText = primaryText
-                ) {
-                    SwitchSettingRow(
-                        icon = Icons.Filled.Public,
-                        title = strings.settingsPublicProfile,
-                        subtitle = strings.settingsPublicProfileSubtitle,
-                        checked = uiState.publicProfileEnabled,
-                        onCheckedChange = onPublicProfileChange,
-                        primaryText = primaryText,
-                        secondaryText = secondaryText,
-                        iconBackground = iconBackground
-                    )
-                    StaticSettingRow(
-                        icon = Icons.Filled.Security,
-                        title = strings.settingsDataSecurity,
-                        subtitle = strings.settingsDataSecuritySubtitle,
-                        primaryText = primaryText,
-                        secondaryText = secondaryText,
-                        iconBackground = iconBackground
                     )
                 }
 
@@ -511,10 +433,6 @@ private fun SettingsScreenPreview() {
         SettingsScreen(
             uiState = AppSettings(),
             onBackClick = {},
-            onPushNotificationsChange = {},
-            onLocationChange = {},
-            onAiTipsChange = {},
-            onPublicProfileChange = {},
             onDarkModeChange = {},
             onPreferredUnitChange = {},
             onAppLanguageChange = {}

@@ -40,7 +40,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -76,7 +76,7 @@ fun VirtualTreeRoute(
     modifier: Modifier = Modifier,
     viewModel: VirtualTreeViewModel = viewModel()
 ) {
-    val tree by viewModel.tree.collectAsState()
+    val tree by viewModel.tree.collectAsStateWithLifecycle()
 
     VirtualTreeScreen(
         tree = tree,

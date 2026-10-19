@@ -26,8 +26,6 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Recycling
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Spa
@@ -44,7 +42,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -75,15 +73,14 @@ fun ProfileRoute(
     onBackClick: () -> Unit,
     onAchievementsClick: () -> Unit,
     onRecyclingHistoryClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSupportClick: () -> Unit,
     onLogoutClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = viewModel()
 ) {
-    val user by viewModel.user.collectAsState()
-    val uiState by viewModel.uiState.collectAsState()
+    val user by viewModel.user.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ProfileScreen(
         user = user,
@@ -91,7 +88,6 @@ fun ProfileRoute(
         onBackClick = onBackClick,
         onAchievementsClick = onAchievementsClick,
         onRecyclingHistoryClick = onRecyclingHistoryClick,
-        onNotificationsClick = onNotificationsClick,
         onSettingsClick = onSettingsClick,
         onSupportClick = onSupportClick,
         onLogoutClick = { viewModel.logout(onLogoutClick) },
@@ -112,7 +108,6 @@ fun ProfileScreen(
     onBackClick: () -> Unit,
     onAchievementsClick: () -> Unit,
     onRecyclingHistoryClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSupportClick: () -> Unit,
     onLogoutClick: () -> Unit,
@@ -204,7 +199,6 @@ fun ProfileScreen(
                 ProfileMenu(
                     onAchievementsClick = onAchievementsClick,
                     onRecyclingHistoryClick = onRecyclingHistoryClick,
-                    onNotificationsClick = onNotificationsClick,
                     onSettingsClick = onSettingsClick,
                     onSupportClick = onSupportClick
                 )
@@ -664,7 +658,6 @@ private fun ScoreRing(score: Int) {
 private fun ProfileMenu(
     onAchievementsClick: () -> Unit,
     onRecyclingHistoryClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onSupportClick: () -> Unit
 ) {
@@ -672,7 +665,6 @@ private fun ProfileMenu(
         val strings = LocalEcoStrings.current
         ProfileMenuItem(Icons.Filled.EmojiEvents, strings.myAchievements, onAchievementsClick)
         ProfileMenuItem(Icons.Filled.History, strings.recyclingHistory, onRecyclingHistoryClick)
-        ProfileMenuItem(Icons.Filled.Notifications, strings.notifications, onNotificationsClick, showDot = true)
         ProfileMenuItem(Icons.Filled.Settings, strings.settings, onSettingsClick)
         ProfileMenuItem(Icons.Filled.SupportAgent, strings.support, onSupportClick)
     }
@@ -763,7 +755,6 @@ private fun ProfileScreenPreview() {
             onBackClick = {},
             onAchievementsClick = {},
             onRecyclingHistoryClick = {},
-            onNotificationsClick = {},
             onSettingsClick = {},
             onSupportClick = {},
             onLogoutClick = {}

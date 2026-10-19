@@ -19,8 +19,8 @@ class GetAchievementProgressUseCase(
             val totalPoints = events.sumOf { it.points }
             val submissionCount = submissions.size
             val plasticKg = submissions
-                .filter { it.wasteType == WasteType.Plastic && it.unit == "kg" }
-                .sumOf { it.quantity }
+                .filter { it.wasteType == WasteType.Plastic && it.unit in listOf("kg", "g") }
+                .sumOf { if (it.unit == "g") it.quantity / 1000.0 else it.quantity }
             val completedChallenges = DummyEcoData.challenges.count { it.status == ChallengeStatus.Completed }
             val currentStreak = calculateDemoStreakDays(submissions.map { it.createdAt })
 
@@ -128,8 +128,8 @@ class GetStreakSummaryUseCase(
 }
 
 private fun calculateDemoStreakDays(createdAtValues: List<String>): Int {
-    val hasToday = createdAtValues.any { it.contains("Today", ignoreCase = true) }
-    val hasYesterday = createdAtValues.any { it.contains("Yesterday", ignoreCase = true) }
+    val hasToday = createdAtValues.any { it.contains("Today", ignoreCase = true) || it.startsWith(java.time.LocalDate.now().toString()) }
+    val hasYesterday = createdAtValues.any { it.contains("Yesterday", ignoreCase = true) || it.startsWith(java.time.LocalDate.now().minusDays(1).toString()) }
     return when {
         hasToday && hasYesterday -> 2
         hasToday || hasYesterday -> 1

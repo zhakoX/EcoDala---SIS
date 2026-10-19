@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,7 +27,6 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Leaderboard
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Recycling
 import androidx.compose.material.icons.filled.Spa
 import androidx.compose.material.icons.filled.TaskAlt
@@ -33,13 +34,12 @@ import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +49,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -72,14 +71,13 @@ fun HomeRoute(
     onSubmitClick: () -> Unit,
     onChallengesClick: () -> Unit,
     onLeaderboardClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
     onTreeClick: () -> Unit,
     onAchievementsClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-    val settings by AppSettingsStore.settings.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val settings by AppSettingsStore.settings.collectAsStateWithLifecycle()
 
     HomeScreen(
         uiState = uiState,
@@ -88,7 +86,6 @@ fun HomeRoute(
         onSubmitClick = onSubmitClick,
         onChallengesClick = onChallengesClick,
         onLeaderboardClick = onLeaderboardClick,
-        onNotificationsClick = onNotificationsClick,
         onRatingClick = onLeaderboardClick,
         onTreeClick = onTreeClick,
         onAchievementsClick = onAchievementsClick,
@@ -107,7 +104,6 @@ fun HomeScreen(
     onSubmitClick: () -> Unit,
     onChallengesClick: () -> Unit,
     onLeaderboardClick: () -> Unit,
-    onNotificationsClick: () -> Unit,
     onRatingClick: () -> Unit,
     onTreeClick: () -> Unit,
     onAchievementsClick: () -> Unit,
@@ -137,7 +133,6 @@ fun HomeScreen(
             HomeHeader(
                 selectedLanguageTag = selectedLanguageTag,
                 onLanguageSelected = onLanguageSelected,
-                onNotificationsClick = onNotificationsClick
             )
 
             Spacer(modifier = Modifier.height(smallGap))
@@ -319,8 +314,7 @@ private fun ImpactMetric(
 @Composable
 private fun HomeHeader(
     selectedLanguageTag: String,
-    onLanguageSelected: (String) -> Unit,
-    onNotificationsClick: () -> Unit
+    onLanguageSelected: (String) -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -345,27 +339,7 @@ private fun HomeHeader(
                 onLanguageSelected = onLanguageSelected
             )
 
-            Box {
-                IconButton(
-                    onClick = onNotificationsClick,
-                    modifier = Modifier
-                        .size(42.dp)
-                        .background(MaterialTheme.colorScheme.surfaceVariant, CircleShape)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Notifications,
-                        contentDescription = "Notifications",
-                        tint = EcoGreen,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .size(10.dp)
-                        .background(Color(0xFFE53935), CircleShape)
-                )
-            }
+
         }
     }
 }
@@ -391,6 +365,8 @@ private fun HomeLanguageSwitcher(
                 modifier = Modifier
                     .clip(RoundedCornerShape(15.dp))
                     .background(if (selectedLanguageTag == tag) EcoGreen else Color.Transparent)
+                    .heightIn(min = 48.dp)
+                    .widthIn(min = 48.dp)
                     .clickable { onLanguageSelected(tag) }
                     .padding(horizontal = 8.dp, vertical = 5.dp),
                 color = if (selectedLanguageTag == tag) Color.White else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -833,7 +809,6 @@ private fun HomeScreenPreview() {
             onSubmitClick = {},
             onChallengesClick = {},
             onLeaderboardClick = {},
-            onNotificationsClick = {},
             onRatingClick = {},
             onTreeClick = {},
             onAchievementsClick = {}

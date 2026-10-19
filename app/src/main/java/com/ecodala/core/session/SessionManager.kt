@@ -1,131 +1,69 @@
 package com.ecodala.core.session
 
 import android.content.Context
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.ecodala.core.domain.model.EcoUser
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 data class UserSession(
     val isLoggedIn: Boolean = false,
-    val token: String? = null,
-    val refreshToken: String? = null,
     val userId: String? = null,
     val fullName: String? = null,
     val email: String? = null
 )
 
-private val Context.sessionDataStore by preferencesDataStore(name = "auth_session")
+private val Context.sessionDataStore by preferencesDataStore(name = "sis4_demo_session")
 
+/** Local demonstration identity, without passwords or tokens. */
 object SessionManager {
     private val _session = MutableStateFlow(UserSession())
-    val session: StateFlow<UserSession> = _session
-
+    val session = _session.asStateFlow()
+    private val ready = MutableStateFlow(false)
+    suspend fun awaitReady() { ready.first { it } }
     private var appContext: Context? = null
-
-    private val isLoggedInKey = booleanPreferencesKey("is_logged_in")
-    private val tokenKey = stringPreferencesKey("token")
-    private val refreshTokenKey = stringPreferencesKey("refresh_token")
+    private val loggedInKey = booleanPreferencesKey("logged_in")
     private val userIdKey = stringPreferencesKey("user_id")
-    private val fullNameKey = stringPreferencesKey("full_name")
+    private val nameKey = stringPreferencesKey("name")
     private val emailKey = stringPreferencesKey("email")
 
     fun initialize(context: Context, scope: CoroutineScope) {
         if (appContext != null) return
-
         appContext = context.applicationContext
         scope.launch {
             context.applicationContext.sessionDataStore.data
-                .catch { exception ->
-                    if (exception is IOException) {
-                        emit(emptyPreferences())
-                    } else {
-                        throw exception
-                    }
+                .catch { if (it is IOException) emit(emptyPreferences()) else throw it }
+                .collect { preferences ->
+                    _session.value = UserSession(preferences[loggedInKey] ?: false,
+                        preferences[userIdKey], preferences[nameKey], preferences[emailKey])
+                    ready.value = true
                 }
-                .map { preferences ->
-                    UserSession(
-                        isLoggedIn = preferences[isLoggedInKey] ?: false,
-                        token = preferences[tokenKey],
-                        refreshToken = preferences[refreshTokenKey],
-                        userId = preferences[userIdKey],
-                        fullName = preferences[fullNameKey],
-                        email = preferences[emailKey]
-                    )
-                }
-                .collect { _session.value = it }
         }
     }
 
-    suspend fun saveSession(token: String, user: EcoUser) {
-        saveSession(token = token, refreshToken = _session.value.refreshToken, user = user)
-    }
-
-    suspend fun saveSession(token: String, refreshToken: String?, user: EcoUser) {
-        val context = appContext ?: return
-        context.sessionDataStore.edit { preferences ->
-            preferences[isLoggedInKey] = true
-            preferences[tokenKey] = token
-            refreshToken?.let { preferences[refreshTokenKey] = it }
-            preferences[userIdKey] = user.id
-            preferences[fullNameKey] = user.fullName
-            preferences[emailKey] = user.email
+    suspend fun saveSession(user: EcoUser) {
+        appContext?.sessionDataStore?.edit {
+            it[loggedInKey] = true
+            it[userIdKey] = user.id
+            it[nameKey] = user.fullName
+            it[emailKey] = user.email
         }
-        _session.value = UserSession(
-            isLoggedIn = true,
-            token = token,
-            refreshToken = refreshToken,
-            userId = user.id,
-            fullName = user.fullName,
-            email = user.email
-        )
-    }
-
-    suspend fun saveRawSession(accessToken: String, refreshToken: String?) {
-        val context = appContext ?: return
-        val current = _session.value
-        context.sessionDataStore.edit { preferences ->
-            preferences[isLoggedInKey] = true
-            preferences[tokenKey] = accessToken
-            refreshToken?.let { preferences[refreshTokenKey] = it }
-        }
-        _session.value = current.copy(
-            isLoggedIn = true,
-            token = accessToken,
-            refreshToken = refreshToken
-        )
+        _session.value = UserSession(true, user.id, user.fullName, user.email)
     }
 
     suspend fun updateProfile(fullName: String, email: String) {
-        val context = appContext ?: return
-        val current = _session.value
-        context.sessionDataStore.edit { preferences ->
-            preferences[isLoggedInKey] = current.isLoggedIn
-            current.token?.let { preferences[tokenKey] = it }
-            current.refreshToken?.let { preferences[refreshTokenKey] = it }
-            preferences[userIdKey] = current.userId ?: "user-1"
-            preferences[fullNameKey] = fullName
-            preferences[emailKey] = email
+        appContext?.sessionDataStore?.edit {
+            it[nameKey] = fullName
+            it[emailKey] = email
         }
-        _session.value = current.copy(
-            userId = current.userId ?: "user-1",
-            fullName = fullName,
-            email = email
-        )
+        _session.update { it.copy(fullName = fullName, email = email) }
     }
 
     suspend fun clearSession() {
-        val context = appContext ?: return
-        context.sessionDataStore.edit { it.clear() }
+        appContext?.sessionDataStore?.edit { it.clear() }
         _session.value = UserSession()
     }
 }

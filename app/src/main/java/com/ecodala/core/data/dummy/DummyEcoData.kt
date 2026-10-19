@@ -1,31 +1,18 @@
 package com.ecodala.core.data.dummy
 
 import com.ecodala.core.domain.model.Achievement
-import com.ecodala.core.domain.model.Biotoilet
-import com.ecodala.core.domain.model.BiotoiletReview
-import com.ecodala.core.domain.model.BiotoiletStatus
-import com.ecodala.core.domain.model.BiotoiletType
 import com.ecodala.core.domain.model.Challenge
 import com.ecodala.core.domain.model.ChallengeStatus
 import com.ecodala.core.domain.model.ChallengeType
 import com.ecodala.core.domain.model.EcoUser
-import com.ecodala.core.domain.model.EcoReport
-import com.ecodala.core.domain.model.EcoReportComment
-import com.ecodala.core.domain.model.EcoReportSeverity
-import com.ecodala.core.domain.model.EcoReportStatus
 import com.ecodala.core.domain.model.LeaderboardEntry
 import com.ecodala.core.domain.model.PointsEvent
 import com.ecodala.core.domain.model.PointsSource
 import com.ecodala.core.domain.model.RecyclingPoint
-import com.ecodala.core.domain.model.ScannerResult
 import com.ecodala.core.domain.model.TreeGrowthEvent
 import com.ecodala.core.domain.model.VirtualTree
 import com.ecodala.core.domain.model.WasteSubmission
 import com.ecodala.core.domain.model.WasteType
-import com.ecodala.core.domain.model.WaterStation
-import com.ecodala.core.domain.model.WaterStationReview
-import com.ecodala.core.domain.model.WaterStationStatus
-import com.ecodala.core.domain.model.WaterStationType
 
 object DummyEcoData {
     val currentUser = EcoUser(
@@ -41,9 +28,9 @@ object DummyEcoData {
     val recyclingPoints = listOf(
         RecyclingPoint(
             id = "point-1",
-            name = "Green Recycling Center",
+            name = "Demo: Green Recycling Center",
             address = "Abay Ave 150, Almaty",
-            phone = "+7 (727) 234-56-78",
+            phone = "",
             openingHours = "08:00 AM - 07:00 PM",
             latitude = 43.238949,
             longitude = 76.889709,
@@ -60,9 +47,9 @@ object DummyEcoData {
         ),
         RecyclingPoint(
             id = "point-2",
-            name = "Taza Qala Eco Point",
+            name = "Demo: Taza Qala Eco Point",
             address = "Dostyk Ave 85, Almaty",
-            phone = "+7 (701) 118-22-44",
+            phone = "",
             openingHours = "09:00 AM - 08:00 PM",
             latitude = 43.250861,
             longitude = 76.955188,
@@ -73,9 +60,9 @@ object DummyEcoData {
         ),
         RecyclingPoint(
             id = "point-3",
-            name = "Mega Recycling Box",
+            name = "Demo: Mega Recycling Box",
             address = "Rozybakiev St 247A, Almaty",
-            phone = "+7 (775) 402-91-20",
+            phone = "",
             openingHours = "10:00 AM - 10:00 PM",
             latitude = 43.202719,
             longitude = 76.892913,
@@ -86,9 +73,9 @@ object DummyEcoData {
         ),
         RecyclingPoint(
             id = "point-4",
-            name = "Battery Safe Drop",
+            name = "Demo: Battery Safe Drop",
             address = "Satpayev St 90, Almaty",
-            phone = "+7 (747) 610-30-30",
+            phone = "",
             openingHours = "08:30 AM - 06:30 PM",
             latitude = 43.235055,
             longitude = 76.917819,
@@ -99,9 +86,9 @@ object DummyEcoData {
         ),
         RecyclingPoint(
             id = "point-5",
-            name = "Campus Paper Hub",
+            name = "Demo: Campus Paper Hub",
             address = "Timiryazev St 42, Almaty",
-            phone = "+7 (777) 510-64-12",
+            phone = "",
             openingHours = "08:00 AM - 05:00 PM",
             latitude = 43.225095,
             longitude = 76.909302,
@@ -109,227 +96,55 @@ object DummyEcoData {
             distanceMeters = 1200,
             acceptedWasteTypes = listOf(WasteType.Paper, WasteType.Organic, WasteType.Plastic),
             rewardPoints = 12
-        )
-    )
-
-    val biotoilets = listOf(
-        Biotoilet(
-            id = "bio-1",
-            name = "Central Park Biotoilet",
-            photoLabel = "Park entrance facility",
-            address = "Gogol St 1, Central Park, Almaty",
-            latitude = 43.260871,
-            longitude = 76.971219,
-            distanceMeters = 520,
-            openingHours = "08:00 AM - 10:00 PM",
-            status = BiotoiletStatus.Open,
-            type = BiotoiletType.Free,
-            isAccessible = true,
-            isFamilyFriendly = true,
-            cleanlinessRating = 4.6,
-            reviews = listOf(
-                BiotoiletReview("Aruzhan", 5, "Clean, easy to find and has accessible entrance.", "Today"),
-                BiotoiletReview("Daniel", 4, "Good for tourists, paper was available.", "Yesterday")
-            )
         ),
-        Biotoilet(
-            id = "bio-2",
-            name = "Abay Square Public Toilet",
-            photoLabel = "Square service block",
-            address = "Abay Ave 56, Almaty",
-            latitude = 43.242734,
-            longitude = 76.944886,
-            distanceMeters = 780,
-            openingHours = "07:00 AM - 11:00 PM",
-            status = BiotoiletStatus.Open,
-            type = BiotoiletType.Paid,
-            isAccessible = true,
-            isFamilyFriendly = false,
-            cleanlinessRating = 4.2,
-            reviews = listOf(
-                BiotoiletReview("Miras", 4, "Paid but maintained well.", "2 days ago"),
-                BiotoiletReview("Lina", 4, "Wheelchair ramp is available.", "Last week")
-            )
+        RecyclingPoint(
+            id = "point-6", name = "Demo: North Paper Corner", address = "Raiymbek Ave 120, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.220000, longitude = 76.900000,
+            rating = 4.6, distanceMeters = 2120,
+            acceptedWasteTypes = listOf(WasteType.Paper, WasteType.Plastic), rewardPoints = 16
         ),
-        Biotoilet(
-            id = "bio-3",
-            name = "Botanical Garden Biotoilet",
-            photoLabel = "Garden eco cabin",
-            address = "Timiryazev St 36D, Almaty",
-            latitude = 43.224728,
-            longitude = 76.912821,
-            distanceMeters = 1260,
-            openingHours = "09:00 AM - 08:00 PM",
-            status = BiotoiletStatus.Unknown,
-            type = BiotoiletType.Paid,
-            isAccessible = false,
-            isFamilyFriendly = true,
-            cleanlinessRating = 3.8,
-            reviews = listOf(
-                BiotoiletReview("EcoVisitor", 3, "Usually open, but status changes often.", "3 days ago")
-            )
+        RecyclingPoint(
+            id = "point-7", name = "Demo: Glass Garden", address = "Zharokov St 110, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.226000, longitude = 76.907000,
+            rating = 4.7, distanceMeters = 2240,
+            acceptedWasteTypes = listOf(WasteType.Glass, WasteType.Metal), rewardPoints = 17
         ),
-        Biotoilet(
-            id = "bio-4",
-            name = "Bus Station Sanitary Point",
-            photoLabel = "Transport hub toilet",
-            address = "Sayran Bus Station, Almaty",
-            latitude = 43.233103,
-            longitude = 76.874068,
-            distanceMeters = 1900,
-            openingHours = "24 hours",
-            status = BiotoiletStatus.Maintenance,
-            type = BiotoiletType.Free,
-            isAccessible = false,
-            isFamilyFriendly = false,
-            cleanlinessRating = 2.9,
-            reviews = listOf(
-                BiotoiletReview("Visitor", 2, "Reported no water this morning.", "Today")
-            )
-        )
-    )
-
-    val waterStations = listOf(
-        WaterStation(
-            id = "water-1",
-            name = "Central Park Drinking Fountain",
-            photoLabel = "Blue fountain near main alley",
-            address = "Central Park, Gogol St 1, Almaty",
-            latitude = 43.260112,
-            longitude = 76.969814,
-            distanceMeters = 480,
-            workingHours = "08:00 AM - 10:00 PM",
-            waterType = WaterStationType.FreeDrinkingWater,
-            status = WaterStationStatus.Available,
-            rating = 4.7,
-            reviews = listOf(
-                WaterStationReview("Aruzhan", 5, "Cold water, easy to refill bottle.", "Today"),
-                WaterStationReview("Tourist", 4, "Clean and visible from the path.", "Yesterday")
-            )
+        RecyclingPoint(
+            id = "point-8", name = "Demo: Campus Reuse Hub", address = "Al-Farabi Ave 71, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.232000, longitude = 76.914000,
+            rating = 4.4, distanceMeters = 2360,
+            acceptedWasteTypes = listOf(WasteType.Electronics, WasteType.Batteries), rewardPoints = 18
         ),
-        WaterStation(
-            id = "water-2",
-            name = "KazNU Refill Station",
-            photoLabel = "Campus refill point",
-            address = "Al-Farabi Ave 71, Almaty",
-            latitude = 43.226091,
-            longitude = 76.922241,
-            distanceMeters = 920,
-            workingHours = "08:00 AM - 08:00 PM",
-            waterType = WaterStationType.RefillStation,
-            status = WaterStationStatus.Available,
-            rating = 4.8,
-            reviews = listOf(
-                WaterStationReview("Student", 5, "Best refill station on campus.", "2 days ago")
-            )
+        RecyclingPoint(
+            id = "point-9", name = "Demo: Neighbourhood Eco Box", address = "Tole Bi St 200, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.238000, longitude = 76.921000,
+            rating = 4.5, distanceMeters = 2480,
+            acceptedWasteTypes = listOf(WasteType.Plastic, WasteType.Paper, WasteType.Metal), rewardPoints = 19
         ),
-        WaterStation(
-            id = "water-3",
-            name = "Mega Filtered Water Point",
-            photoLabel = "Filtered water near entrance",
-            address = "Rozybakiev St 247A, Almaty",
-            latitude = 43.202980,
-            longitude = 76.892674,
-            distanceMeters = 1650,
-            workingHours = "10:00 AM - 10:00 PM",
-            waterType = WaterStationType.FilteredWater,
-            status = WaterStationStatus.Unknown,
-            rating = 4.1,
-            reviews = listOf(
-                WaterStationReview("Miras", 4, "Usually works, but sometimes closed for cleaning.", "Last week")
-            )
+        RecyclingPoint(
+            id = "point-10", name = "Demo: Organic Circle", address = "Saina St 50, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.244000, longitude = 76.928000,
+            rating = 4.6, distanceMeters = 2600,
+            acceptedWasteTypes = listOf(WasteType.Organic, WasteType.Paper), rewardPoints = 20
         ),
-        WaterStation(
-            id = "water-4",
-            name = "Sayran Water Vending Machine",
-            photoLabel = "Water vending machine",
-            address = "Sayran Bus Station, Almaty",
-            latitude = 43.232792,
-            longitude = 76.873681,
-            distanceMeters = 1980,
-            workingHours = "24 hours",
-            waterType = WaterStationType.BottledWaterVendingMachine,
-            status = WaterStationStatus.Maintenance,
-            rating = 3.2,
-            reviews = listOf(
-                WaterStationReview("Visitor", 2, "Machine was not accepting payment.", "Today")
-            )
-        )
-    )
-
-    val ecoReports = listOf(
-        EcoReport(
-            id = "report-1",
-            title = "Illegal dump near river path",
-            photoLabel = "Plastic bags and mixed waste",
-            address = "Esentai River walking path, Almaty",
-            latitude = 43.229912,
-            longitude = 76.928381,
-            distanceMeters = 640,
-            wasteDescription = "Mixed plastic bags, food packaging and bottles left near the river path.",
-            status = EcoReportStatus.Verified,
-            severity = EcoReportSeverity.High,
-            reportedBy = "EcoWarrior",
-            reportedAt = "Today, 09:40",
-            verificationCount = 12,
-            comments = listOf(
-                EcoReportComment("Aibek", "Confirmed. Needs municipal cleanup.", "Today"),
-                EcoReportComment("Alina", "I uploaded an updated photo.", "Today")
-            )
+        RecyclingPoint(
+            id = "point-11", name = "Demo: Battery Collection Lab", address = "Seifullin Ave 180, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.250000, longitude = 76.935000,
+            rating = 4.7, distanceMeters = 2720,
+            acceptedWasteTypes = listOf(WasteType.Batteries, WasteType.Electronics), rewardPoints = 21
         ),
-        EcoReport(
-            id = "report-2",
-            title = "Overflowing bins behind campus",
-            photoLabel = "Overflowing public bins",
-            address = "Timiryazev St 42, Almaty",
-            latitude = 43.225728,
-            longitude = 76.909981,
-            distanceMeters = 980,
-            wasteDescription = "Bins are full and waste is spreading to the sidewalk.",
-            status = EcoReportStatus.Submitted,
-            severity = EcoReportSeverity.Medium,
-            reportedBy = "Student",
-            reportedAt = "Yesterday",
-            verificationCount = 3,
-            comments = listOf(
-                EcoReportComment("Miras", "Saw this yesterday evening too.", "Yesterday")
-            )
-        ),
-        EcoReport(
-            id = "report-3",
-            title = "Construction waste near bus stop",
-            photoLabel = "Construction debris",
-            address = "Abay Ave 150, Almaty",
-            latitude = 43.239421,
-            longitude = 76.888902,
-            distanceMeters = 450,
-            wasteDescription = "Wood pieces and broken tiles placed near public transport stop.",
-            status = EcoReportStatus.InProgress,
-            severity = EcoReportSeverity.High,
-            reportedBy = "Dana",
-            reportedAt = "2 days ago",
-            verificationCount = 8,
-            comments = listOf(
-                EcoReportComment("Admin", "Cleanup request has been forwarded.", "Today")
-            )
-        ),
-        EcoReport(
-            id = "report-4",
-            title = "Cleaned park corner",
-            photoLabel = "Resolved area after cleanup",
-            address = "Central Park, Almaty",
-            latitude = 43.260440,
-            longitude = 76.970623,
-            distanceMeters = 530,
-            wasteDescription = "Community report was resolved after volunteer cleanup.",
-            status = EcoReportStatus.Resolved,
-            severity = EcoReportSeverity.Low,
-            reportedBy = "Volunteer",
-            reportedAt = "Last week",
-            verificationCount = 21,
-            comments = listOf(
-                EcoReportComment("EcoDala", "Resolved and verified by community.", "3 days ago")
-            )
+        RecyclingPoint(
+            id = "point-12", name = "Demo: Green Community Point", address = "Auezov St 75, Almaty (demo)",
+            phone = "", openingHours = "09:00 - 18:00 (demo)",
+            latitude = 43.256000, longitude = 76.942000,
+            rating = 4.4, distanceMeters = 2840,
+            acceptedWasteTypes = listOf(WasteType.Glass, WasteType.Plastic, WasteType.Metal), rewardPoints = 22
         )
     )
 
@@ -348,8 +163,8 @@ object DummyEcoData {
     val challenges = listOf(
         Challenge(
             id = "challenge-1",
-            title = "Recycle 5 Plastic Bottles",
-            description = "3 of 5 completed",
+            title = "Complete 5 Recycling Submissions",
+            description = "3 / 5 demo submissions",
             progress = 3,
             target = 5,
             rewardPoints = 20,
@@ -395,7 +210,7 @@ object DummyEcoData {
         Achievement("achievement-3", "Challenge Joined", "Joined your first challenge", "Last week", "group", true),
         Achievement("achievement-4", "Tree Keeper", "Reach virtual tree level 5", null, "tree", false),
         Achievement("achievement-5", "Map Explorer", "Visit 5 recycling points", null, "map", false),
-        Achievement("achievement-6", "Waste Scanner", "Scan 10 items with AI scanner", null, "scanner", false)
+        Achievement("achievement-6", "Plastic Saver", "Recycle 10 kg of plastic", null, "recycling", false)
     )
 
     val wasteSubmissions = listOf(
@@ -454,12 +269,6 @@ object DummyEcoData {
             earnedPoints = 45,
             createdAt = "15 May"
         )
-    )
-
-    val scannerResult = ScannerResult(
-        wasteType = WasteType.Plastic,
-        confidence = 0.94f,
-        disposalHint = "Put clean plastic into the nearest plastic collection point."
     )
 
     val pointsLedger = listOf(

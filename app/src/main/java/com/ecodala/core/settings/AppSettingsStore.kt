@@ -15,10 +15,6 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 data class AppSettings(
-    val pushNotificationsEnabled: Boolean = true,
-    val locationEnabled: Boolean = true,
-    val aiTipsEnabled: Boolean = true,
-    val publicProfileEnabled: Boolean = false,
     val darkModeEnabled: Boolean = false,
     val preferredUnit: String = "kg",
     val appLanguageTag: String = "en"
@@ -33,10 +29,6 @@ object AppSettingsStore {
     private var appContext: Context? = null
     private var appScope: CoroutineScope? = null
 
-    private val pushNotificationsKey = booleanPreferencesKey("push_notifications_enabled")
-    private val locationKey = booleanPreferencesKey("location_enabled")
-    private val aiTipsKey = booleanPreferencesKey("ai_tips_enabled")
-    private val publicProfileKey = booleanPreferencesKey("public_profile_enabled")
     private val darkModeKey = booleanPreferencesKey("dark_mode_enabled")
     private val preferredUnitKey = stringPreferencesKey("preferred_unit")
     private val appLanguageTagKey = stringPreferencesKey("app_language_tag")
@@ -58,10 +50,6 @@ object AppSettingsStore {
                 }
                 .map { preferences ->
                     AppSettings(
-                        pushNotificationsEnabled = preferences[pushNotificationsKey] ?: true,
-                        locationEnabled = preferences[locationKey] ?: true,
-                        aiTipsEnabled = preferences[aiTipsKey] ?: true,
-                        publicProfileEnabled = preferences[publicProfileKey] ?: false,
                         darkModeEnabled = preferences[darkModeKey] ?: false,
                         preferredUnit = preferences[preferredUnitKey] ?: "kg",
                         appLanguageTag = preferences[appLanguageTagKey] ?: "en"
@@ -82,10 +70,6 @@ object AppSettingsStore {
 
         scope.launch {
             context.appSettingsDataStore.edit { preferences ->
-                preferences[pushNotificationsKey] = newSettings.pushNotificationsEnabled
-                preferences[locationKey] = newSettings.locationEnabled
-                preferences[aiTipsKey] = newSettings.aiTipsEnabled
-                preferences[publicProfileKey] = newSettings.publicProfileEnabled
                 preferences[darkModeKey] = newSettings.darkModeEnabled
                 preferences[preferredUnitKey] = newSettings.preferredUnit
                 preferences[appLanguageTagKey] = newSettings.appLanguageTag

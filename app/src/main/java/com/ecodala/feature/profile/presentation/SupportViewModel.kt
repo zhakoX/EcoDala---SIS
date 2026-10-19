@@ -14,12 +14,12 @@ data class SupportUiState(
         "Waste submission",
         "Eco points",
         "Account and profile",
-        "AI scanner"
+        "Recycling history"
     ),
     val contacts: List<SupportContact> = listOf(
-        SupportContact("EcoDala Hotline", "+7 777 120 45 45", "Daily, 09:00 - 20:00"),
-        SupportContact("WhatsApp Support", "+7 701 450 88 88", "Fast replies in Kazakhstan"),
-        SupportContact("Email", "support@ecodala.kz", "Response within 24 hours")
+        SupportContact("Demo support", "Local demonstration", "Messages stay on this screen"),
+        SupportContact("Demo help", "Ask during the defense", "No external service"),
+        SupportContact("Demo email", "support@example.invalid", "Illustrative contact only")
     ),
     val faqs: List<SupportFaq> = listOf(
         SupportFaq("How are EcoPoints counted?", "Points are added after a confirmed waste submission or completed challenge."),

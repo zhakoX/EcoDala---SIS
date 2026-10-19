@@ -3,10 +3,11 @@ package com.ecodala.feature.profile.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.ApiEcoRepository
+import com.ecodala.core.data.repository.LocalEcoRepository
 import com.ecodala.core.domain.model.WasteSubmission
 import com.ecodala.core.domain.model.WasteType
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,21 +23,20 @@ data class RecyclingHistoryUiState(
 
     val totalQuantityKg: Int
         get() = submissions
-            .filter { it.unit == "kg" }
-            .sumOf { it.quantity.toInt() }
+            .sumOf { if (it.unit == "g") it.quantity / 1000.0 else if (it.unit == "kg") it.quantity else if (it.unit == "bag") it.quantity * 2 else 0.0 }.toInt()
 
     val totalPoints: Int
         get() = submissions.sumOf { it.earnedPoints }
 }
 
 class RecyclingHistoryViewModel(
-    private val repository: ApiEcoRepository = ApiEcoRepository()
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(RecyclingHistoryUiState())
-    val uiState: StateFlow<RecyclingHistoryUiState> = _uiState
+    val uiState: StateFlow<RecyclingHistoryUiState> = _uiState.asStateFlow()
 
     init {
-        refresh()
+        viewModelScope.launch { repository.data.collect { refresh() } }
     }
 
     fun refresh() {
@@ -46,7 +46,7 @@ class RecyclingHistoryViewModel(
                 .onSuccess { submissions ->
                     _uiState.update { state ->
                         state.copy(
-                            submissions = submissions.takeIf { it.isNotEmpty() } ?: state.submissions,
+                            submissions = submissions,
                             isLoading = false
                         )
                     }

@@ -47,7 +47,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -88,7 +88,7 @@ fun RegisterRoute(
     modifier: Modifier = Modifier,
     viewModel: AuthViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     RegisterScreen(
         uiState = uiState,
@@ -255,7 +255,7 @@ fun RegisterScreen(
 
                 Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                     SocialButton(
-                        label = "Google",
+                        label = "Google · Demo",
                         leadingContent = {
                             Text(
                                 text = "G",
@@ -267,7 +267,7 @@ fun RegisterScreen(
                         modifier = Modifier.weight(1f)
                     )
                     SocialButton(
-                        label = "Apple",
+                        label = "Apple · Demo",
                         leadingContent = {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_apple_logo),
@@ -583,12 +583,12 @@ private fun TermsPrivacyBottomSheet(
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Location is used only to show nearby recycling points and build routes when you allow it. Camera access is used for waste scanner and photo confirmation.",
+                text = "This is a local educational demo. Account details, settings, submissions and favourites are stored on this device.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "You can change permissions from Android settings at any time. Backend sync can be added later with secure authentication.",
+                text = "The map uses online OpenStreetMap tiles. Provider buttons use demo identities; passwords are not stored and no email is sent.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium
             )

@@ -3,9 +3,10 @@ package com.ecodala.feature.leaderboard.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.ApiEcoRepository
+import com.ecodala.core.data.repository.LocalEcoRepository
 import com.ecodala.core.domain.model.LeaderboardEntry
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -20,8 +21,23 @@ data class FacultyLeaderboardEntry(
     val isCurrentFaculty: Boolean = false
 )
 
+/** Faculty totals and ranking are prepared outside the Composable. */
+data class FacultyLeaderboardSummary(
+    val leader: FacultyLeaderboardEntry? = null,
+    val totalPoints: Int = 0,
+    val totalMembers: Int = 0
+) {
+    companion object {
+        fun from(faculties: List<FacultyLeaderboardEntry>) = FacultyLeaderboardSummary(
+            leader = faculties.maxByOrNull { it.points },
+            totalPoints = faculties.sumOf { it.points },
+            totalMembers = faculties.sumOf { it.members }
+        )
+    }
+}
+
 class LeaderboardViewModel(
-    private val repository: ApiEcoRepository = ApiEcoRepository()
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
     private val currentUserPoints = DummyEcoData.pointsLedger
         .filter { it.userId == DummyEcoData.currentUser.id }
@@ -36,7 +52,7 @@ class LeaderboardViewModel(
             }
         })
     )
-    val entries: StateFlow<List<LeaderboardEntry>> = _entries
+    val entries: StateFlow<List<LeaderboardEntry>> = _entries.asStateFlow()
 
     private val _faculties = MutableStateFlow(
         listOf(
@@ -88,12 +104,23 @@ class LeaderboardViewModel(
             )
         )
     )
-    val faculties: StateFlow<List<FacultyLeaderboardEntry>> = _faculties
+    val faculties: StateFlow<List<FacultyLeaderboardEntry>> = _faculties.asStateFlow()
+
+    private val baseFaculties = _faculties.value
+    private val _facultySummary = MutableStateFlow(FacultyLeaderboardSummary.from(baseFaculties))
+    val facultySummary = _facultySummary.asStateFlow()
 
     init {
         viewModelScope.launch {
-            repository.leaderboard()
-                .onSuccess { if (it.isNotEmpty()) _entries.value = rankEntries(it) }
+            kotlinx.coroutines.flow.combine(repository.data, com.ecodala.core.session.SessionManager.session) { data, session -> data to session }
+                .collect {
+                    repository.leaderboard().onSuccess { _entries.value = rankEntries(it) }
+                    val addedPoints = repository.data.value.ecoPoints - DummyEcoData.currentUser.ecoPoints
+                    _faculties.value = baseFaculties.map { faculty ->
+                        if (faculty.isCurrentFaculty) faculty.copy(points = faculty.points + addedPoints) else faculty
+                    }.sortedByDescending { it.points }.mapIndexed { index, faculty -> faculty.copy(rank = index + 1) }
+                    _facultySummary.value = FacultyLeaderboardSummary.from(_faculties.value)
+                }
         }
     }
 

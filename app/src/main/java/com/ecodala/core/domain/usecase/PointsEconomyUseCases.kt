@@ -42,13 +42,13 @@ class GetMonthlyImpactUseCase(
 
         return eventsResult.mapCatching { events ->
             val submissions = submissionsResult.getOrThrow()
-                .filter {
-                    it.createdAt.contains("Today") ||
-                        it.createdAt.contains("Yesterday") ||
-                        it.createdAt.contains("Jun")
+                .filter { submission ->
+                    submission.createdAt.startsWith(monthKey) ||
+                        submission.createdAt.contains("Today") || submission.createdAt.contains("Yesterday")
                 }
+
             MonthlyImpact(
-                recycledKg = submissions.filter { it.unit == "kg" }.sumOf { it.quantity },
+                recycledKg = submissions.sumOf { if (it.unit == "kg") it.quantity else if (it.unit == "g") it.quantity / 1000.0 else if (it.unit == "bag") it.quantity * 2 else 0.0 },
                 submissions = submissions.size,
                 pointsEarned = events.filter { it.monthKey == monthKey }.sumOf { it.points },
                 challengeRewards = events.filter {

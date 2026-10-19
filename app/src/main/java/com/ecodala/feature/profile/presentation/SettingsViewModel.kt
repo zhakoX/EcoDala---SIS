@@ -8,22 +8,6 @@ import kotlinx.coroutines.flow.StateFlow
 class SettingsViewModel : ViewModel() {
     val uiState: StateFlow<AppSettings> = AppSettingsStore.settings
 
-    fun setPushNotificationsEnabled(value: Boolean) {
-        AppSettingsStore.update { it.copy(pushNotificationsEnabled = value) }
-    }
-
-    fun setLocationEnabled(value: Boolean) {
-        AppSettingsStore.update { it.copy(locationEnabled = value) }
-    }
-
-    fun setAiTipsEnabled(value: Boolean) {
-        AppSettingsStore.update { it.copy(aiTipsEnabled = value) }
-    }
-
-    fun setPublicProfileEnabled(value: Boolean) {
-        AppSettingsStore.update { it.copy(publicProfileEnabled = value) }
-    }
-
     fun setDarkModeEnabled(value: Boolean) {
         AppSettingsStore.update { it.copy(darkModeEnabled = value) }
     }

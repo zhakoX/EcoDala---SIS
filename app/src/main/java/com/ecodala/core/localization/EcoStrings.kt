@@ -3,18 +3,9 @@ package com.ecodala.core.localization
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.ecodala.core.domain.model.BiotoiletIssueType
-import com.ecodala.core.domain.model.BiotoiletStatus
-import com.ecodala.core.domain.model.BiotoiletType
 import com.ecodala.core.domain.model.ChallengeStatus
 import com.ecodala.core.domain.model.ChallengeType
-import com.ecodala.core.domain.model.EcoReportIssueType
-import com.ecodala.core.domain.model.EcoReportSeverity
-import com.ecodala.core.domain.model.EcoReportStatus
 import com.ecodala.core.domain.model.WasteType
-import com.ecodala.core.domain.model.WaterStationIssueType
-import com.ecodala.core.domain.model.WaterStationStatus
-import com.ecodala.core.domain.model.WaterStationType
 
 data class EcoStrings(
     val languageTag: String,
@@ -28,7 +19,6 @@ data class EcoStrings(
     val splashExperience: String,
     val registerNow: String,
     val createAccount: String,
-    val forgotPassword: String,
     val welcomeBack: String,
     val signInSubtitle: String,
     val emailAddress: String,
@@ -46,12 +36,6 @@ data class EcoStrings(
     val privacyPolicy: String,
     val orSignUpWith: String,
     val alreadyHaveAccount: String,
-    val checkYourEmail: String,
-    val forgotPasswordSubtitle: String,
-    val resetInstructions: (String) -> String,
-    val rememberedPassword: String,
-    val sendResetLink: String,
-    val resetLinkSent: String,
     val invalidEmail: String,
     val signingIn: String,
     val creatingAccount: String,
@@ -88,8 +72,6 @@ data class EcoStrings(
     val submitWaste: String,
     val wasteType: String,
     val quantity: String,
-    val photoConfirmation: String,
-    val takePhotoUpload: String,
     val commentOptional: String,
     val addNote: String,
     val submitWithPoints: (Int) -> String,
@@ -128,7 +110,6 @@ data class EcoStrings(
     val nextMilestone: String,
     val myAchievements: String,
     val recyclingHistory: String,
-    val notifications: String,
     val settings: String,
     val support: String,
     val logout: String,
@@ -140,10 +121,6 @@ data class EcoStrings(
     val recentSubmissions: String,
     val yourImpact: String,
     val impactSubtitle: String,
-    val recentNotifications: String,
-    val unread: (Int) -> String,
-    val totalUpdates: (Int) -> String,
-    val markAllRead: String,
     val supportHeroTitle: String,
     val supportHeroSubtitle: String,
     val contactUs: String,
@@ -151,13 +128,6 @@ data class EcoStrings(
     val describeIssue: String,
     val requestSaved: String,
     val faq: String,
-    val settingsPreferences: String,
-    val settingsPushNotifications: String,
-    val settingsPushNotificationsSubtitle: String,
-    val settingsLocation: String,
-    val settingsLocationSubtitle: String,
-    val settingsAiTips: String,
-    val settingsAiTipsSubtitle: String,
     val settingsDisplayUnits: String,
     val settingsDarkMode: String,
     val settingsDarkModeSubtitle: String,
@@ -165,11 +135,6 @@ data class EcoStrings(
     val settingsLanguageSubtitle: String,
     val settingsPreferredUnit: String,
     val settingsPreferredUnitSubtitle: String,
-    val settingsPrivacy: String,
-    val settingsPublicProfile: String,
-    val settingsPublicProfileSubtitle: String,
-    val settingsDataSecurity: String,
-    val settingsDataSecuritySubtitle: String,
     val settingsInfo: String,
     val thisMonthImpact: String,
     val streakSummary: (Int, Int) -> String,
@@ -222,256 +187,17 @@ private fun EcoStrings.localized(en: String, ru: String, kk: String): String {
     }
 }
 
-val EcoStrings.biotoilets: String
-    get() = localized("Biotoilets", "Биотуалеты", "Биотуалеттер")
-
-val EcoStrings.waterStations: String
-    get() = localized("Water Stations", "Питьевая вода", "Су станциялары")
-
-val EcoStrings.ecoReports: String
-    get() = localized("EcoReports", "Эко-жалобы", "Экошағымдар")
-
-val EcoStrings.freeOnly: String
-    get() = localized("Free only", "Только бесплатно", "Тек тегін")
-
-val EcoStrings.free: String
-    get() = localized("Free", "Бесплатно", "Тегін")
-
-val EcoStrings.paid: String
-    get() = localized("Paid", "Платно", "Ақылы")
-
-val EcoStrings.accessible: String
-    get() = localized("Accessible", "Доступно", "Қолжетімді")
-
-val EcoStrings.limited: String
-    get() = localized("Limited", "Ограничено", "Шектеулі")
-
-val EcoStrings.family: String
-    get() = localized("Family", "Семейный", "Отбасылық")
-
-val EcoStrings.standard: String
-    get() = localized("Standard", "Обычный", "Қалыпты")
-
-val EcoStrings.familyFriendly: String
-    get() = localized("Family-friendly", "Для семьи", "Отбасына ыңғайлы")
-
-val EcoStrings.communityVerified: String
-    get() = localized("Community verified", "Проверено сообществом", "Қауымдастық растаған")
-
-val EcoStrings.highlyRated: String
-    get() = localized("Highly rated", "Высокий рейтинг", "Жоғары бағаланған")
-
-val EcoStrings.openNow: String
-    get() = localized("Open now", "Открыто сейчас", "Қазір ашық")
-
-val EcoStrings.nearest: String
-    get() = localized("Nearest", "Ближайшие", "Ең жақын")
-
-val EcoStrings.refill: String
-    get() = localized("Refill", "Пополнение", "Толтыру")
-
-val EcoStrings.highSeverity: String
-    get() = localized("High severity", "Высокая важность", "Жоғары маңыз")
-
-val EcoStrings.distance: String
-    get() = localized("Distance", "Расстояние", "Қашықтық")
-
 val EcoStrings.rating: String
     get() = localized("Rating", "Рейтинг", "Баға")
-
-val EcoStrings.cleanliness: String
-    get() = localized("Cleanliness", "Чистота", "Тазалық")
 
 val EcoStrings.type: String
     get() = localized("Type", "Тип", "Түрі")
 
-val EcoStrings.facilities: String
-    get() = localized("Facilities", "Удобства", "Мүмкіндіктер")
-
-val EcoStrings.hours: String
-    get() = localized("Hours", "Часы работы", "Жұмыс уақыты")
-
-val EcoStrings.workingHours: String
-    get() = localized("Working hours", "Время работы", "Жұмыс уақыты")
-
-val EcoStrings.gps: String
-    get() = localized("GPS", "GPS", "GPS")
-
-val EcoStrings.buildRouteWithMaps: String
-    get() = localized("Build route with Google Maps", "Построить маршрут в Google Maps", "Google Maps арқылы маршрут құру")
-
-val EcoStrings.rateAndReport: String
-    get() = localized("Rate and report", "Оценить и сообщить", "Бағалау және хабарлау")
-
-val EcoStrings.waterQualityAndReports: String
-    get() = localized("Water quality and reports", "Качество воды и жалобы", "Су сапасы және хабарламалар")
-
-val EcoStrings.uploadUpdatedPhoto: String
-    get() = localized("Upload updated photo", "Загрузить новое фото", "Жаңа фото жүктеу")
-
-val EcoStrings.verifyStationInformation: String
-    get() = localized("Verify station information", "Проверить информацию станции", "Станция ақпаратын растау")
-
-val EcoStrings.submitReport: String
-    get() = localized("Submit report", "Отправить жалобу", "Хабарлама жіберу")
-
-val EcoStrings.reportSavedWithPoints: String
-    get() = localized("Report saved +15 EcoPoints", "Жалоба сохранена +15 EcoPoints", "Хабарлама сақталды +15 EcoPoints")
-
-val EcoStrings.savedWithPoints: String
-    get() = localized("Saved +15 EcoPoints", "Сохранено +15 EcoPoints", "Сақталды +15 EcoPoints")
-
-val EcoStrings.reviews: String
-    get() = localized("Reviews", "Отзывы", "Пікірлер")
-
-val EcoStrings.yes: String
-    get() = localized("Yes", "Да", "Иә")
-
 val EcoStrings.no: String
     get() = localized("No", "Нет", "Жоқ")
 
-val EcoStrings.verifications: String
-    get() = localized("Verifications", "Подтверждения", "Растаулар")
-
-val EcoStrings.severity: String
-    get() = localized("Severity", "Важность", "Маңыздылық")
-
-val EcoStrings.reportedBy: (String, String) -> String
-    get() = { name, date ->
-        when (languageTag) {
-            "ru" -> "Сообщил $name - $date"
-            "kk" -> "$name хабарлады - $date"
-            else -> "Reported by $name - $date"
-        }
-    }
-
-val EcoStrings.communityActions: String
-    get() = localized("Community actions", "Действия сообщества", "Қауымдастық әрекеттері")
-
-val EcoStrings.verifyCondition: String
-    get() = localized("Verify condition +10 EcoPoints", "Подтвердить состояние +10 EcoPoints", "Жағдайын растау +10 EcoPoints")
-
-val EcoStrings.verifiedWithPoints: String
-    get() = localized("Verified +10 EcoPoints", "Подтверждено +10 EcoPoints", "Расталды +10 EcoPoints")
-
-val EcoStrings.submitReportUpdate: String
-    get() = localized("Submit a report update", "Обновить жалобу", "Шағым жаңарту")
-
-val EcoStrings.updateSavedWithPoints: String
-    get() = localized("Update saved +15 EcoPoints", "Обновление сохранено +15 EcoPoints", "Жаңарту сақталды +15 EcoPoints")
-
-val EcoStrings.sendUpdateToAdministration: String
-    get() = localized("Send update to administration", "Отправить администрации", "Әкімшілікке жіберу")
-
-val EcoStrings.comments: String
-    get() = localized("Comments", "Комментарии", "Пікірлер")
-
 val EcoStrings.access: String
     get() = localized("Access", "Доступ", "Қолжетімділік")
-
-val EcoStrings.openDetails: String
-    get() = localized("Open details", "Открыть детали", "Толық ақпарат")
-
-val EcoStrings.openReport: String
-    get() = localized("Open report", "Открыть жалобу", "Шағымды ашу")
-
-fun EcoStrings.biotoiletStatusName(status: BiotoiletStatus): String {
-    return when (status) {
-        BiotoiletStatus.Open -> localized("Open", "Открыто", "Ашық")
-        BiotoiletStatus.Unknown -> localized("Unknown", "Неизвестно", "Белгісіз")
-        BiotoiletStatus.Closed -> localized("Closed", "Закрыто", "Жабық")
-        BiotoiletStatus.Maintenance -> localized("Maintenance", "На ремонте", "Жөндеуде")
-    }
-}
-
-fun EcoStrings.biotoiletTypeName(type: BiotoiletType): String {
-    return when (type) {
-        BiotoiletType.Free -> free
-        BiotoiletType.Paid -> paid
-    }
-}
-
-fun EcoStrings.biotoiletIssueName(issue: BiotoiletIssueType): String {
-    return when (issue) {
-        BiotoiletIssueType.ClosedToilet -> localized("Closed toilet", "Туалет закрыт", "Туалет жабық")
-        BiotoiletIssueType.DirtyToilet -> localized("Dirty toilet", "Грязный туалет", "Туалет лас")
-        BiotoiletIssueType.DamagedToilet -> localized("Damaged", "Поврежден", "Бұзылған")
-        BiotoiletIssueType.NoWaterAvailable -> localized("No water", "Нет воды", "Су жоқ")
-    }
-}
-
-fun EcoStrings.waterStationTypeName(type: WaterStationType): String {
-    return when (type) {
-        WaterStationType.FreeDrinkingWater -> localized("Free water", "Бесплатная вода", "Тегін су")
-        WaterStationType.RefillStation -> localized("Refill", "Пополнение", "Толтыру")
-        WaterStationType.FilteredWater -> localized("Filtered", "Фильтрованная", "Сүзілген")
-        WaterStationType.WaterDispenser -> localized("Dispenser", "Диспенсер", "Диспенсер")
-        WaterStationType.BottledWaterVendingMachine -> localized("Vending", "Автомат", "Автомат")
-    }
-}
-
-fun EcoStrings.waterStationStatusName(status: WaterStationStatus): String {
-    return when (status) {
-        WaterStationStatus.Available -> localized("Available", "Доступно", "Қолжетімді")
-        WaterStationStatus.Unknown -> localized("Unknown", "Неизвестно", "Белгісіз")
-        WaterStationStatus.TemporarilyUnavailable -> localized("Unavailable", "Недоступно", "Қолжетімсіз")
-        WaterStationStatus.Maintenance -> localized("Maintenance", "На ремонте", "Жөндеуде")
-    }
-}
-
-fun EcoStrings.waterStationIssueName(issue: WaterStationIssueType): String {
-    return when (issue) {
-        WaterStationIssueType.NotWorking -> localized("Not working", "Не работает", "Жұмыс істемейді")
-        WaterStationIssueType.PoorWaterQuality -> localized("Poor quality", "Плохое качество", "Сапасы нашар")
-        WaterStationIssueType.NoWater -> localized("No water", "Нет воды", "Су жоқ")
-        WaterStationIssueType.WrongHours -> localized("Wrong hours", "Неверное время", "Уақыты дұрыс емес")
-    }
-}
-
-fun EcoStrings.ecoReportStatusName(status: EcoReportStatus): String {
-    return when (status) {
-        EcoReportStatus.Submitted -> localized("Submitted", "Отправлено", "Жіберілді")
-        EcoReportStatus.Verified -> localized("Verified", "Подтверждено", "Расталды")
-        EcoReportStatus.InProgress -> localized("In progress", "В работе", "Орындалуда")
-        EcoReportStatus.Resolved -> localized("Resolved", "Решено", "Шешілді")
-        EcoReportStatus.Rejected -> localized("Rejected", "Отклонено", "Қабылданбады")
-    }
-}
-
-fun EcoStrings.ecoReportSeverityName(severity: EcoReportSeverity): String {
-    return when (severity) {
-        EcoReportSeverity.Low -> localized("Low", "Низкая", "Төмен")
-        EcoReportSeverity.Medium -> localized("Medium", "Средняя", "Орташа")
-        EcoReportSeverity.High -> localized("High", "Высокая", "Жоғары")
-    }
-}
-
-fun EcoStrings.ecoReportIssueName(issue: EcoReportIssueType): String {
-    return when (issue) {
-        EcoReportIssueType.IllegalDump -> localized("Illegal dump", "Незаконная свалка", "Заңсыз қоқыс")
-        EcoReportIssueType.ConstructionWaste -> localized("Construction waste", "Строительный мусор", "Құрылыс қалдығы")
-        EcoReportIssueType.HazardousWaste -> localized("Hazardous waste", "Опасные отходы", "Қауіпті қалдық")
-        EcoReportIssueType.OverflowingBins -> localized("Overflowing bins", "Переполненные контейнеры", "Толып кеткен жәшіктер")
-    }
-}
-
-val EcoStrings.submitScanningWaste: String
-    get() = localized("AI scanner is checking waste...", "AI-сканер проверяет отход...", "AI сканер қалдықты тексеріп жатыр...")
-
-val EcoStrings.submitPhotoAttached: String
-    get() = localized("Photo attached. Tap to retake", "Фото прикреплено. Нажмите, чтобы переснять", "Фото тіркелді. Қайта түсіру үшін басыңыз")
-
-val EcoStrings.submitPhotoUploadSubtitle: String
-    get() = localized("Photo will be uploaded with this submission", "Фото будет отправлено вместе с заявкой", "Фото осы тапсырыспен бірге жіберіледі")
-
-val EcoStrings.submitPhotoScanSubtitle: String
-    get() = localized("Auto-detect type, recyclability and nearest point", "Автоопределение типа, переработки и ближайшего пункта", "Түрін, қайта өңделуін және жақын пунктті автоматты анықтайды")
-
-val EcoStrings.submitFrameHint: String
-    get() = localized("Place the waste item inside the frame", "Поместите отход в рамку", "Қалдықты кадр ішіне қойыңыз")
-
-val EcoStrings.submitCaptureAndScan: String
-    get() = localized("Capture and scan", "Снять и сканировать", "Түсіріп, сканерлеу")
 
 val EcoStrings.submittingWaste: String
     get() = localized("Submitting...", "Отправка...", "Жіберіліп жатыр...")
@@ -479,26 +205,16 @@ val EcoStrings.submittingWaste: String
 val EcoStrings.clear: String
     get() = localized("Clear", "Очистить", "Тазалау")
 
-fun EcoStrings.confidencePercent(value: Int): String =
-    localized("$value% confidence", "$value% уверенность", "$value% сенімділік")
 
 val EcoStrings.recyclable: String
     get() = localized("Recyclable", "Перерабатывается", "Қайта өңделеді")
 
-val EcoStrings.acceptedByEcodalaPoints: String
-    get() = localized("Accepted by EcoDala points", "Принимается пунктами EcoDala", "EcoDala пункттері қабылдайды")
 
-val EcoStrings.nearestAcceptedPoint: String
-    get() = localized("Nearest accepted point", "Ближайший пункт приема", "Ең жақын қабылдау пункті")
 
-val EcoStrings.aiScannerUnavailable: String
-    get() = localized("AI scanner is unavailable. Try again later.", "AI-сканер недоступен. Попробуйте позже.", "AI сканер қолжетімсіз. Кейінірек қайталап көріңіз.")
 
-val EcoStrings.cameraCaptureFailed: String
-    get() = localized("Could not capture photo. Try again.", "Не удалось сделать фото. Попробуйте снова.", "Фото түсіру мүмкін болмады. Қайта көріңіз.")
 
 val EcoStrings.submissionFailed: String
-    get() = localized("Submission failed. Check your connection and try again.", "Отправка не удалась. Проверьте соединение и повторите.", "Жіберу сәтсіз болды. Байланысты тексеріп, қайта көріңіз.")
+    get() = localized("Could not save the submission locally. Try again.", "Не удалось сохранить сдачу локально. Повторите.", "Тапсырысты сақтау мүмкін болмады. Қайта көріңіз.")
 
 fun EcoStrings.approvedPoints(points: Int): String =
     localized("Approved +$points pts", "Подтверждено +$points баллов", "Расталды +$points балл")
@@ -522,7 +238,6 @@ private val englishEcoStrings = EcoStrings(
     splashExperience = "ECO-CONSCIOUS DIGITAL EXPERIENCE",
     registerNow = "Register Now",
     createAccount = "Create Account",
-    forgotPassword = "Forgot Password?",
     welcomeBack = "Login",
     signInSubtitle = "Sign in to continue your eco journey",
     emailAddress = "Email address",
@@ -540,12 +255,6 @@ private val englishEcoStrings = EcoStrings(
     privacyPolicy = "Privacy Policy.",
     orSignUpWith = "OR SIGN UP WITH",
     alreadyHaveAccount = "Already have an account? ",
-    checkYourEmail = "Check Your Email",
-    forgotPasswordSubtitle = "Enter your email and we will send you a secure reset link.",
-    resetInstructions = { "We sent password reset instructions to $it." },
-    rememberedPassword = "Remembered your password? ",
-    sendResetLink = "Send Reset Link",
-    resetLinkSent = "Reset link sent",
     invalidEmail = "Enter a valid email address",
     signingIn = "Signing in...",
     creatingAccount = "Creating account...",
@@ -570,7 +279,7 @@ private val englishEcoStrings = EcoStrings(
     recentAchievements = "Recent Achievements",
     searchLocation = "Search location...",
     openUntil = "Open until 8:00 PM",
-    distanceAway = { rating, meters -> "$rating (124) • $meters m away" },
+    distanceAway = { rating, meters -> "$rating • $meters m away" },
     acceptedItems = "Accepted Items",
     reward = "Reward",
     acceptedWasteTypes = "Accepted Waste Types",
@@ -582,8 +291,6 @@ private val englishEcoStrings = EcoStrings(
     submitWaste = "Submit Waste",
     wasteType = "Waste Type",
     quantity = "Quantity",
-    photoConfirmation = "Photo Confirmation",
-    takePhotoUpload = "Take Photo or Upload",
     commentOptional = "Comment (optional)",
     addNote = "Add a note...",
     submitWithPoints = { "Submit +$it pts" },
@@ -622,7 +329,6 @@ private val englishEcoStrings = EcoStrings(
     nextMilestone = "Next Milestone: Level 5",
     myAchievements = "My Achievements",
     recyclingHistory = "Recycling History",
-    notifications = "Notifications",
     settings = "Settings",
     support = "Support",
     logout = "Logout",
@@ -634,24 +340,13 @@ private val englishEcoStrings = EcoStrings(
     recentSubmissions = "Recent Submissions",
     yourImpact = "Your Impact",
     impactSubtitle = "Track what you recycled and how many points you earned.",
-    recentNotifications = "Recent Notifications",
-    unread = { "$it unread" },
-    totalUpdates = { "$it total updates from EcoDala" },
-    markAllRead = "Mark all read",
     supportHeroTitle = "EcoDala Kazakhstan Care",
-    supportHeroSubtitle = "We help with points, recycling places and app issues across Kazakhstan.",
+    supportHeroSubtitle = "Local support demonstration. Contacts are illustrative.",
     contactUs = "Contact us",
     sendRequest = "Send a request",
     describeIssue = "Describe your issue...",
-    requestSaved = "Request saved. Support will contact you soon.",
+    requestSaved = "Demo request acknowledged locally. No message was sent.",
     faq = "FAQ",
-    settingsPreferences = "Preferences",
-    settingsPushNotifications = "Push Notifications",
-    settingsPushNotificationsSubtitle = "Daily challenges and reward updates",
-    settingsLocation = "Location Access",
-    settingsLocationSubtitle = "Show nearby recycling points",
-    settingsAiTips = "AI Eco Tips",
-    settingsAiTipsSubtitle = "Personalized waste sorting suggestions",
     settingsDisplayUnits = "Display & Units",
     settingsDarkMode = "Dark Mode",
     settingsDarkModeSubtitle = "Switch app theme instantly",
@@ -659,12 +354,7 @@ private val englishEcoStrings = EcoStrings(
     settingsLanguageSubtitle = "Choose the app language",
     settingsPreferredUnit = "Preferred Unit",
     settingsPreferredUnitSubtitle = "Used in submissions and history",
-    settingsPrivacy = "Privacy",
-    settingsPublicProfile = "Public Leaderboard Profile",
-    settingsPublicProfileSubtitle = "Show your name in rankings",
-    settingsDataSecurity = "Data & Security",
-    settingsDataSecuritySubtitle = "Account protection and data export",
-    settingsInfo = "Settings are stored locally with DataStore and can be synced with the backend later.",
+    settingsInfo = "Settings, demo submissions and favourites are stored locally with DataStore.",
     thisMonthImpact = "This Month Impact",
     streakSummary = { days, points -> "$days day streak - next +$points pts" },
     recycled = "Recycled",
@@ -702,7 +392,6 @@ private val englishEcoStrings = EcoStrings(
             "Challenge Joined" -> "Challenge Joined"
             "Tree Keeper" -> "Tree Keeper"
             "Map Explorer" -> "Map Explorer"
-            "Waste Scanner" -> "Waste Scanner"
             else -> it
         }
     },
@@ -713,7 +402,6 @@ private val englishEcoStrings = EcoStrings(
             "Joined your first challenge" -> "Joined your first challenge"
             "Reach virtual tree level 5" -> "Reach virtual tree level 5"
             "Visit 5 recycling points" -> "Visit 5 recycling points"
-            "Scan 10 items with AI scanner" -> "Scan 10 items with AI scanner"
             else -> it
         }
     },
@@ -743,7 +431,6 @@ private val englishEcoStrings = EcoStrings(
             "Waste submission" -> "Waste submission"
             "Eco points" -> "Eco points"
             "Account and profile" -> "Account and profile"
-            "AI scanner" -> "AI scanner"
             else -> it
         }
     },
@@ -802,7 +489,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
     splashExperience = "ЭКОЛОГИЧНЫЙ ЦИФРОВОЙ ОПЫТ",
     registerNow = "Регистрация",
     createAccount = "Создать аккаунт",
-    forgotPassword = "Забыли пароль?",
     welcomeBack = "Вход",
     signInSubtitle = "Войдите, чтобы продолжить эко-путь",
     emailAddress = "Email адрес",
@@ -820,12 +506,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
     privacyPolicy = "Политику конфиденциальности.",
     orSignUpWith = "ИЛИ ЗАРЕГИСТРИРУЙТЕСЬ ЧЕРЕЗ",
     alreadyHaveAccount = "Уже есть аккаунт? ",
-    checkYourEmail = "Проверьте почту",
-    forgotPasswordSubtitle = "Введите email, и мы отправим безопасную ссылку для сброса пароля.",
-    resetInstructions = { "Мы отправили инструкцию по сбросу пароля на $it." },
-    rememberedPassword = "Вспомнили пароль? ",
-    sendResetLink = "Отправить ссылку",
-    resetLinkSent = "Ссылка отправлена",
     invalidEmail = "Введите корректный email",
     signingIn = "Вход...",
     creatingAccount = "Создание аккаунта...",
@@ -850,7 +530,7 @@ private val russianEcoStrings = englishEcoStrings.copy(
     recentAchievements = "Последние достижения",
     searchLocation = "Поиск места...",
     openUntil = "Открыто до 20:00",
-    distanceAway = { rating, meters -> "$rating (124) • $meters м от вас" },
+    distanceAway = { rating, meters -> "$rating • $meters м от вас" },
     acceptedItems = "Принимают",
     reward = "Награда",
     acceptedWasteTypes = "Принимаемые отходы",
@@ -862,8 +542,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
     submitWaste = "Сдать отходы",
     wasteType = "Тип отходов",
     quantity = "Количество",
-    photoConfirmation = "Подтверждение фото",
-    takePhotoUpload = "Сделать фото или загрузить",
     commentOptional = "Комментарий (необязательно)",
     addNote = "Добавьте заметку...",
     submitWithPoints = { "Сдать +$it баллов" },
@@ -902,7 +580,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
     nextMilestone = "Следующая цель: уровень 5",
     myAchievements = "Мои достижения",
     recyclingHistory = "История переработки",
-    notifications = "Уведомления",
     settings = "Настройки",
     support = "Поддержка",
     logout = "Выйти",
@@ -914,24 +591,13 @@ private val russianEcoStrings = englishEcoStrings.copy(
     recentSubmissions = "Последние сдачи",
     yourImpact = "Ваш вклад",
     impactSubtitle = "Следите, что вы сдали и сколько баллов получили.",
-    recentNotifications = "Последние уведомления",
-    unread = { "$it непрочитано" },
-    totalUpdates = { "Всего обновлений: $it" },
-    markAllRead = "Прочитать все",
     supportHeroTitle = "Поддержка EcoDala Казахстан",
-    supportHeroSubtitle = "Поможем с баллами, пунктами переработки и вопросами по приложению.",
+    supportHeroSubtitle = "Локальная демонстрация поддержки. Контакты условные.",
     contactUs = "Связаться с нами",
     sendRequest = "Отправить запрос",
     describeIssue = "Опишите проблему...",
-    requestSaved = "Запрос сохранен. Поддержка скоро свяжется с вами.",
+    requestSaved = "Демо-запрос обработан локально. Сообщение не отправлялось.",
     faq = "FAQ",
-    settingsPreferences = "Предпочтения",
-    settingsPushNotifications = "Push-уведомления",
-    settingsPushNotificationsSubtitle = "Ежедневные челленджи и награды",
-    settingsLocation = "Геолокация",
-    settingsLocationSubtitle = "Показывать ближайшие пункты переработки",
-    settingsAiTips = "AI эко-советы",
-    settingsAiTipsSubtitle = "Персональные подсказки по сортировке",
     settingsDisplayUnits = "Экран и единицы",
     settingsDarkMode = "Темная тема",
     settingsDarkModeSubtitle = "Мгновенно меняет тему приложения",
@@ -939,12 +605,7 @@ private val russianEcoStrings = englishEcoStrings.copy(
     settingsLanguageSubtitle = "Выберите язык приложения",
     settingsPreferredUnit = "Единица измерения",
     settingsPreferredUnitSubtitle = "Для сдачи отходов и истории",
-    settingsPrivacy = "Приватность",
-    settingsPublicProfile = "Публичный профиль в рейтинге",
-    settingsPublicProfileSubtitle = "Показывать ваше имя в рейтингах",
-    settingsDataSecurity = "Данные и безопасность",
-    settingsDataSecuritySubtitle = "Защита аккаунта и экспорт данных",
-    settingsInfo = "Настройки сохраняются локально через DataStore, позже можно синхронизировать с backend.",
+    settingsInfo = "Настройки, демо-сдачи и избранное сохраняются локально через DataStore.",
     thisMonthImpact = "Вклад за месяц",
     streakSummary = { days, points -> "$days дн. серия - далее +$points баллов" },
     recycled = "Переработано",
@@ -985,7 +646,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
             "Challenge Joined" -> "Участие в челлендже"
             "Tree Keeper" -> "Хранитель дерева"
             "Map Explorer" -> "Исследователь карты"
-            "Waste Scanner" -> "Сканер отходов"
             else -> it
         }
     },
@@ -996,7 +656,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
             "Joined your first challenge" -> "Вы присоединились к первому челленджу"
             "Reach virtual tree level 5" -> "Достигните 5 уровня виртуального дерева"
             "Visit 5 recycling points" -> "Посетите 5 пунктов переработки"
-            "Scan 10 items with AI scanner" -> "Отсканируйте 10 предметов AI-сканером"
             else -> it
         }
     },
@@ -1036,7 +695,6 @@ private val russianEcoStrings = englishEcoStrings.copy(
             "Waste submission" -> "Сдача отходов"
             "Eco points" -> "Эко-баллы"
             "Account and profile" -> "Аккаунт и профиль"
-            "AI scanner" -> "AI-сканер"
             else -> it
         }
     },
@@ -1111,7 +769,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     splashExperience = "ЭКО-САНАЛЫ ЦИФРЛЫҚ ТӘЖІРИБЕ",
     registerNow = "Тіркелу",
     createAccount = "Аккаунт ашу",
-    forgotPassword = "Құпиясөз ұмытылды ма?",
     welcomeBack = "Кіру",
     signInSubtitle = "Эко сапарыңызды жалғастыру үшін кіріңіз",
     emailAddress = "Email мекенжайы",
@@ -1129,12 +786,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     privacyPolicy = "Құпиялылық саясатын қабылдаймын.",
     orSignUpWith = "НЕМЕСЕ АРҚЫЛЫ ТІРКЕЛУ",
     alreadyHaveAccount = "Аккаунтыңыз бар ма? ",
-    checkYourEmail = "Поштаны тексеріңіз",
-    forgotPasswordSubtitle = "Email енгізіңіз, біз құпиясөзді қалпына келтіру сілтемесін жібереміз.",
-    resetInstructions = { "Құпиясөзді қалпына келтіру нұсқаулығы $it мекенжайына жіберілді." },
-    rememberedPassword = "Құпиясөзді еске түсірдіңіз бе? ",
-    sendResetLink = "Сілтеме жіберу",
-    resetLinkSent = "Сілтеме жіберілді",
     invalidEmail = "Дұрыс email енгізіңіз",
     signingIn = "Кіру...",
     creatingAccount = "Аккаунт ашылуда...",
@@ -1159,7 +810,7 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     recentAchievements = "Соңғы жетістіктер",
     searchLocation = "Орын іздеу...",
     openUntil = "20:00 дейін ашық",
-    distanceAway = { rating, meters -> "$rating (124) • $meters м қашық" },
+    distanceAway = { rating, meters -> "$rating • $meters м қашық" },
     acceptedItems = "Қабылдайды",
     reward = "Сыйақы",
     acceptedWasteTypes = "Қабылданатын қалдықтар",
@@ -1171,8 +822,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     submitWaste = "Қалдық тапсыру",
     wasteType = "Қалдық түрі",
     quantity = "Саны",
-    photoConfirmation = "Фото растау",
-    takePhotoUpload = "Фото түсіру немесе жүктеу",
     commentOptional = "Пікір (міндетті емес)",
     addNote = "Ескертпе қосыңыз...",
     submitWithPoints = { "Тапсыру +$it балл" },
@@ -1211,7 +860,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     nextMilestone = "Келесі мақсат: 5-деңгей",
     myAchievements = "Менің жетістіктерім",
     recyclingHistory = "Қайта өңдеу тарихы",
-    notifications = "Хабарламалар",
     settings = "Баптаулар",
     support = "Қолдау",
     logout = "Шығу",
@@ -1223,24 +871,13 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     recentSubmissions = "Соңғы тапсырулар",
     yourImpact = "Сіздің үлесіңіз",
     impactSubtitle = "Не тапсырғаныңызды және қанша балл алғаныңызды бақылаңыз.",
-    recentNotifications = "Соңғы хабарламалар",
-    unread = { "$it оқылмаған" },
-    totalUpdates = { "Барлық жаңарту: $it" },
-    markAllRead = "Барлығын оқу",
     supportHeroTitle = "EcoDala Қазақстан қолдауы",
-    supportHeroSubtitle = "Балл, қайта өңдеу пункттері және қолданба сұрақтары бойынша көмектесеміз.",
+    supportHeroSubtitle = "Қолдаудың жергілікті демосы. Байланыстар шартты.",
     contactUs = "Бізбен байланысу",
     sendRequest = "Сұрау жіберу",
     describeIssue = "Мәселені сипаттаңыз...",
-    requestSaved = "Сұрау сақталды. Қолдау жақында хабарласады.",
+    requestSaved = "Демо сұрау жергілікті өңделді. Хабарлама жіберілген жоқ.",
     faq = "Жиі сұрақтар",
-    settingsPreferences = "Қалаулар",
-    settingsPushNotifications = "Push хабарламалар",
-    settingsPushNotificationsSubtitle = "Күнделікті челлендждер мен марапаттар",
-    settingsLocation = "Геолокация",
-    settingsLocationSubtitle = "Жақын қайта өңдеу пункттерін көрсету",
-    settingsAiTips = "AI эко-кеңестер",
-    settingsAiTipsSubtitle = "Сұрыптау бойынша жеке ұсыныстар",
     settingsDisplayUnits = "Экран және өлшемдер",
     settingsDarkMode = "Қараңғы режим",
     settingsDarkModeSubtitle = "Қолданба тақырыбын бірден ауыстырады",
@@ -1248,12 +885,7 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
     settingsLanguageSubtitle = "Қолданба тілін таңдаңыз",
     settingsPreferredUnit = "Өлшем бірлігі",
     settingsPreferredUnitSubtitle = "Қалдық тапсыруда және тарихта қолданылады",
-    settingsPrivacy = "Құпиялылық",
-    settingsPublicProfile = "Рейтингтегі ашық профиль",
-    settingsPublicProfileSubtitle = "Рейтингтерде атыңызды көрсету",
-    settingsDataSecurity = "Деректер және қауіпсіздік",
-    settingsDataSecuritySubtitle = "Аккаунтты қорғау және деректерді экспорттау",
-    settingsInfo = "Баптаулар DataStore арқылы локалды сақталады, кейін backend-пен синхрондауға болады.",
+    settingsInfo = "Баптаулар, демо тапсырыстар және таңдаулылар DataStore арқылы сақталады.",
     thisMonthImpact = "Осы айдағы үлес",
     streakSummary = { days, points -> "$days күндік серия - келесі +$points балл" },
     recycled = "Өңделді",
@@ -1294,7 +926,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
             "Challenge Joined" -> "Челленджге қосылды"
             "Tree Keeper" -> "Ағаш сақшысы"
             "Map Explorer" -> "Карта зерттеушісі"
-            "Waste Scanner" -> "Қалдық сканері"
             else -> it
         }
     },
@@ -1305,7 +936,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
             "Joined your first challenge" -> "Алғашқы челленджге қосылдыңыз"
             "Reach virtual tree level 5" -> "Виртуалды ағаштың 5-деңгейіне жетіңіз"
             "Visit 5 recycling points" -> "5 қайта өңдеу пунктіне барыңыз"
-            "Scan 10 items with AI scanner" -> "AI сканермен 10 затты сканерлеңіз"
             else -> it
         }
     },
@@ -1345,7 +975,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
             "Waste submission" -> "Қалдық тапсыру"
             "Eco points" -> "Эко-балл"
             "Account and profile" -> "Аккаунт және профиль"
-            "AI scanner" -> "AI сканер"
             else -> it
         }
     },
@@ -1407,3 +1036,6 @@ private val kazakhEcoStrings = englishEcoStrings.copy(
         }
     }
 )
+
+/** Small labels for the SIS4 demonstration, using the existing language selection. */
+fun EcoStrings.sis4Text(en: String, ru: String, kk: String): String = localized(en, ru, kk)

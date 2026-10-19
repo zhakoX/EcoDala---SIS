@@ -2,13 +2,14 @@ package com.ecodala.feature.auth.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ecodala.core.data.repository.ApiAuthRepository
+import com.ecodala.core.data.repository.DemoAuthRepository
 import com.ecodala.core.domain.model.SocialAuthProvider
 import com.ecodala.core.domain.repository.AuthRepository
 import com.ecodala.core.domain.usecase.LoginUseCase
 import com.ecodala.core.domain.usecase.RegisterUseCase
 import com.ecodala.core.domain.usecase.SocialLoginUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -25,10 +26,10 @@ data class AuthUiState(
 )
 
 class AuthViewModel(
-    authRepository: AuthRepository = ApiAuthRepository()
+    authRepository: AuthRepository = DemoAuthRepository()
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(AuthUiState())
-    val uiState: StateFlow<AuthUiState> = _uiState
+    val uiState: StateFlow<AuthUiState> = _uiState.asStateFlow()
 
     private val loginUseCase = LoginUseCase(authRepository)
     private val registerUseCase = RegisterUseCase(authRepository)

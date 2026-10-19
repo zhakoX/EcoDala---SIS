@@ -3,8 +3,8 @@ package com.ecodala.feature.profile.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ecodala.core.data.dummy.DummyEcoData
-import com.ecodala.core.data.repository.ApiAuthRepository
-import com.ecodala.core.data.repository.ApiEcoRepository
+import com.ecodala.core.data.repository.DemoAuthRepository
+import com.ecodala.core.data.repository.LocalEcoRepository
 import com.ecodala.core.data.repository.DemoPointsEconomyRepository
 import com.ecodala.core.domain.model.EcoRatingCalculator
 import com.ecodala.core.domain.model.EcoUser
@@ -14,6 +14,7 @@ import com.ecodala.core.domain.usecase.GetStreakSummaryUseCase
 import com.ecodala.core.domain.usecase.LogoutUseCase
 import com.ecodala.core.session.SessionManager
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -33,22 +34,25 @@ data class ProfileUiState(
 )
 
 class ProfileViewModel(
-    private val backendRepository: ApiEcoRepository = ApiEcoRepository()
+    private val repository: LocalEcoRepository = LocalEcoRepository.shared
 ) : ViewModel() {
-    private val logoutUseCase = LogoutUseCase(ApiAuthRepository())
-    private val pointsRepository = DemoPointsEconomyRepository()
+    private val logoutUseCase = LogoutUseCase(DemoAuthRepository())
+    private val pointsRepository = DemoPointsEconomyRepository(repository)
     private val getPointsWalletUseCase = GetPointsWalletUseCase(pointsRepository)
     private val getMonthlyImpactUseCase = GetMonthlyImpactUseCase(pointsRepository)
     private val getStreakSummaryUseCase = GetStreakSummaryUseCase(pointsRepository)
 
     private val _user = MutableStateFlow(sessionUserOrFallback())
-    val user: StateFlow<EcoUser> = _user
+    val user: StateFlow<EcoUser> = _user.asStateFlow()
 
     private val _uiState = MutableStateFlow(ProfileUiState())
-    val uiState: StateFlow<ProfileUiState> = _uiState
+    val uiState: StateFlow<ProfileUiState> = _uiState.asStateFlow()
 
     init {
-        loadEconomy()
+        viewModelScope.launch {
+            kotlinx.coroutines.flow.combine(repository.data, SessionManager.session) { data, session -> data to session }
+                .collect { loadEconomy() }
+        }
     }
 
     fun retry() {
@@ -106,15 +110,11 @@ class ProfileViewModel(
     private fun loadEconomy() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
-            val userResult = backendRepository.currentUser()
+            val userResult = repository.currentUser()
             userResult
                 .onSuccess { user ->
                     _user.value = user
-                    SessionManager.saveSession(
-                        token = SessionManager.session.value.token.orEmpty(),
-                        refreshToken = SessionManager.session.value.refreshToken,
-                        user = user
-                    )
+
                 }
             val userId = DummyEcoData.currentUser.id
             val wallet = getPointsWalletUseCase(userId).getOrNull()
