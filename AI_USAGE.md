@@ -42,9 +42,17 @@ I fixed the problem by creating a complete custom Light and Dark color scheme an
 
 ## SIS4 MVVM refactoring decision: favorite state ownership
 
-The available repository evidence shows that the original `RecyclingPointScreen` held favorite state in the UI layer with `remember { mutableStateOf(false) }` and toggled it directly from the favorite `IconButton`. The original line-by-line authorship is not recorded, so it cannot be verified that this specific logic was AI-generated; this section therefore documents the actual, verifiable refactoring decision rather than attributing it to AI without evidence.
+An earlier version of this log described favourite state in `RecyclingPointScreen` using `remember { mutableStateOf(false) }`. That historical example and its AI authorship have not been verified against the available history. The following describes the actual current implementation and the layer ownership principle without claiming a verified historical AI mistake.
 
-For SIS4, favorite state moved to `RecyclingPointViewModel` and `RecyclingPointUiState`. `RecyclingPointScreen` now receives `uiState.isFavorite` plus `onToggleFavorite`, while `RecyclingPointRoute` connects that callback to `RecyclingPointViewModel::toggleFavorite`; the ViewModel calls `EcoRepository.toggleFavorite(pointId)` and publishes a copied UiState. The evidence is the current `RecyclingPointScreen.kt`, `RecyclingPointViewModel.kt`, and `EcoRepository.kt`, together with the pre-refactor behavior described in `design/SIS4_MVVM_Architecture.md`. This final design preserves the favorite value outside the composable instance, keeps the screen stateless, and makes the update path explicit: screen callback, ViewModel, repository, UiState, then screen.
+In the current SIS4 implementation, `MapScreen` receives `MapUiState.favouriteIds` and an `onFavouriteClick` callback. `MapRoute` connects that callback to `MapViewModel::onFavouriteClick`; the ViewModel calls `LocalEcoRepository.setFavourite(id)`. The repository emits new data, and the ViewModel publishes `copy(favouriteIds = data.favouriteIds)`. These are the actual current names; the earlier names `RecyclingPointViewModel` and `EcoRepository` do not describe this implementation.
+
+### SIS4 question: where was logic in the wrong layer?
+
+The architectural issue is keeping meaningful favourite data in a composable with `remember`: a fresh screen instance can reset it. The current implementation keeps favourites in the repository and exposes them through the ViewModel; search and category filtering are derived by `MapUiState.filteredPoints`, outside composables. This is the concrete layer ownership decision to explain at the defense. The original AI authorship and the historical `RecyclingPointScreen` example above have not been independently verified, so they must not be presented as a proven AI-generated mistake. A personal example of an actual AI mistake still requires the author's confirmation.
+
+## SIS4 preparation on 2026-10-19
+
+Codex read the SIS4 assignment, inspected the current code, corrected obsolete class references in this log and documentation, prepared a defense/checklist document, and ran `:app:assembleDebug :app:testDebugUnitTest`. All 17 unit tests passed. No Android device was connected, so neither rotation nor Android Studio Preview rendering was verified in this session. Earlier first-person manual-testing statements below describe the author's prior account; they are not verification performed by Codex today.
 
 ## What I changed or wrote by hand
 

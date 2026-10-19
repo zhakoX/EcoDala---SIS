@@ -1,62 +1,120 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
-android {
-    namespace = "kz.ecodala"
-    compileSdk {
-        version = release(37)
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use(::load)
     }
+}
+
+val keystoreProperties = Properties().apply {
+    val file = rootProject.file("keystore.properties")
+    if (file.exists()) {
+        file.inputStream().use(::load)
+    }
+}
+
+fun secret(name: String): String? {
+    return localProperties.getProperty(name)
+        ?: keystoreProperties.getProperty(name)
+        ?: System.getenv(name)
+}
+
+val releaseSigningReady = listOf(
+    "ECODALA_RELEASE_STORE_FILE",
+    "ECODALA_RELEASE_STORE_PASSWORD",
+    "ECODALA_RELEASE_KEY_ALIAS",
+    "ECODALA_RELEASE_KEY_PASSWORD"
+).all { !secret(it).isNullOrBlank() }
+
+android {
+    namespace = "com.ecodala"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "kz.ecodala"
+        applicationId = "com.ecodala"
         minSdk = 24
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        versionCode = 4
+        versionName = "2.0.2-sis4"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            optimization {
-                enable = false
+    testOptions { unitTests.isReturnDefaultValues = true } // Android Log calls in local JVM tests
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
+    signingConfigs {
+        if (releaseSigningReady) {
+            create("release") {
+                storeFile = file(secret("ECODALA_RELEASE_STORE_FILE").orEmpty())
+                storePassword = secret("ECODALA_RELEASE_STORE_PASSWORD")
+                keyAlias = secret("ECODALA_RELEASE_KEY_ALIAS")
+                keyPassword = secret("ECODALA_RELEASE_KEY_PASSWORD")
             }
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+
+    buildTypes {
+        debug {
+            buildConfigField("Boolean", "ECODALA_LOGGING_ENABLED", "true")
+        }
+        release {
+            buildConfigField("Boolean", "ECODALA_LOGGING_ENABLED", "false")
+            if (releaseSigningReady) {
+                signingConfig = signingConfigs.getByName("release")
+            }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
-    buildFeatures {
-        compose = true
+
+    compileOptions {
+        isCoreLibraryDesugaringEnabled = true // java.time on Android 7 (minSdk 24)
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material.icons.core)
-    implementation(libs.androidx.compose.material.icons.extended)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    implementation(platform("androidx.compose:compose-bom:2024.10.00"))
+    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.6")
+    implementation("androidx.navigation:navigation-compose:2.8.3")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

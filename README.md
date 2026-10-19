@@ -1,27 +1,26 @@
-# EcoDala
+# EcoDala — Android Development (SIS3 → SIS4)
 
-EcoDala is a mobile application designed to encourage students and young people to recycle through gamification.
+EcoDala is an Android application encouraging recycling through EcoPoints, challenges, achievements, a virtual tree and a demonstration leaderboard. The SIS4 version uses Kotlin, Jetpack Compose and **MVVM with StateFlow**, with a local data repository instead of a production backend.
 
-The application allows users to discover recycling points, check accepted waste types, track their EcoPoints and achievements, and compare their progress with other users through a leaderboard.
+> **Scope:** This is a university learning/demo application. Recycling locations and leaderboard entries are demo data, not verified public facilities or real multi-user rankings. Authentication and remote sync are not production services.
 
-## SIS3 Project
+## Current application
 
-This project was developed as part of the SIS3 Jetpack Compose assignment.
+The current `com.ecodala` implementation has navigation to Home, recycling Map/List, recycling point Details, Waste Submission, Virtual Tree, Challenges, Leaderboard, Achievements, Profile, Recycling History, Settings and Support, plus the splash flow. The application also includes local demo account/profile capabilities and Light/Dark themes.
 
-The project focuses on:
+Main features:
+- Browse demo recycling points on the map or as a list, search by name/address/waste type, filter by category and mark favourites.
+- Open recycling point details by `pointId`.
+- Record waste submissions and calculate EcoPoints using a shared local repository.
+- View current user's EcoPoints, history, challenges, achievements and virtual tree progress.
+- Explore the demonstration Leaderboard, including an entry based on the current user's local points.
+- Change appearance and use existing localization resources.
 
-- Jetpack Compose UI development
-- Material 3 design
-- Reusable composables
-- Navigation Compose
-- Data-driven UI
-- List and detail screens
-- Light and Dark themes
-- State management with Compose
+**Technology:** Kotlin, Jetpack Compose, Material 3, Navigation Compose, lifecycle-aware StateFlow collection, Coroutines, SavedStateHandle, local demo repository/storage and OSMDroid for the map. See Gradle files for exact dependency versions.
 
-## Screens
+## SIS3 — UI and design archive
 
-The application consists of three main screens.
+The following three-screen description and screenshots document the **earlier SIS3 submission**. They are retained for design history; the current SIS4 app contains additional screens and a different package architecture.
 
 ### 1. Home Screen
 
@@ -172,229 +171,156 @@ The final Recycling Point Detail Screen keeps the main information hierarchy of 
 <img src="screens/recycling_point_light.png" width="280">
 </p>
 
-## Main Features
+## SIS4 — Current architecture
 
-- 3 Jetpack Compose screens
-- Navigation Compose
-- `LazyColumn` with 10 leaderboard users
-- `LazyRow` for Quick Actions
-- ID-based navigation to the recycling point detail screen
-- Back navigation
-- Long-title handling with `TextOverflow.Ellipsis`
-- Friendly empty state for the leaderboard
-- Resource-based recycling center image
-- Meaningful image `contentDescription`
-- Favorite state exposed through `RecyclingPointUiState` and toggled by `RecyclingPointViewModel`
-- Reusable parameterized composables
-- Custom EcoDala color scheme
-- Light Mode
-- Dark Mode
-- Material 3 components
-- Local data models and sample data
-- Bottom navigation
-
-## SIS3 Requirements
-
-The project implements the main SIS3 requirements:
-
-| Requirement | Implementation |
-|---|---|
-| 3+ screens | Home, Leaderboard, Recycling Point Detail |
-| List screen | Leaderboard |
-| Detail screen | Recycling Point Detail |
-| `LazyColumn` | Leaderboard with 10 users |
-| `LazyRow` | Home Quick Actions |
-| `Scaffold` | Used on all screens |
-| `TopAppBar` | Used on all screens |
-| Back navigation | Leaderboard and Recycling Point Detail |
-| ID navigation | Recycling Point Detail receives `id` |
-| Long-title handling | `TextOverflow.Ellipsis` |
-| Empty state | Leaderboard |
-| Image resource | Recycling center image |
-| Image description | Meaningful `contentDescription` |
-| Custom color scheme | EcoDala Light/Dark theme |
-| Dark Mode | Dedicated Dark theme |
-| Reusable composables | Components package |
-| Screen state | Immutable UiState collected from ViewModel StateFlow |
-| Navigation | Navigation Compose |
-| Data classes | User, Achievement, RecyclingPoint |
-
-## Project Structure
+The app's current Kotlin package is `com.ecodala` (not the old `kz.ecodala`). Important current files are:
 
 ```text
-EcoDala---SIS/
-├── app/
-│   └── src/
-│       └── main/
-│           ├── java/kz/ecodala/
-│           │   ├── components/
-│           │   ├── data/
-│           │   ├── model/
-│           │   ├── navigation/
-│           │   ├── screens/
-│           │   └── ui/
-│           │       └── theme/
-│           │
-│           └── res/
-│               └── drawable/
-│
-├── design/
-│   ├── Detail Screen.jpg
-│   ├── Home Dashboard.jpg
-│   └── List Screen.jpg
-│
-├── screens/
-│   ├── home_light.png
-│   ├── home_dark.png
-│   ├── leaderboard_light.png
-│   ├── leaderboard_dark.png
-│   ├── recycling_point_light.png
-│   └── recycling_point_dark.png
-│
-├── AI_USAGE.md
-├── README.md
-├── build.gradle.kts
-├── settings.gradle.kts
-└── gradle.properties
+app/src/main/java/com/ecodala/
+├── MainActivity.kt
+├── core/
+│   ├── data/
+│   │   ├── dummy/DummyEcoData.kt
+│   │   ├── local/EcoLocalCache.kt
+│   │   └── repository/LocalEcoRepository.kt
+│   ├── navigation/EcoDalaNavGraph.kt
+│   ├── domain/model/
+│   └── domain/usecase/
+├── feature/
+│   ├── map/presentation/
+│   │   ├── MapViewModel.kt
+│   │   ├── MapScreen.kt
+│   │   └── RecyclingPointDetailsViewModel.kt
+│   ├── home/presentation/
+│   ├── submit/presentation/
+│   ├── leaderboard/presentation/
+│   ├── tree/presentation/
+│   ├── challenges/presentation/
+│   ├── achievements/presentation/
+│   └── profile/presentation/
 ```
 
-## Reusable Components
+The main SIS4 example is the recycling Map/List feature. The app has more ViewModels, but this feature provides one clear path through all the graded MVVM layers.
 
-The project uses reusable parameterized Compose components, including:
-
-- `ActionItem`
-- `EcoCard`
-- `EcoBottomBar`
-- `LeaderboardItem`
-- `RankingHeader`
-- `RecentAchievementItem`
-- `VirtualTreeCard`
-- `WasteTypeChip`
-
-These components separate repeated UI elements from the screen implementations and make the interface easier to maintain.
-
-## Technology Stack
-
-- **Kotlin**
-- **Jetpack Compose**
-- **Material 3**
-- **Navigation Compose**
-- **Android Studio**
-- **Gradle**
-
-## Application Architecture
-
-The project is organized into separate packages according to their responsibilities:
-
-- `screens` — application screens
-- `components` — reusable UI components
-- `model` — data classes
-- `data` — local application data
-- `navigation` — Navigation Compose configuration
-- `ui.theme` — application theme and color scheme
-
-This structure keeps UI, data, navigation, and reusable components separated.
-
-## SIS4: Implemented MVVM Architecture
-
-The current SIS4 implementation uses a Route composable as the boundary between Navigation Compose and each stateless screen. `EcoRepository` is currently an in-memory data source over `EcoDalaData.kt`; the planned Django backend is not implemented and would be integrated behind this repository layer rather than called by screens.
+### Architecture diagram
 
 ```mermaid
-flowchart LR
-    Data[EcoDalaData.kt sample data] --> Repo[EcoRepository]
-
-    Nav[AppNavigation] --> HR[HomeRoute]
-    Nav --> LR[LeaderboardRoute]
-    Nav --> RR[RecyclingPointRoute]
-
-    HR --> HVM[HomeViewModel]
-    LR --> LVM[LeaderboardViewModel]
-    RR --> RVM[RecyclingPointViewModel]
-
-    HVM --> HState[HomeUiState]
-    LVM --> LState[LeaderboardUiState]
-    RVM --> RState[RecyclingPointUiState]
-
-    HVM --> Repo
-    LVM --> Repo
-    RVM --> Repo
-
-    HR -->|state + callbacks| HS[HomeScreen]
-    LR -->|state + callbacks| LS[LeaderboardScreen]
-    RR -->|state + callbacks| RS[RecyclingPointScreen]
-
-    HState --> HR
-    LState --> LR
-    RState --> RR
+flowchart TD
+    U[User taps or types] --> S[MapScreen: UiState + callbacks]
+    S -->|event callback| R[MapRoute]
+    R --> VM[MapViewModel]
+    VM -->|suspend operations| REPO[LocalEcoRepository]
+    REPO --> DATA[DummyEcoData / local shared data]
+    REPO -->|Result / data Flow| VM
+    VM -->|read-only StateFlow of MapUiState| R
+    R -->|collectAsStateWithLifecycle| S
 ```
 
-`HomeRoute`, `LeaderboardRoute`, and `RecyclingPointRoute` obtain their ViewModel and collect its read-only `StateFlow` with `collectAsStateWithLifecycle()`. Each ViewModel owns a private `MutableStateFlow` of its immutable UiState, calls `EcoRepository`, and publishes copied state. The screens receive only UiState values and callbacks, so they do not access the repository or sample data directly.
+- **View:** `MapScreen` draws UI from `MapUiState` and calls the supplied event lambdas. It does not directly fetch the recycling point list.
+- **Route:** `MapRoute` creates/gets `MapViewModel`, uses `collectAsStateWithLifecycle()` and passes state/callbacks into the screen. It also handles navigation/Android intent integration.
+- **ViewModel:** `MapViewModel` owns screen-level state, processes search, category changes, favourites, loading, retries and a demo error toggle.
+- **Repository:** `LocalEcoRepository` owns demo recycling data and shared user data; `recyclingPoints()` uses `delay(loadingDelayMillis)` and can return `Result.failure` to simulate a loading error.
 
-### Click trace: Recycling Point favorite
+The current architecture, UiState fields, events and click trace are documented in [design/SIS4_MVVM_Architecture.md](design/SIS4_MVVM_Architecture.md), using the actual `com.ecodala` names. This document describes the current implementation; it does not establish that a plan was committed before coding.
 
-1. In `RecyclingPointScreen`, the favorite `IconButton` invokes its `onToggleFavorite` callback.
-2. `RecyclingPointRoute` supplies that callback as `RecyclingPointViewModel::toggleFavorite`.
-3. `RecyclingPointViewModel.toggleFavorite()` gets the displayed point ID, calls `EcoRepository.toggleFavorite(pointId)`, and copies the returned value into `RecyclingPointUiState.isFavorite`.
-4. `RecyclingPointRoute` observes the updated `uiState` with `collectAsStateWithLifecycle()`, then passes it back to `RecyclingPointScreen`, which selects `Favorite` or `FavoriteBorder` from `uiState.isFavorite`.
+### UiState, StateFlow and events
 
-This is unidirectional data flow: state moves from the repository through a ViewModel and Route to a screen, while user events move back as callbacks from the screen to the ViewModel. The screen does not mutate business state itself.
+`MapUiState` is an immutable Kotlin data class with `val` properties, including `searchQuery`, `selectedWasteType`, `allPoints`, `favouriteIds`, `selectedPoint`, `isLoading`, `errorMessage`, `demoErrorEnabled` and `showList`. Its derived `filteredPoints` property applies search/category predicates without putting the filtering inside `MapScreen`.
 
-## Build and Run
+`MapViewModel` keeps `private val _uiState = MutableStateFlow(...)` and exposes `val uiState: StateFlow<MapUiState> = _uiState.asStateFlow()`. Handlers update the state using `update { it.copy(...) }`.
 
-1. Open the project in Android Studio.
-2. Wait for Gradle synchronization to complete.
-3. Start an Android Emulator or connect an Android device.
-4. Select the `app` run configuration.
-5. Run the application.
+Examples of user events handled in the ViewModel:
 
-## SIS4 B4: Lifecycle Logging and Rotation Proof
+| UI event | MapViewModel method | Effect |
+|---|---|---|
+| Search field changes | `onSearchQueryChange(value)` | Updates query and visible results |
+| Waste category selected | `onCategorySelected(type)` | Updates category filter |
+| Favourite clicked | `onFavouriteClick(id)` | Calls repository to toggle favourite |
+| Retry pressed | `onRetry()` | Triggers fresh load |
+| Demo error toggled | `onDemoErrorClick()` / `onDemoErrorDisabled()` | Shows or clears simulated repository failure |
+| Map/List toggled | `onListModeChange()` | Switches list/map presentation |
 
-Use Android Studio Logcat with the app process selected and this filter query:
+### Four required UI states
 
+| State | Current behavior | Preview in `MapScreen.kt` |
+|---|---|---|
+| Loading | Progress indicator while repository waits | `MapLoadingPreview` |
+| Content | Map or list of matching recycling points | `MapContentPreview` |
+| Empty | Friendly empty result when no point matches | `MapEmptyPreview` |
+| Error | Error message and Retry; optional demo-error switch-off | `MapErrorPreview` |
+
+There is also `MapDarkPreview`. These previews use direct fake `MapUiState` values instead of fetching from a live ViewModel. **Their rendering inside Android Studio still needs to be visually verified on the developer's machine.**
+
+### Trace one click: favourite recycling point
+
+1. The user taps the favourite icon on a recycling point card in `MapScreen`.
+2. The UI calls its `onFavouriteClick(point.id)` lambda, supplied by `MapRoute` as `viewModel::onFavouriteClick`.
+3. `MapViewModel.onFavouriteClick(id)` launches a coroutine and calls `LocalEcoRepository.setFavourite(id)`.
+4. The repository updates its local `favouriteIds` set and emits a new shared data value.
+5. `MapViewModel` collects `repository.data` and copies updated `favouriteIds` into `MapUiState`.
+6. `MapRoute` collects `uiState` via `collectAsStateWithLifecycle()` and sends it to `MapScreen`.
+7. Compose recomposes the favourite control using `point.id in uiState.favouriteIds`.
+
+This is **unidirectional data flow**: events move up from the screen, and fresh state moves down from the ViewModel.
+
+### Detail-screen navigation and SavedStateHandle
+
+`EcoDalaNavGraph.kt` navigates to recycling details using the selected point's ID. `RecyclingPointDetailsViewModel` retrieves `pointId` from `SavedStateHandle`, then loads that item through `LocalEcoRepository.recyclingPoint(pointId)`. This is also a candidate for SIS4 bonus credit (subject to the instructor's evaluation).
+
+### Actual Rotation Test — Pixel 7, API 35
+
+The application was tested on a Pixel 7 emulator running Android 15 (API 35).
+
+**Activity lifecycle logs captured during rotation:**
 ```text
-tag:SIS4_LIFECYCLE | tag:SIS4_VIEWMODEL
+15:19:21.179 MainActivity.onPause instance=136985291
+15:19:21.198 MainActivity.onStop instance=136985291
+15:19:21.269 MainActivity.onDestroy instance=136985291 changingConfigurations=true
+15:19:21.318 MainActivity.onCreate instance=117308936 restored=true
+15:19:21.370 MainActivity.onStart instance=117308936
+15:19:21.372 MainActivity.onResume instance=117308936
 ```
 
-To inspect a configuration change manually:
-
-1. Run the app on a device or emulator with auto-rotate enabled.
-2. Open any screen that creates the ViewModel you want to observe, then clear Logcat.
-3. Rotate the device or emulator from portrait to landscape (for an emulator, use the Rotate Left or Rotate Right toolbar action).
-4. Rotate it back if desired and inspect the filtered Logcat entries.
-5. Confirm that the Activity destruction/creation callbacks appear; a ViewModel scoped to the retained navigation entry normally does not log a new initialization or `onCleared()` solely because of rotation.
-
-**Expected log ordering example (illustrative; not captured output):**
-
+**ViewModel Logcat observation:**
 ```text
-SIS4_LIFECYCLE: MainActivity.onPause
-SIS4_LIFECYCLE: MainActivity.onStop
-SIS4_LIFECYCLE: MainActivity.onDestroy
-SIS4_LIFECYCLE: MainActivity.onCreate
-SIS4_LIFECYCLE: MainActivity.onStart
-SIS4_LIFECYCLE: MainActivity.onResume
+15:21:37.030 SIS4.MapViewModel init instance=169087100
 ```
 
-Android recreates an Activity during a configuration change so it can reload configuration-dependent resources and layout state. A ViewModel is retained across that recreation when its owner, such as the Activity or retained navigation back-stack entry, is retained by the framework. As a result, the existing ViewModel normally remains available after rotation and keeps its UI state. `onCleared()` is instead expected when that owner is permanently removed, such as when its navigation entry is popped or the Activity is finishing.
+After additional device rotations, no new `init` or `onCleared` messages appeared for MapViewModel in the observed Logcat output.
 
-## AI Usage
+**Explanation:**
 
-AI was used as a development assistant during the project for:
+When the device rotates, Android destroys and recreates MainActivity to apply the new screen configuration. The logs confirm that the Activity instance changes, while the existing MapViewModel remains available through its retained ViewModelStoreOwner. Because the search query, selected filter, and favourite state are managed through the ViewModel's StateFlow, they remain unchanged after rotation. This demonstrates how MVVM separates UI state from the Activity lifecycle.
 
-- understanding Jetpack Compose concepts;
-- reviewing the project structure;
-- refactoring UI components;
-- implementing Navigation Compose;
-- debugging;
-- checking SIS3 requirements;
-- reviewing Light and Dark themes;
-- improving the UI.
+## Build and run
 
-The final application structure, UI decisions, data, testing, and manual adjustments were reviewed by the developer.
+1. Open the project root `EcoDala---SIS` in Android Studio.
+2. Allow Gradle Sync to finish, and confirm the Android SDK is configured.
+3. Select the `app` configuration and run it on an emulator/device.
+4. For build and unit tests, use the Gradle wrapper:
 
-Detailed information about AI usage, prompts, corrections, and manually implemented changes is available in [AI_USAGE.md](AI_USAGE.md).
+```powershell
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:testDebugUnitTest
+```
+
+**Verified on 2026-10-19:** `:app:assembleDebug :app:testDebugUnitTest` completed with `BUILD SUCCESSFUL`: 17 tests, 0 failures, 0 errors. APK: `app/build/outputs/apk/debug/app-debug.apk`. Test report: `app/build/reports/tests/testDebugUnitTest/index.html`. No device was connected during the automated build check. The subsequent manual rotation test on Pixel 7 (API 35) is documented above; Preview rendering still requires verification. See [SIS4_PREPARATION.md](SIS4_PREPARATION.md) for the device checklist and defense preparation.
+
+## SIS4 requirements and remaining verification
+
+| SIS4 area | Implementation / evidence | Remaining action |
+|---|---|---|
+| A: Architecture plan | `design/SIS4_MVVM_Architecture.md` | Current names checked; early-plan chronology remains unverified |
+| B1: Repository | `LocalEcoRepository.kt`, delay and simulated error | Demonstrate error/retry |
+| B2: ViewModel & StateFlow | `MapViewModel.kt`, immutable `MapUiState`, multiple events | Manual rotation test completed on Pixel 7 (API 35), as documented above |
+| B3: Stateless UI | `MapRoute` / `MapScreen`, lifecycle-aware collection, 4 previews | Verify previews render |
+| B4: Lifecycle proof | `MainActivity.kt`, `MapViewModel.kt` logs | Activity and ViewModel observations included above |
+| C: README, AI usage, Git | This README and `AI_USAGE.md` | Current AI log updated; confirm personal example and Git history |
+
+## AI usage and development history
+
+See [AI_USAGE.md](AI_USAGE.md) for AI assistance, current SIS4 class names and verification limits. The author still needs to confirm a personal, authentic example of AI putting logic in the wrong layer. See [SIS4_PREPARATION.md](SIS4_PREPARATION.md) for the defense walkthrough.
 
 ## Repository
-
-The source code is available in this GitHub repository:
 
 https://github.com/zhakoX/EcoDala---SIS
