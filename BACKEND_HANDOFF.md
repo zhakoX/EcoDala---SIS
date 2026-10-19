@@ -1,3 +1,5 @@
+> Historical reference from the pre-SIS4 version. The current app uses local demo repositories; this document is not current setup guidance. See README.md.
+
 # EcoDala Backend Handoff
 
 This file is for the backend developer. It describes what the Android app expects from the REST API.

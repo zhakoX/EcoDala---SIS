@@ -1,0 +1,41 @@
+PASS: final APK Home shows 1020 and no Level 11
+PASS: final APK Profile shows actual identity and score 100, with capped milestone
+PASS: final APK leaderboard uses actual local name
+'Back' [32,189][95,252] selected=false
+'Leaderboard' [362,178][719,262] selected=false
+'Students' [227,383][371,426] selected=false
+'Faculties' [707,383][855,426] selected=false
+'2' [250,760][265,813] selected=false
+'Alina' [156,839][239,882] selected=false
+'1150 pts' [136,882][259,919] selected=false
+'1' [614,739][629,792] selected=false
+'Aibek' [495,818][587,861] selected=false
+'1200 pts' [479,861][602,898] selected=false
+'3' [956,807][971,860] selected=false
+'Yerzhan' [839,886][969,929] selected=false
+'1100 pts' [842,929][965,966] selected=false
+'4' [100,1283][189,1357] selected=false
+'Samat Bolat' [336,1299][836,1342] selected=false
+'1050 pts' [836,1299][980,1342] selected=false
+'5' [100,1470][189,1544] selected=false
+'Aizhan K.' [336,1486][836,1529] selected=false
+'1020 pts' [836,1486][980,1529] selected=false
+'6' [100,1657][189,1731] selected=false
+'You (Google Eco User)' [336,1673][836,1716] selected=false
+'1020 pts' [836,1673][980,1716] selected=false
+'7' [100,1844][189,1918] selected=false
+'Duman Serik' [336,1860][857,1903] selected=false
+'980 pts' [857,1860][980,1903] selected=false
+'8' [100,2031][189,2105] selected=false
+'Kanat A.' [336,2047][857,2090] selected=false
+'810 pts' [857,2047][980,2090] selected=false
+'Home' [104,2205][154,2255] selected=false
+'Home' [93,2267][164,2297] selected=false
+'Map' [309,2205][359,2255] selected=false
+'Map' [308,2267][360,2297] selected=false
+'Submit' [510,2201][570,2261] selected=false
+'Submit' [498,2283][580,2313] selected=false
+'Leads' [720,2205][770,2255] selected=false
+'Leads' [710,2267][780,2297] selected=false
+'Profile' [926,2205][976,2255] selected=false
+'Profile' [914,2267][988,2297] selected=false

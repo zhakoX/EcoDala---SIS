@@ -1,0 +1,27 @@
+PASS: campus search, Paper category and favourite retained through portrait/landscape/portrait
+'campus' [195,339][922,465] selected=false
+'Filters' [922,372][980,430] selected=false
+'All' [153,551][195,594] selected=false
+'Plastic' [353,551][463,594] selected=false
+'Paper' [621,551][715,594] selected=false
+'Glass' [873,551][964,594] selected=false
+'Demo locations � illustrative distances' [58,651][533,685] selected=false
+'Paper � Organic � Plastic' [89,783][907,820] selected=false
+'Toggle favourite' [939,770][1002,833] selected=false
+'Demo: Campus Paper Hub' [242,944][738,993] selected=false
+'08:00 AM - 05:00 PM' [242,993][574,1036] selected=false
+'Open details' [892,959][955,1022] selected=false
+'4.5 � 1200 m away' [133,1075][384,1112] selected=false
+'Map' [43,185][146,254] selected=false
+'Map' [834,197][901,245] selected=false
+'Demo error mode' [975,189][1038,252] selected=false
+'Home' [104,2205][154,2255] selected=false
+'Home' [93,2267][164,2297] selected=false
+'Map' [309,2205][359,2255] selected=false
+'Map' [308,2267][360,2297] selected=false
+'Submit' [510,2201][570,2261] selected=false
+'Submit' [498,2283][580,2313] selected=false
+'Leads' [720,2205][770,2255] selected=false
+'Leads' [710,2267][780,2297] selected=false
+'Profile' [926,2205][976,2255] selected=false
+'Profile' [914,2267][988,2297] selected=false

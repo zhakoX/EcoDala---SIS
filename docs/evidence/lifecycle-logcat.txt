@@ -1,0 +1,17 @@
+--------- beginning of main
+10-19 07:01:53.505  4885  4885 D SIS4.MainActivity: onCreate instance=190115588 restored=false
+10-19 07:01:54.611  4885  4885 D SIS4.MainActivity: onStart instance=190115588
+10-19 07:01:54.619  4885  4885 D SIS4.MainActivity: onResume instance=190115588
+10-19 07:04:04.746  4885  4885 D SIS4.MapViewModel: init instance=248868151
+10-19 07:05:10.244  4885  4885 D SIS4.MainActivity: onPause instance=190115588
+10-19 07:05:10.247  4885  4885 D SIS4.MainActivity: onStop instance=190115588
+10-19 07:05:10.316  4885  4885 D SIS4.MainActivity: onDestroy instance=190115588 changingConfigurations=true
+10-19 07:05:10.360  4885  4885 D SIS4.MainActivity: onCreate instance=165374331 restored=true
+10-19 07:05:10.401  4885  4885 D SIS4.MainActivity: onStart instance=165374331
+10-19 07:05:10.420  4885  4885 D SIS4.MainActivity: onResume instance=165374331
+10-19 07:05:15.915  4885  4885 D SIS4.MainActivity: onPause instance=165374331
+10-19 07:05:15.923  4885  4885 D SIS4.MainActivity: onStop instance=165374331
+10-19 07:05:15.987  4885  4885 D SIS4.MainActivity: onDestroy instance=165374331 changingConfigurations=true
+10-19 07:05:16.043  4885  4885 D SIS4.MainActivity: onCreate instance=217184166 restored=true
+10-19 07:05:16.070  4885  4885 D SIS4.MainActivity: onStart instance=217184166
+10-19 07:05:16.090  4885  4885 D SIS4.MainActivity: onResume instance=217184166

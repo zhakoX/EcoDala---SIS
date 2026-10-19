@@ -1,0 +1,72 @@
+[
+  {
+    "name": "com.ecodala.core.data.repository.LocalEcoRepositoryTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.core.domain.model.EcoRatingCalculatorTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.core.validation.FormValidatorTest",
+    "tests": "4",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.auth.presentation.AuthViewModelTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.leaderboard.presentation.FacultyLeaderboardSummaryTest",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.map.presentation.MapUiStateTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.map.presentation.MapViewModelTest",
+    "tests": "3",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.map.presentation.RecyclingPointDetailsViewModelTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.profile.presentation.RecyclingHistoryUiStateTest",
+    "tests": "2",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  },
+  {
+    "name": "com.ecodala.feature.SharedProgressViewModelsTest",
+    "tests": "1",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0"
+  }
+]

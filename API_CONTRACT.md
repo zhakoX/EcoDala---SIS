@@ -1,3 +1,5 @@
+> Historical reference from the pre-SIS4 version. The current app uses local demo repositories; this document is not current setup guidance. See README.md.
+
 # EcoDala Android API Contract
 
 This document describes the REST API shape expected by the EcoDala Android app.
