@@ -19,7 +19,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Public
@@ -50,6 +49,7 @@ import com.ecodala.core.localization.LocalEcoStrings
 import com.ecodala.core.settings.AppSettings
 import com.ecodala.core.ui.theme.EcoDalaTheme
 import com.ecodala.core.ui.theme.EcoGreen
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 
 @Composable
 fun SettingsRoute(
@@ -164,7 +164,7 @@ private fun SettingsTopBar(
             onClick = onBackClick,
             modifier = Modifier.align(Alignment.CenterStart)
         ) {
-            Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = EcoGreen)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = EcoGreen)
         }
 
         Text(

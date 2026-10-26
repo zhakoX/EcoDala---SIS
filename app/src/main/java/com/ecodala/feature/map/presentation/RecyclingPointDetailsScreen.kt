@@ -22,12 +22,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.BatteryChargingFull
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.InsertDriveFile
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Recycling
@@ -69,6 +67,8 @@ import com.ecodala.core.domain.model.WasteType
 import com.ecodala.core.localization.LocalEcoStrings
 import com.ecodala.core.ui.theme.EcoDalaTheme
 import com.ecodala.core.ui.theme.EcoGreen
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 
 @Composable
 fun RecyclingPointDetailsRoute(
@@ -241,7 +241,7 @@ private fun DetailsTopBar(
     ) {
         IconButton(onClick = onBackClick) {
             Icon(
-                imageVector = Icons.Filled.ArrowBack,
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "Back",
                 tint = MaterialTheme.colorScheme.onSurface
             )
@@ -443,7 +443,7 @@ private data class WasteVisualSpec(
 private fun WasteType.visualSpec(): WasteVisualSpec {
     return when (this) {
         WasteType.Plastic -> WasteVisualSpec(Icons.Filled.Recycling, Color(0xFFDCEBFF), Color(0xFF4385F5))
-        WasteType.Paper -> WasteVisualSpec(Icons.Filled.InsertDriveFile, Color(0xFFFFE9D6), Color(0xFFFF8A3D))
+        WasteType.Paper -> WasteVisualSpec(Icons.AutoMirrored.Filled.InsertDriveFile, Color(0xFFFFE9D6), Color(0xFFFF8A3D))
         WasteType.Glass -> WasteVisualSpec(Icons.Filled.WineBar, Color(0xFFD7FAF4), Color(0xFF18A999))
         WasteType.Batteries -> WasteVisualSpec(Icons.Filled.BatteryChargingFull, Color(0xFFFFF6C8), Color(0xFFC99713))
         WasteType.Electronics -> WasteVisualSpec(Icons.Filled.Memory, Color(0xFFEBD9FF), Color(0xFF9B5DF5))

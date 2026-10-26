@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 
 /**
  * Centralized visual specification for [WasteType].
@@ -54,7 +55,7 @@ object WasteTypeVisuals {
     fun achievementIcon(wasteType: WasteType): ImageVector = when (wasteType) {
         WasteType.Plastic -> Icons.Filled.Recycling
         WasteType.Glass -> Icons.Filled.WineBar
-        WasteType.Paper -> Icons.Filled.InsertDriveFile
+        WasteType.Paper -> Icons.AutoMirrored.Filled.InsertDriveFile
         WasteType.Batteries -> Icons.Filled.BatteryChargingFull
         WasteType.Electronics -> Icons.Filled.Spa
         WasteType.Organic -> Icons.Filled.LocalFlorist

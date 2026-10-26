@@ -62,6 +62,8 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.InsertDriveFile
 
 @Composable
 fun MapRoute(
@@ -256,7 +258,7 @@ private fun WasteFilterRow(selectedWasteType: WasteType?, onCategorySelected: (W
             FilterChip(strings.wasteTypeName(type), when(type) {
                 WasteType.Plastic -> Icons.Filled.LocalDrink
                 WasteType.Glass -> Icons.Filled.WineBar
-                WasteType.Paper -> Icons.Filled.InsertDriveFile
+                WasteType.Paper -> Icons.AutoMirrored.Filled.InsertDriveFile
                 else -> Icons.Filled.Recycling
             }, selectedWasteType == type, type.filterChipColors()) { onCategorySelected(type) }
         }
@@ -466,7 +468,7 @@ private fun RecyclingPointPreviewCard(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowForward,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                         contentDescription = "Open details",
                         tint = Color.White
                     )
@@ -533,7 +535,7 @@ private fun RecyclingPointPreviewCard(
                 )
                 MapCardActionButton(
                     label = strings.sis4Text("Details", "Подробнее", "Толығырақ"),
-                    icon = Icons.Filled.ArrowForward,
+                    icon = Icons.AutoMirrored.Filled.ArrowForward,
                     onClick = onClick,
                     modifier = Modifier.weight(1f)
                 )

@@ -21,12 +21,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Help
 import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.SupportAgent
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -55,6 +52,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ecodala.core.localization.LocalEcoStrings
 import com.ecodala.core.ui.theme.EcoDalaTheme
 import com.ecodala.core.ui.theme.EcoGreen
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.automirrored.filled.Help
 
 @Composable
 fun SupportRoute(
@@ -133,7 +133,7 @@ private fun SupportTopBar(onBackClick: () -> Unit) {
             onClick = onBackClick,
             modifier = Modifier.align(Alignment.CenterStart)
         ) {
-            Icon(Icons.Filled.ArrowBack, contentDescription = "Back", tint = EcoGreen)
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = EcoGreen)
         }
         Text(
             text = LocalEcoStrings.current.support,
@@ -316,7 +316,7 @@ private fun RequestCard(
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreen)
             ) {
-                Icon(Icons.Filled.Send, contentDescription = null, modifier = Modifier.size(18.dp))
+                Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(LocalEcoStrings.current.sendRequest, fontWeight = FontWeight.Bold)
             }
@@ -368,7 +368,7 @@ private fun FaqRow(faq: SupportFaq) {
             modifier = Modifier.padding(15.dp),
             verticalAlignment = Alignment.Top
         ) {
-            Icon(Icons.Filled.Help, contentDescription = null, tint = EcoGreen, modifier = Modifier.size(20.dp))
+            Icon(Icons.AutoMirrored.Filled.Help, contentDescription = null, tint = EcoGreen, modifier = Modifier.size(20.dp))
             Spacer(modifier = Modifier.size(12.dp))
             Column {
                 Text(
