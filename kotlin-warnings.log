@@ -1,0 +1,41 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/home/zhako/.gradle/wrapper/dists/gradle-9.6.0-bin/42k10rwplmzkhuboz9kdazi7s/gradle-9.6.0/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+
+> Task :app:compileDebugKotlin
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/MainActivity.kt:87:32 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/MainActivity.kt:88:32 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/core/domain/model/WasteTypeVisuals.kt:57:41 'val Icons.Filled.InsertDriveFile: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.InsertDriveFile.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/achievements/presentation/AchievementsScreen.kt:146:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/challenges/presentation/ChallengesScreen.kt:159:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/leaderboard/presentation/LeaderboardScreen.kt:161:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/leaderboard/presentation/LeaderboardScreen.kt:616:52 'val Icons.Filled.TrendingUp: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.TrendingUp.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/map/presentation/MapScreen.kt:259:49 'val Icons.Filled.InsertDriveFile: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.InsertDriveFile.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/map/presentation/MapScreen.kt:469:52 'val Icons.Filled.ArrowForward: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowForward.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/map/presentation/MapScreen.kt:536:41 'val Icons.Filled.ArrowForward: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowForward.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/map/presentation/RecyclingPointDetailsScreen.kt:244:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/map/presentation/RecyclingPointDetailsScreen.kt:446:57 'val Icons.Filled.InsertDriveFile: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.InsertDriveFile.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/ProfileScreen.kt:399:52 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/ProfileScreen.kt:694:40 'val Icons.Filled.ArrowForward: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowForward.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/RecyclingHistoryScreen.kt:165:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/SettingsScreen.kt:167:31 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/SupportScreen.kt:136:31 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/SupportScreen.kt:319:35 'val Icons.Filled.Send: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Send.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/profile/presentation/SupportScreen.kt:371:31 'val Icons.Filled.Help: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.Help.
+w: file:///home/zhako/StudioProjects/EcoDala---SIS/app/src/main/java/com/ecodala/feature/submit/presentation/SubmitWasteScreen.kt:213:44 'val Icons.Filled.ArrowBack: ImageVector' is deprecated. Use the AutoMirrored version at Icons.AutoMirrored.Filled.ArrowBack.
+
+[Incubating] Problems report is available at: file:///home/zhako/StudioProjects/EcoDala---SIS/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 18s
+7 actionable tasks: 7 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.0/userguide/configuration_cache_enabling.html
