@@ -74,6 +74,7 @@ fun HomeRoute(
     onTreeClick: () -> Unit,
     onAchievementsClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onWeatherClick: () -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -82,6 +83,7 @@ fun HomeRoute(
     HomeScreen(
         uiState = uiState,
         selectedLanguageTag = settings.appLanguageTag,
+        onWeatherClick = onWeatherClick,
         onMapClick = onMapClick,
         onSubmitClick = onSubmitClick,
         onChallengesClick = onChallengesClick,
@@ -101,6 +103,7 @@ fun HomeScreen(
     uiState: HomeUiState,
     modifier: Modifier = Modifier,
     selectedLanguageTag: String = "en",
+    onWeatherClick: () -> Unit = {},
     onMapClick: () -> Unit,
     onSubmitClick: () -> Unit,
     onChallengesClick: () -> Unit,
@@ -136,6 +139,10 @@ fun HomeScreen(
             )
 
             Spacer(modifier = Modifier.height(smallGap))
+
+            androidx.compose.material3.TextButton(onClick = onWeatherClick) {
+                Text("Weather forecast")
+            }
 
             EcoRatingCard(
                 points = uiState.ecoPoints,

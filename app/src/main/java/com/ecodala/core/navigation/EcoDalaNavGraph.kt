@@ -66,8 +66,14 @@ fun EcoDalaApp(navController: NavHostController = rememberNavController()) {
                     }
                 })
             }
+            composable("weather") {
+                com.ecodala.presentation.weather.WeatherRoute(
+                    onBackClick = { navController.popBackStack() },
+                )
+            }
             composable(EcoDalaRoute.Home.route) {
                 HomeRoute(
+                    onWeatherClick = { navController.navigate("weather") },
                     onMapClick = { navController.navigate(EcoDalaRoute.Map.route) },
                     onSubmitClick = { navController.navigate(EcoDalaRoute.SubmitWaste.route) },
                     onChallengesClick = { navController.navigate(EcoDalaRoute.Challenges.route) },
