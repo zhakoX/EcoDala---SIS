@@ -35,13 +35,13 @@ The diagram focuses on the principal SIS4 demonstration path, not every EcoDala 
 | Layer | Existing file | Responsibility |
 | --- | --- | --- |
 | Navigation | `app/src/main/java/com/ecodala/core/navigation/EcoDalaNavGraph.kt` | Opens `MapRoute` and navigates to recycling-point details with a `pointId` argument. |
-| Route | `app/src/main/java/com/ecodala/feature/map/presentation/MapScreen.kt` → `MapRoute()` | Gets `MapViewModel`, collects `uiState` via `collectAsStateWithLifecycle()`, passes state and callbacks to `MapScreen`. |
+| Route | `app/src/main/java/com/ecodala/presentation/map/MapScreen.kt` → `MapRoute()` | Gets `MapViewModel`, collects `uiState` via `collectAsStateWithLifecycle()`, passes state and callbacks to `MapScreen`. |
 | View | Same file → `MapScreen()` | Receives `MapUiState` and callback lambdas; displays recycling map/list and loading, content, empty, or error. |
-| ViewModel/state | `app/src/main/java/com/ecodala/feature/map/presentation/MapViewModel.kt` | Defines immutable `MapUiState`, handles events, loads repository data and publishes a read-only `StateFlow`. |
-| Repository | `app/src/main/java/com/ecodala/core/data/repository/LocalEcoRepository.kt` | Owns recycling point data, simulates latency and errors, handles favourites and local eco data. |
-| Demo data | `app/src/main/java/com/ecodala/core/data/dummy/DummyEcoData.kt` | Supplies sample recycling points. |
-| Saved local state | `app/src/main/java/com/ecodala/core/data/local/EcoLocalCache.kt` | Persists relevant repository data. |
-| Details ViewModel | `app/src/main/java/com/ecodala/feature/map/presentation/RecyclingPointDetailsViewModel.kt` | Reads `pointId` from `SavedStateHandle` and loads a specific point. |
+| ViewModel/state | `app/src/main/java/com/ecodala/presentation/map/MapViewModel.kt` | Defines immutable `MapUiState`, handles events, loads repository data and publishes a read-only `StateFlow`. |
+| Repository | `app/src/main/java/com/ecodala/data/repository/LocalEcoRepository.kt` | Owns recycling point data, simulates latency and errors, handles favourites and local eco data. |
+| Demo data | `app/src/main/java/com/ecodala/data/dummy/DummyEcoData.kt` | Supplies sample recycling points. |
+| Saved local state | `app/src/main/java/com/ecodala/data/local/EcoLocalCache.kt` | Persists relevant repository data. |
+| Details ViewModel | `app/src/main/java/com/ecodala/presentation/map/RecyclingPointDetailsViewModel.kt` | Reads `pointId` from `SavedStateHandle` and loads a specific point. |
 | Lifecycle proof | `app/src/main/java/com/ecodala/MainActivity.kt` | Logs Activity lifecycle callbacks. |
 
 Other preserved screens include Home, Leaderboard, Challenges, Achievements, Virtual Tree, Profile, and Waste Submission. They are part of the product but are not the primary demonstration path described above.

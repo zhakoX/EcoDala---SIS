@@ -1,4 +1,6 @@
-# EcoDala — Android Development (SIS3 → SIS4)
+# EcoDala
+
+Карта папок и правила размещения кода: [ARCHITECTURE.md](ARCHITECTURE.md). — Android Development (SIS3 → SIS4)
 
 EcoDala is an Android application encouraging recycling through EcoPoints, challenges, achievements, a virtual tree and a demonstration leaderboard. The SIS4 version uses Kotlin, Jetpack Compose and **MVVM with StateFlow**, with a local data repository instead of a production backend.
 
@@ -178,26 +180,27 @@ The app's current Kotlin package is `com.ecodala` (not the old `kz.ecodala`). Im
 ```text
 app/src/main/java/com/ecodala/
 ├── MainActivity.kt
-├── core/
-│   ├── data/
-│   │   ├── dummy/DummyEcoData.kt
-│   │   ├── local/EcoLocalCache.kt
-│   │   └── repository/LocalEcoRepository.kt
-│   ├── navigation/EcoDalaNavGraph.kt
-│   ├── domain/model/
-│   └── domain/usecase/
-├── feature/
-│   ├── map/presentation/
-│   │   ├── MapViewModel.kt
-│   │   ├── MapScreen.kt
-│   │   └── RecyclingPointDetailsViewModel.kt
-│   ├── home/presentation/
-│   ├── submit/presentation/
-│   ├── leaderboard/presentation/
-│   ├── tree/presentation/
-│   ├── challenges/presentation/
-│   ├── achievements/presentation/
-│   └── profile/presentation/
+├── data/
+│   ├── remote/         # Retrofit API and DTOs
+│   ├── local/          # Device persistence
+│   ├── dummy/          # Demo fixtures
+│   └── repository/     # Repository implementations
+├── domain/
+│   ├── model/          # Plain Kotlin models and calculations
+│   ├── repository/     # Data contracts
+│   └── usecase/        # Business operations
+├── presentation/       # Screen + ViewModel grouped by feature
+│   ├── home/
+│   ├── map/
+│   ├── submit/
+│   ├── leaderboard/
+│   ├── profile/
+│   ├── achievements/
+│   ├── challenges/
+│   ├── tree/
+│   ├── weather/
+│   └── splash/
+└── core/               # Shared navigation, UI, translations, settings, logging
 ```
 
 The main SIS4 example is the recycling Map/List feature. The app has more ViewModels, but this feature provides one clear path through all the graded MVVM layers.
