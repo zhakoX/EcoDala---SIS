@@ -22,7 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,8 +39,10 @@ fun EcoDalaBottomBar(
     onDestinationClick: (String) -> Unit
 ) {
     val strings = LocalEcoStrings.current
-    val compactHeight = LocalConfiguration.current.screenHeightDp < 820
-    val compactWidth = LocalConfiguration.current.screenWidthDp < 380
+    val windowSize = LocalWindowInfo.current.containerSize
+    val density = LocalDensity.current
+    val compactHeight = with(density) { windowSize.height.toDp() < 820.dp }
+    val compactWidth = with(density) { windowSize.width.toDp() < 380.dp }
     val barHeight = if (compactHeight) 60.dp else 70.dp
     val verticalPadding = if (compactHeight) 2.dp else 6.dp
     val submitSize = if (compactHeight) 36.dp else 40.dp
