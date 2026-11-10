@@ -19,9 +19,9 @@ import androidx.compose.runtime.setValue
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import com.ecodala.core.data.local.EcoLocalCache
-import com.ecodala.core.data.local.LocalProfileStore
-import com.ecodala.core.data.repository.LocalEcoRepository
+import com.ecodala.data.local.EcoLocalCache
+import com.ecodala.data.local.LocalProfileStore
+import com.ecodala.data.repository.LocalEcoRepository
 import com.ecodala.core.localization.EcoLocalization
 import com.ecodala.core.logging.AppLogger
 import com.ecodala.core.navigation.EcoDalaApp

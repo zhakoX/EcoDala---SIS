@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,19 +15,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ecodala.core.ui.components.EcoDalaBottomBar
-import com.ecodala.feature.achievements.presentation.AchievementsRoute
-import com.ecodala.feature.challenges.presentation.ChallengesRoute
-import com.ecodala.feature.home.presentation.HomeRoute
-import com.ecodala.feature.leaderboard.presentation.LeaderboardRoute
-import com.ecodala.feature.map.presentation.MapRoute
-import com.ecodala.feature.map.presentation.RecyclingPointDetailsRoute
-import com.ecodala.feature.profile.presentation.ProfileRoute
-import com.ecodala.feature.profile.presentation.RecyclingHistoryRoute
-import com.ecodala.feature.profile.presentation.SettingsRoute
-import com.ecodala.feature.profile.presentation.SupportRoute
-import com.ecodala.feature.splash.presentation.SplashScreen
-import com.ecodala.feature.submit.presentation.SubmitWasteRoute
-import com.ecodala.feature.tree.presentation.VirtualTreeRoute
+import com.ecodala.presentation.achievements.AchievementsRoute
+import com.ecodala.presentation.challenges.ChallengesRoute
+import com.ecodala.presentation.home.HomeRoute
+import com.ecodala.presentation.leaderboard.LeaderboardRoute
+import com.ecodala.presentation.map.MapRoute
+import com.ecodala.presentation.map.RecyclingPointDetailsRoute
+import com.ecodala.presentation.profile.ProfileRoute
+import com.ecodala.presentation.profile.RecyclingHistoryRoute
+import com.ecodala.presentation.profile.SettingsRoute
+import com.ecodala.presentation.profile.SupportRoute
+import com.ecodala.presentation.splash.SplashScreen
+import com.ecodala.presentation.submit.SubmitWasteRoute
+import com.ecodala.presentation.tree.VirtualTreeRoute
 
 @Composable
 fun EcoDalaApp(navController: NavHostController = rememberNavController()) {

@@ -3,9 +3,9 @@ package com.ecodala.core.localization
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.ecodala.core.domain.model.ChallengeStatus
-import com.ecodala.core.domain.model.ChallengeType
-import com.ecodala.core.domain.model.WasteType
+import com.ecodala.domain.model.ChallengeStatus
+import com.ecodala.domain.model.ChallengeType
+import com.ecodala.domain.model.WasteType
 
 data class EcoStrings(
     val languageTag: String,
